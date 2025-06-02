@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">FinTrack</string>
+
+    <!--  Strings for Authentication  -->
+    <string name="username_label">Username</string>
+    <string name="password_label">Password</string>
+    <string name="login_hint">Coming back? <b>Login here!</b></string>
+
+    <!--  Strings for Register  -->
+    <string name="every_transaction">Every transaction</string>
+    <string name="counts">counts.</string>
+    <string name="register_title">Register</string>
+    <string name="register_hint">Create an account with your email and password</string>
+    <string name="create_username_hint">What should we call you?</string>
+    <string name="email_label">Email</string>
+    <string name="email_hint">Please enter your email.</string>
+    <string name="create_password_hint">Create a secure password.</string>
+    <string name="terms_and_condition_agreement">I Agree to FinTrack user’s Terms and Conditions.</string>
+    <string name="password_visible">Password is Visible.</string>
+    <string name="password_not_visible">Password is not Visible.</string>
 </resources>
