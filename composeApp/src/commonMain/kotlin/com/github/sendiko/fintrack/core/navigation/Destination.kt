@@ -1,6 +1,9 @@
-package com.github.sendiko.fintrack.navigation
+package com.github.sendiko.fintrack.core.navigation
 
 import kotlinx.serialization.Serializable
 
 @Serializable
 data object SplashDestination
+
+@Serializable
+data object RegisterDestination
