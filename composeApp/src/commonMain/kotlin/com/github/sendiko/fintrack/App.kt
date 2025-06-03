@@ -7,8 +7,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.github.sendiko.fintrack.auth.login.LoginScreen
+import com.github.sendiko.fintrack.auth.login.LoginViewModel
 import com.github.sendiko.fintrack.auth.register.RegisterScreen
 import com.github.sendiko.fintrack.auth.register.RegisterViewModel
+import com.github.sendiko.fintrack.core.navigation.LoginDestination
 import com.github.sendiko.fintrack.core.navigation.RegisterDestination
 import com.github.sendiko.fintrack.core.navigation.SplashDestination
 import com.github.sendiko.fintrack.splash.presentation.SplashScreen
@@ -41,6 +44,16 @@ fun App() {
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
                 RegisterScreen(
+                    state = state,
+                    onEvent = viewModel::onEvent,
+                    onNavigate = {  }
+                )
+            }
+            composable<LoginDestination> {
+                val viewModel = viewModel<LoginViewModel>()
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                LoginScreen(
                     state = state,
                     onEvent = viewModel::onEvent,
                     onNavigate = {  }

@@ -10,7 +10,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.sendiko.fintrack.core.navigation.RegisterDestination
+import com.github.sendiko.fintrack.core.navigation.LoginDestination
 import com.github.sendiko.fintrack.theme.FinTrackTheme
 import com.github.sendiko.fintrack.theme.primaryOrange
 import fintrack.composeapp.generated.resources.Res
@@ -31,7 +31,7 @@ fun SplashScreen(
     LaunchedEffect(state.token) {
         if (state.token.isBlank()) {
             delay(1000)
-            onNavigate(RegisterDestination)
+            onNavigate(LoginDestination)
         }
     }
 
