@@ -7,3 +7,6 @@ data object SplashDestination
 
 @Serializable
 data object RegisterDestination
+
+@Serializable
+data object LoginDestination
