@@ -40,6 +40,7 @@ import fintrack.composeapp.generated.resources.or
 import fintrack.composeapp.generated.resources.password_label
 import fintrack.composeapp.generated.resources.register_hint_2
 import fintrack.composeapp.generated.resources.track_save_grow
+import fintrack.composeapp.generated.resources.username_hint
 import fintrack.composeapp.generated.resources.username_label
 import fintrack.composeapp.generated.resources.youre_in_charge
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
@@ -140,7 +141,7 @@ fun LoginScreen(
                             modifier = Modifier.fillMaxWidth(),
                             value = state.username,
                             onValueChange = { onEvent(LoginEvent.OnUsernameChanged(it)) },
-                            hint = stringResource(Res.string.create_username_hint),
+                            hint = stringResource(Res.string.username_hint),
                         )
                     }
                     Column {
