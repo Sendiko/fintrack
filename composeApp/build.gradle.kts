@@ -37,6 +37,9 @@ kotlin {
             /* Koin Android */
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+
+            /* Ktor OkHttp */
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -60,10 +63,22 @@ kotlin {
             /* Koin */
             implementation(libs.koin.compose.viewmodel)
             api(libs.koin.core)
+
+            /* Ktor */
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.auth)
+        }
+        iosMain.dependencies {
+            /* Ktor Darwin */
+            implementation(libs.ktor.client.darwin)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+
     }
 }
 
