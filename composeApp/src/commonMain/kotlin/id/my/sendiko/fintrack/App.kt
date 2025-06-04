@@ -7,10 +7,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import id.my.sendiko.fintrack.auth.changepassword.ChangePasswordScreen
+import id.my.sendiko.fintrack.auth.changepassword.ChangePasswordViewModel
 import id.my.sendiko.fintrack.auth.login.LoginScreen
 import id.my.sendiko.fintrack.auth.login.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.RegisterScreen
 import id.my.sendiko.fintrack.auth.register.RegisterViewModel
+import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import id.my.sendiko.fintrack.core.navigation.RegisterDestination
 import id.my.sendiko.fintrack.core.navigation.SplashDestination
@@ -46,7 +49,7 @@ fun App() {
                 RegisterScreen(
                     state = state,
                     onEvent = viewModel::onEvent,
-                    onNavigate = {  }
+                    onNavigate = { navController.navigate(it) }
                 )
             }
             composable<LoginDestination> {
@@ -56,7 +59,17 @@ fun App() {
                 LoginScreen(
                     state = state,
                     onEvent = viewModel::onEvent,
-                    onNavigate = {  }
+                    onNavigate = { navController.navigate(it) }
+                )
+            }
+            composable<ChangePasswordDestination> {
+                val viewModel = viewModel<ChangePasswordViewModel>()
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                ChangePasswordScreen(
+                    state = state,
+                    onEvent = viewModel::onEvent,
+                    onNavigate = { navController.navigate(it) }
                 )
             }
         }
