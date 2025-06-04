@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack
+package id.my.sendiko.fintrack.core
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
