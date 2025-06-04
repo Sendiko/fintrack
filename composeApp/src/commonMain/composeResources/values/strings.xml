@@ -29,4 +29,11 @@
     <string name="register_hint_2">Don’t have an account? Register here!</string>
     <string name="forgot_password">Forgot password? Change here!</string>
     <string name="or">Or</string>
+
+    <!--  Strings for Change Password  -->
+    <string name="dont_worry">Don't worry! Your</string>
+    <string name="account_is_safe">Account is safe.</string>
+    <string name="change_password_title">Change Password</string>
+    <string name="change_password_hint">Let us verify your account.</string>
+    <string name="verify_label">Let us verify your account.</string>
 </resources>
