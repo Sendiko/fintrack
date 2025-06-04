@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.auth.login
+package id.my.sendiko.fintrack.auth.login.presentation
 
 sealed interface LoginEvent {
     data class OnUsernameChanged(val username: String) : LoginEvent

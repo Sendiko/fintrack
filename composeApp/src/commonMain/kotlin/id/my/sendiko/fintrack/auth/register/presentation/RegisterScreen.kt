@@ -1,9 +1,10 @@
-package id.my.sendiko.fintrack.auth.changepassword
+package id.my.sendiko.fintrack.auth.register.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -24,37 +27,47 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import fintrack.composeapp.generated.resources.Res
-import fintrack.composeapp.generated.resources.account_is_safe
-import fintrack.composeapp.generated.resources.app_name
-import fintrack.composeapp.generated.resources.change_password_title
-import fintrack.composeapp.generated.resources.dont_worry
-import fintrack.composeapp.generated.resources.email_hint
-import fintrack.composeapp.generated.resources.email_label
-import fintrack.composeapp.generated.resources.fintrack_white
-import fintrack.composeapp.generated.resources.login_hint
-import fintrack.composeapp.generated.resources.login_hint_2
-import fintrack.composeapp.generated.resources.register_title
-import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import id.my.sendiko.fintrack.core.presentation.BaseTextField
+import id.my.sendiko.fintrack.core.presentation.SecureTextField
+import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.theme.primaryOrange
 import id.my.sendiko.fintrack.theme.secondaryBlue
 import id.my.sendiko.fintrack.theme.utilityWhite
+import fintrack.composeapp.generated.resources.Res
+import fintrack.composeapp.generated.resources.app_name
+import fintrack.composeapp.generated.resources.counts
+import fintrack.composeapp.generated.resources.create_password_hint
+import fintrack.composeapp.generated.resources.create_username_hint
+import fintrack.composeapp.generated.resources.email_hint
+import fintrack.composeapp.generated.resources.email_label
+import fintrack.composeapp.generated.resources.every_transaction
+import fintrack.composeapp.generated.resources.fintrack_white
+import fintrack.composeapp.generated.resources.login_hint
+import fintrack.composeapp.generated.resources.password_label
+import fintrack.composeapp.generated.resources.register_hint
+import fintrack.composeapp.generated.resources.register_title
+import fintrack.composeapp.generated.resources.terms_and_condition_agreement
+import fintrack.composeapp.generated.resources.username_label
+import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChangePasswordScreen(
-    state: ChangePasswordState,
-    onEvent: (ChangePasswordEvent) -> Unit,
+fun RegisterScreen(
+    state: RegisterState,
+    onEvent: (RegisterEvent) -> Unit,
     onNavigate: (Any) -> Unit,
 ) {
+
+    val uriHandler = LocalUriHandler.current
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = primaryOrange,
@@ -83,13 +96,12 @@ fun ChangePasswordScreen(
                     .fillMaxWidth(),
             ) {
                 Text(
-                    text = stringResource(Res.string.dont_worry),
+                    text = stringResource(Res.string.every_transaction),
                     style = MaterialTheme.typography.displaySmall,
-                    fontWeight = FontWeight.Bold,
-                    color = utilityWhite
+                    fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = stringResource(Res.string.account_is_safe),
+                    text = stringResource(Res.string.counts),
                     style = MaterialTheme.typography.displaySmall,
                     fontWeight = FontWeight.Bold,
                     color = secondaryBlue,
@@ -115,13 +127,27 @@ fun ChangePasswordScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
-                            text = stringResource(Res.string.change_password_title),
+                            text = stringResource(Res.string.register_title),
                             style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = stringResource(Res.string.login_hint_2),
+                            text = stringResource(Res.string.register_hint),
                             style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                    Column {
+                        Text(
+                            text = stringResource(Res.string.username_label),
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        BaseTextField(
+                            modifier = Modifier.fillMaxWidth(),
+                            value = state.username,
+                            onValueChange = { onEvent(RegisterEvent.OnUsernameChanged(it)) },
+                            hint = stringResource(Res.string.create_username_hint),
                         )
                     }
                     Column {
@@ -134,10 +160,50 @@ fun ChangePasswordScreen(
                         BaseTextField(
                             modifier = Modifier.fillMaxWidth(),
                             value = state.email,
-                            onValueChange = { onEvent(ChangePasswordEvent.OnEmailChanged(it)) },
+                            onValueChange = { onEvent(RegisterEvent.OnEmailChanged(it)) },
                             hint = stringResource(Res.string.email_hint),
                             keyboardType = KeyboardType.Email
                         )
+                    }
+                    Column {
+                        Text(
+                            text = stringResource(Res.string.password_label),
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        SecureTextField(
+                            modifier = Modifier.fillMaxWidth(),
+                            value = state.password,
+                            onValueChange = { onEvent(RegisterEvent.OnPasswordChanged(it)) },
+                            hint = stringResource(Res.string.create_password_hint),
+                            onVisibilityChanged = { onEvent(RegisterEvent.OnPasswordVisibilityChanged(it)) },
+                            isVisible = state.passwordVisible
+                        )
+                    }
+                    Surface(
+                        onClick = { onEvent(RegisterEvent.OnTermsCheckChanged(!state.termsChecked)) }
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = state.termsChecked,
+                                onCheckedChange = { onEvent(RegisterEvent.OnTermsCheckChanged(!state.termsChecked)) },
+                                colors = CheckboxDefaults.colors(
+                                    checkedColor = secondaryBlue,
+                                    checkmarkColor = utilityWhite,
+                                )
+                            )
+                            Surface(
+                                onClick = { uriHandler.openUri("https://fintrack.sendiko.my.id/") }
+                            ) {
+                                Text(
+                                    text = stringResource(Res.string.terms_and_condition_agreement),
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
+                        }
                     }
                     Button(
                         modifier = Modifier.fillMaxWidth(),
@@ -171,14 +237,17 @@ fun ChangePasswordScreen(
             }
         }
     }
+
 }
 
 @Preview
 @Composable
-fun ChangePasswordScreenPrev() {
-    ChangePasswordScreen(
-        state = ChangePasswordState(),
-        onEvent = { },
-        onNavigate = { }
-    )
+fun RegisterScreenPrev() {
+    FinTrackTheme {
+        RegisterScreen(
+            state = RegisterState(),
+            onEvent = {  },
+            onNavigate = {  }
+        )
+    }
 }

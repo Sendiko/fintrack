@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.auth.login
+package id.my.sendiko.fintrack.auth.login.presentation
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

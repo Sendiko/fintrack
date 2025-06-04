@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.auth.changepassword
+package id.my.sendiko.fintrack.auth.changepassword.presentation
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

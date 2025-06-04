@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.auth.register
+package id.my.sendiko.fintrack.auth.register.presentation
 
 data class RegisterState(
     val username: String = "",
