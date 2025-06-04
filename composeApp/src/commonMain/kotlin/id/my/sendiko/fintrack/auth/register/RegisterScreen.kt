@@ -53,6 +53,7 @@ import fintrack.composeapp.generated.resources.register_hint
 import fintrack.composeapp.generated.resources.register_title
 import fintrack.composeapp.generated.resources.terms_and_condition_agreement
 import fintrack.composeapp.generated.resources.username_label
+import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -127,7 +128,7 @@ fun RegisterScreen(
                     ) {
                         Text(
                             text = stringResource(Res.string.register_title),
-                            style = MaterialTheme.typography.titleLarge,
+                            style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
@@ -222,7 +223,7 @@ fun RegisterScreen(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
                         contentPadding = PaddingValues(vertical = 16.dp),
-                        onClick = { },
+                        onClick = { onNavigate(LoginDestination) },
                         colors = ButtonDefaults.textButtonColors(
                             contentColor = secondaryBlue
                         )

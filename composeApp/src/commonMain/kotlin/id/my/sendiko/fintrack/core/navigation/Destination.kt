@@ -10,3 +10,6 @@ data object RegisterDestination
 
 @Serializable
 data object LoginDestination
+
+@Serializable
+data object ChangePasswordDestination

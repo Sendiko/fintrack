@@ -28,12 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import id.my.sendiko.fintrack.core.presentation.BaseTextField
-import id.my.sendiko.fintrack.core.presentation.SecureTextField
-import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.theme.primaryOrange
-import id.my.sendiko.fintrack.theme.secondaryBlue
-import id.my.sendiko.fintrack.theme.utilityWhite
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.app_name
 import fintrack.composeapp.generated.resources.create_password_hint
@@ -45,10 +39,17 @@ import fintrack.composeapp.generated.resources.login_title
 import fintrack.composeapp.generated.resources.or
 import fintrack.composeapp.generated.resources.password_label
 import fintrack.composeapp.generated.resources.register_hint_2
-import fintrack.composeapp.generated.resources.register_title
 import fintrack.composeapp.generated.resources.track_save_grow
 import fintrack.composeapp.generated.resources.username_label
 import fintrack.composeapp.generated.resources.youre_in_charge
+import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
+import id.my.sendiko.fintrack.core.navigation.RegisterDestination
+import id.my.sendiko.fintrack.core.presentation.BaseTextField
+import id.my.sendiko.fintrack.core.presentation.SecureTextField
+import id.my.sendiko.fintrack.theme.FinTrackTheme
+import id.my.sendiko.fintrack.theme.primaryOrange
+import id.my.sendiko.fintrack.theme.secondaryBlue
+import id.my.sendiko.fintrack.theme.utilityWhite
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -120,7 +121,7 @@ fun LoginScreen(
                     ) {
                         Text(
                             text = stringResource(Res.string.login_title),
-                            style = MaterialTheme.typography.titleLarge,
+                            style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
@@ -168,7 +169,7 @@ fun LoginScreen(
                         )
                     ) {
                         Text(
-                            text = stringResource(Res.string.register_title),
+                            text = stringResource(Res.string.login_title),
                             fontWeight = FontWeight.Bold
                         )
                     }
@@ -176,7 +177,9 @@ fun LoginScreen(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
                         contentPadding = PaddingValues(vertical = 16.dp),
-                        onClick = { },
+                        onClick = {
+                            onNavigate(RegisterDestination)
+                        },
                         colors = ButtonDefaults.textButtonColors(
                             contentColor = secondaryBlue
                         )
@@ -196,7 +199,7 @@ fun LoginScreen(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
                         contentPadding = PaddingValues(vertical = 16.dp),
-                        onClick = { },
+                        onClick = { onNavigate(ChangePasswordDestination) },
                         colors = ButtonDefaults.textButtonColors(
                             contentColor = secondaryBlue
                         )
