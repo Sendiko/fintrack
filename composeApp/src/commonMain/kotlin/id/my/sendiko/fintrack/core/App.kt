@@ -30,7 +30,7 @@ fun App() {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = SplashDestination
+            startDestination = SplashDestination,
         ) {
             composable<SplashDestination> {
                 val viewModel = koinViewModel<SplashViewModel>()
@@ -43,7 +43,7 @@ fun App() {
                 )
             }
             composable<RegisterDestination> {
-                val viewModel = viewModel<RegisterViewModel>()
+                val viewModel = koinViewModel<RegisterViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
                 RegisterScreen(
