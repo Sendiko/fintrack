@@ -10,5 +10,7 @@ data class RegisterState(
     val passwordVisible: Boolean = false,
     val termsChecked: Boolean = false,
     val isLoading: Boolean = false,
-    val isError: Boolean = false
+    val isError: Boolean = false,
+    val isSuccess: Boolean = false,
+    val message: String = ""
 )
