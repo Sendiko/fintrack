@@ -3,6 +3,10 @@ package id.my.sendiko.fintrack.auth.register.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import id.my.sendiko.fintrack.auth.register.data.RegisterRepository
+import id.my.sendiko.fintrack.auth.register.data.dto.RegisterRequest
+import id.my.sendiko.fintrack.core.network.utils.onError
+import id.my.sendiko.fintrack.core.network.utils.onSuccess
+import id.my.sendiko.fintrack.core.presentation.errorToUiText
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,33 +36,33 @@ class RegisterViewModel(
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
             print("RegisterViewModel, register: ${state.value.isLoading}")
-            delay(10000)
+            delay(2000)
             _state.update { it.copy(isLoading = false) }
             print("RegisterViewModel, register: ${state.value.isLoading}")
-//            val request = RegisterRequest(
-//                name = state.value.username,
-//                email = state.value.email,
-//                password = state.value.password
-//            )
-//            repository.register(request)
-//                .onSuccess { result ->
-//                    _state.update {
-//                        it.copy(
-//                            isLoading = false,
-//                            isSuccess = true,
-//                            message = "Hello, ${result.userData.name}!"
-//                        )
-//                    }
-//                }
-//                .onError { error ->
-//                    _state.update {
-//                        it.copy(
-//                            isLoading = false,
-//                            isError = true,
-//                            message = errorToUiText(error)
-//                        )
-//                    }
-//                }
+            val request = RegisterRequest(
+                name = state.value.username,
+                email = state.value.email,
+                password = state.value.password
+            )
+            repository.register(request)
+                .onSuccess { result ->
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            isSuccess = true,
+                            message = "Hello, ${result.userData.name}!"
+                        )
+                    }
+                }
+                .onError { error ->
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            isError = true,
+                            message = errorToUiText(error)
+                        )
+                    }
+                }
         }
     }
 

@@ -41,6 +41,7 @@ import fintrack.composeapp.generated.resources.email_hint
 import fintrack.composeapp.generated.resources.email_label
 import fintrack.composeapp.generated.resources.every_transaction
 import fintrack.composeapp.generated.resources.fintrack_white
+import fintrack.composeapp.generated.resources.loading
 import fintrack.composeapp.generated.resources.login_hint
 import fintrack.composeapp.generated.resources.password_label
 import fintrack.composeapp.generated.resources.register_hint
@@ -226,6 +227,7 @@ fun RegisterScreen(
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(16.dp),
                                 contentPadding = PaddingValues(vertical = 16.dp),
+                                enabled = !state.isLoading,
                                 onClick = {
                                     print("RegisterScreen, Register button clicked.")
                                     onEvent(RegisterEvent.OnRegisterClicked)
@@ -235,7 +237,9 @@ fun RegisterScreen(
                                 )
                             ) {
                                 Text(
-                                    text = stringResource(Res.string.register_title),
+                                    text = if (state.isLoading)
+                                        stringResource(Res.string.loading)
+                                    else stringResource(Res.string.register_title),
                                     fontWeight = FontWeight.Bold
                                 )
                             }
