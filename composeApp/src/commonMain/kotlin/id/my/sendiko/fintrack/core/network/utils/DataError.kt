@@ -9,7 +9,9 @@ sealed interface DataError : Error {
         SERIALIZATION,
         UNKNOWN,
         NOT_FOUND,
-        BAD_REQUEST
+        BAD_REQUEST,
+
+        UNAUTHORIZED
     }
 
     enum class Local : DataError {

@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.auth.register
+package id.my.sendiko.fintrack.auth.register.presentation
 
 data class RegisterState(
     val username: String = "",
@@ -10,5 +10,7 @@ data class RegisterState(
     val passwordVisible: Boolean = false,
     val termsChecked: Boolean = false,
     val isLoading: Boolean = false,
-    val isError: Boolean = false
+    val isError: Boolean = false,
+    val isSuccess: Boolean = false,
+    val message: String = ""
 )

@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack
+package id.my.sendiko.fintrack.core
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -7,12 +7,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import id.my.sendiko.fintrack.auth.changepassword.ChangePasswordScreen
-import id.my.sendiko.fintrack.auth.changepassword.ChangePasswordViewModel
-import id.my.sendiko.fintrack.auth.login.LoginScreen
-import id.my.sendiko.fintrack.auth.login.LoginViewModel
-import id.my.sendiko.fintrack.auth.register.RegisterScreen
-import id.my.sendiko.fintrack.auth.register.RegisterViewModel
+import id.my.sendiko.fintrack.auth.changepassword.presentation.ChangePasswordScreen
+import id.my.sendiko.fintrack.auth.changepassword.presentation.ChangePasswordViewModel
+import id.my.sendiko.fintrack.auth.login.presentation.LoginScreen
+import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
+import id.my.sendiko.fintrack.auth.register.presentation.RegisterScreen
+import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import id.my.sendiko.fintrack.core.navigation.RegisterDestination
@@ -30,7 +30,7 @@ fun App() {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = SplashDestination
+            startDestination = SplashDestination,
         ) {
             composable<SplashDestination> {
                 val viewModel = koinViewModel<SplashViewModel>()
@@ -43,7 +43,7 @@ fun App() {
                 )
             }
             composable<RegisterDestination> {
-                val viewModel = viewModel<RegisterViewModel>()
+                val viewModel = koinViewModel<RegisterViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
                 RegisterScreen(
@@ -53,7 +53,7 @@ fun App() {
                 )
             }
             composable<LoginDestination> {
-                val viewModel = viewModel<LoginViewModel>()
+                val viewModel = koinViewModel<LoginViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
                 LoginScreen(
@@ -63,7 +63,7 @@ fun App() {
                 )
             }
             composable<ChangePasswordDestination> {
-                val viewModel = viewModel<ChangePasswordViewModel>()
+                val viewModel = koinViewModel<ChangePasswordViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
                 ChangePasswordScreen(

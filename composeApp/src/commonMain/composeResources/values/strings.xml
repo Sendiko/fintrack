@@ -5,6 +5,7 @@
     <string name="username_label">Username</string>
     <string name="password_label">Password</string>
     <string name="login_hint">Coming back? <b>Login here!</b></string>
+    <string name="loading">Loading...</string>
 
     <!--  Strings for Register  -->
     <string name="every_transaction">Every transaction</string>
@@ -34,6 +35,9 @@
     <string name="dont_worry">Don't worry! Your</string>
     <string name="account_is_safe">Account is safe.</string>
     <string name="change_password_title">Change Password</string>
-    <string name="change_password_hint">Let us verify your account.</string>
-    <string name="verify_label">Let us verify your account.</string>
+    <string name="verify_label">Verify</string>
+    <string name="verify_hint">Let us verify your account.</string>
+    <string name="change_password_hint">Create your new password.</string>
+    <string name="change_password_label">Change</string>
+    <string name="new_password_hint">Please enter your new password.</string>
 </resources>
