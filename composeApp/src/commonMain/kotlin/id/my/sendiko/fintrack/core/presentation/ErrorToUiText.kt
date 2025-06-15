@@ -13,5 +13,6 @@ fun errorToUiText(error: DataError.Remote): String {
         UNKNOWN -> "Unknown error."
         NOT_FOUND -> "Can't find what you looking for."
         BAD_REQUEST -> "Bad request, please check your input."
+        UNAUTHORIZED -> "Unauthorized."
     }
 }
