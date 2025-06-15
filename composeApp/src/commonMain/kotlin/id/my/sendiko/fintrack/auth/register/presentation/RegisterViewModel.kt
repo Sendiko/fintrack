@@ -7,7 +7,6 @@ import id.my.sendiko.fintrack.auth.register.data.dto.RegisterRequest
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
 import id.my.sendiko.fintrack.core.presentation.errorToUiText
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -49,7 +48,7 @@ class RegisterViewModel(
                         it.copy(
                             isLoading = false,
                             isSuccess = true,
-                            message = "Hello, ${result.userData.name}!"
+                            message = "Hello, ${result.userItem.name}!"
                         )
                     }
                 }

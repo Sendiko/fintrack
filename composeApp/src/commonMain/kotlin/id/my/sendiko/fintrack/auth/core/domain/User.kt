@@ -1,6 +1,7 @@
 package id.my.sendiko.fintrack.auth.core.domain
 
-import id.my.sendiko.fintrack.auth.register.data.dto.UserData
+import id.my.sendiko.fintrack.auth.core.data.UserItem
+
 
 data class User(
     val userId: String,
@@ -8,11 +9,11 @@ data class User(
     val email: String,
 ) {
     companion object {
-        fun fromResponse(userData: UserData): User {
+        fun fromResponse(userItem: UserItem): User {
             return User(
-                userId = userData.id,
-                name = userData.name,
-                email = userData.email
+                userId = userItem.id,
+                name = userItem.name,
+                email = userItem.email
             )
         }
     }
