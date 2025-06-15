@@ -36,7 +36,6 @@ class RegisterViewModel(
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
             print("RegisterViewModel, register: ${state.value.isLoading}")
-            delay(2000)
             _state.update { it.copy(isLoading = false) }
             print("RegisterViewModel, register: ${state.value.isLoading}")
             val request = RegisterRequest(
