@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.auth.domain
+package id.my.sendiko.fintrack.auth.core.domain
 
 import id.my.sendiko.fintrack.auth.register.data.dto.UserData
 
