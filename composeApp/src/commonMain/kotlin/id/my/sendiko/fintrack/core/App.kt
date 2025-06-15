@@ -63,7 +63,7 @@ fun App() {
                 )
             }
             composable<ChangePasswordDestination> {
-                val viewModel = viewModel<ChangePasswordViewModel>()
+                val viewModel = koinViewModel<ChangePasswordViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
                 ChangePasswordScreen(
