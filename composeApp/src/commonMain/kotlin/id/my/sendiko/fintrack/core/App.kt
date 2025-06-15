@@ -53,7 +53,7 @@ fun App() {
                 )
             }
             composable<LoginDestination> {
-                val viewModel = viewModel<LoginViewModel>()
+                val viewModel = koinViewModel<LoginViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
                 LoginScreen(

@@ -1,5 +1,7 @@
 package id.my.sendiko.fintrack.core.di
 
+import id.my.sendiko.fintrack.auth.login.data.LoginRepository
+import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.data.RegisterRepository
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
 import id.my.sendiko.fintrack.core.network.ApiService
@@ -20,9 +22,11 @@ val sharedModule = module {
     singleOf(::KtorClient).bind<ApiService>()
     singleOf(::SplashRepositoryImpl)
     singleOf(::RegisterRepository)
+    singleOf(::LoginRepository)
 
     factory { PreferencesRepositoryImpl(get()) }
     factory { SplashRepositoryImpl(get()) }
     factory { SplashViewModel(get()) }
     factory { RegisterViewModel(get()) }
+    factory { LoginViewModel(get()) }
 }
