@@ -1,5 +1,7 @@
 package id.my.sendiko.fintrack.core.di
 
+import id.my.sendiko.fintrack.auth.changepassword.data.ChangePasswordRepository
+import id.my.sendiko.fintrack.auth.changepassword.presentation.ChangePasswordViewModel
 import id.my.sendiko.fintrack.auth.login.data.LoginRepository
 import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.data.RegisterRepository
@@ -23,10 +25,12 @@ val sharedModule = module {
     singleOf(::SplashRepositoryImpl)
     singleOf(::RegisterRepository)
     singleOf(::LoginRepository)
+    singleOf(::ChangePasswordRepository)
 
     factory { PreferencesRepositoryImpl(get()) }
     factory { SplashRepositoryImpl(get()) }
     factory { SplashViewModel(get()) }
     factory { RegisterViewModel(get()) }
     factory { LoginViewModel(get()) }
+    factory { ChangePasswordViewModel(get()) }
 }
