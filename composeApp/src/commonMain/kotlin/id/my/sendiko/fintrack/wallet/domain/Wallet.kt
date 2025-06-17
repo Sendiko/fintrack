@@ -4,5 +4,7 @@ data class Wallet(
     val id: String,
     val name: String,
     val purpose: String,
-    val type: WalletType
+    val type: String,
+    val amount: Double,
+    val number: String,
 )
