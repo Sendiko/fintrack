@@ -40,4 +40,10 @@
     <string name="change_password_hint">Create your new password.</string>
     <string name="change_password_label">Change</string>
     <string name="new_password_hint">Please enter your new password.</string>
+
+    <!--  Strings for Dashboard  -->
+    <string name="total_balance">Total balance</string>
+    <string name="settings">Settings</string>
+    <string name="wallets">My Wallets</string>
+    <string name="add_wallets">Add Wallets</string>
 </resources>
