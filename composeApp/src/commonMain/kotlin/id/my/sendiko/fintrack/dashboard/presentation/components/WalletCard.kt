@@ -55,7 +55,7 @@ fun WalletCard(
                 .padding(16.dp)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
+            verticalArrangement = Arrangement.SpaceAround
         ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
