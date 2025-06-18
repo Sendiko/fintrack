@@ -11,7 +11,7 @@ data class LoginResponse(
 	val message: String,
 
 	@SerialName("user")
-	val userItemData: UserItem,
+	val userItem: UserItem,
 
 	@SerialName("status")
 	val status: Int

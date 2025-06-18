@@ -16,6 +16,7 @@ import id.my.sendiko.fintrack.theme.primaryOrange
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.app_name
 import fintrack.composeapp.generated.resources.fintrack_blue
+import id.my.sendiko.fintrack.core.navigation.DashboardDestination
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -32,6 +33,9 @@ fun SplashScreen(
         if (state.token.isBlank()) {
             delay(1000)
             onNavigate(LoginDestination)
+        } else {
+            delay(1000)
+            onNavigate(DashboardDestination)
         }
     }
 
