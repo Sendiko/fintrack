@@ -49,6 +49,18 @@ fun App() {
                     towards = AnimatedContentTransitionScope.SlideDirection.Left,
                     animationSpec = tween(500)
                 )
+            },
+            popEnterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = tween(500)
+                )
+            },
+            popExitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = tween(500)
+                )
             }
         ) {
             composable<SplashDestination> {
