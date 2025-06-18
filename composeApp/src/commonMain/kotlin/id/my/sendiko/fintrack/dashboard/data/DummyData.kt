@@ -45,6 +45,10 @@ val categories = listOf(
         id = "3",
         name = "Entertainment",
     ),
+    Category(
+        id = "4",
+        name = "Income",
+    ),
 )
 
 val transactions = listOf(
@@ -67,11 +71,20 @@ val transactions = listOf(
         walletId = "1"
     ),
     Transaction(
-        id = "3",
-        name = "Disney+ Hotstar",
-        amount = 30000f,
-        type = TransactionType.EXPENSE,
-        categoryId = "3",
+        id = "4",
+        name = "Transfer Ayah",
+        amount = 700000f,
+        type = TransactionType.INCOME,
+        categoryId = "4",
+        userId = "1",
+        walletId = "1"
+    ),
+    Transaction(
+        id = "5",
+        name = "Gaji Aslab",
+        amount = 1500000f,
+        type = TransactionType.INCOME,
+        categoryId = "4",
         userId = "1",
         walletId = "1"
     ),
