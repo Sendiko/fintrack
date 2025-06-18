@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -26,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
+import fintrack.composeapp.generated.resources.hidden_balance
 import fintrack.composeapp.generated.resources.password_visible
 import id.my.sendiko.fintrack.dashboard.data.wallets
 import id.my.sendiko.fintrack.dashboard.presentation.toRupiah
@@ -39,7 +37,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun WalletCard(
     modifier: Modifier = Modifier,
-    wallet: Wallet
+    wallet: Wallet,
+    isVisible: Boolean = false,
+    onVisibilityToggle: (Boolean) -> Unit,
 ) {
     Card(
         modifier = modifier.width(256.dp)
@@ -76,11 +76,13 @@ fun WalletCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = wallet.amount.toRupiah(),
+                    text = if (isVisible)
+                        wallet.amount.toRupiah()
+                    else stringResource(Res.string.hidden_balance),
                     style = MaterialTheme.typography.titleLarge
                 )
                 IconButton(
-                    onClick = { }
+                    onClick = { onVisibilityToggle(!isVisible) }
                 ) {
                     Icon(
                         imageVector = Icons.Default.Visibility,
@@ -96,6 +98,11 @@ fun WalletCard(
 @Composable
 private fun WalletCardPreview() {
     FinTrackTheme {
-        WalletCard(wallet = wallets.first())
+        WalletCard(
+            wallet = wallets.first(),
+            modifier = Modifier,
+            isVisible = false,
+            onVisibilityToggle = {  }
+        )
     }
 }

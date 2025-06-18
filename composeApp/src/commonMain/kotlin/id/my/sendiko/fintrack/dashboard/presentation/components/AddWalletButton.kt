@@ -30,7 +30,7 @@ fun AddWalletButton(
         onClick = onClick,
         modifier = modifier,
         colors = CardDefaults.outlinedCardColors(contentColor = secondaryBlue),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(16.dp),
         border = BorderStroke(1.5.dp, secondaryBlue)
     ) {
         Box(
