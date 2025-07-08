@@ -21,4 +21,8 @@ class LoginRepository(
         prefs.setToken(token)
     }
 
+    suspend fun saveUserId(userId: String) {
+        prefs.setUserId(userId)
+    }
+
 }

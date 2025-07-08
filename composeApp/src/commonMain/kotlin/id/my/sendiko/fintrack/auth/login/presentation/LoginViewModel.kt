@@ -47,6 +47,7 @@ class LoginViewModel(
                 password = state.value.password
             ).onSuccess { result ->
                 repository.saveToken(result.userItem.token)
+                repository.saveUserId(result.userItem.id)
                 _state.update {
                     it.copy(
                         isLoading = false,
