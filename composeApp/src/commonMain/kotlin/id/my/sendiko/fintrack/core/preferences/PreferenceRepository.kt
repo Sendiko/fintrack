@@ -8,4 +8,8 @@ interface PreferenceRepository {
 
     fun getToken(): Flow<String>
 
+    suspend fun setUserId(userId: String)
+
+    fun getUserId(): Flow<String>
+
 }

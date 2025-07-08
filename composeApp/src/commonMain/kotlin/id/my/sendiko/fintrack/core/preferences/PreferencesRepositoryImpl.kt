@@ -12,6 +12,7 @@ class PreferencesRepositoryImpl(
 ) : PreferenceRepository {
 
     private val tokenKey = stringPreferencesKey("token")
+    private val userIdKey = stringPreferencesKey("user_id")
     override suspend fun setToken(token: String) {
         dataStore.edit { prefs ->
             prefs[tokenKey] = token
@@ -21,6 +22,18 @@ class PreferencesRepositoryImpl(
     override fun getToken(): Flow<String> {
         return dataStore.data.map { prefs ->
             prefs[tokenKey] ?: ""
+        }
+    }
+
+    override suspend fun setUserId(userId: String) {
+        dataStore.edit { prefs ->
+            prefs[userIdKey] = userId
+        }
+    }
+
+    override fun getUserId(): Flow<String> {
+        return dataStore.data.map { prefs ->
+            prefs[userIdKey] ?: ""
         }
     }
 
