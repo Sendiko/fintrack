@@ -48,7 +48,7 @@
     <string name="add_wallets">Add Wallets</string>
     <string name="income">Add Income</string>
     <string name="expense">Add Expense</string>
-    <string name="top_expense_label">Top Expense Category</string>
+    <string name="top_category">Top Category</string>
     <string name="recet_transaction">Recent Transaction</string>
     <string name="hidden_balance">⬤⬤⬤⬤⬤⬤</string>
 </resources>

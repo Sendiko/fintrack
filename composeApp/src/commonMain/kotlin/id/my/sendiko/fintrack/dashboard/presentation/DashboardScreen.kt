@@ -35,12 +35,10 @@ import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.recet_transaction
 import fintrack.composeapp.generated.resources.settings
-import fintrack.composeapp.generated.resources.top_expense_label
+import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.total_balance
 import fintrack.composeapp.generated.resources.wallets
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
-import id.my.sendiko.fintrack.dashboard.data.categories
-import id.my.sendiko.fintrack.dashboard.data.transactions
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddExpenseButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddIncomeButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddWalletButton
@@ -49,7 +47,6 @@ import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionListI
 import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.theme.aliceBlue
-import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -160,7 +157,7 @@ fun DashboardScreen(
                     Text(
                         modifier = Modifier
                             .padding(horizontal = 16.dp),
-                        text = stringResource(Res.string.top_expense_label),
+                        text = stringResource(Res.string.top_category),
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.SemiBold
                     )
