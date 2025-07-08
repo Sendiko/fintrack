@@ -12,7 +12,7 @@ data class DashboardState(
     val email: String = "",
     val totalBalance: Double = 0.0,
     val wallets: List<Wallet> = emptyList(),
-    val categories: List<Category> = id.my.sendiko.fintrack.dashboard.data.categories,
-    val transactions: List<Transaction> = id.my.sendiko.fintrack.dashboard.data.transactions,
+    val categories: List<Category> = emptyList(),
+    val transactions: List<Transaction> = emptyList(),
     val balanceVisible: Boolean = false,
 )

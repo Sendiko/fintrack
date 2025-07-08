@@ -7,6 +7,8 @@ import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
 import id.my.sendiko.fintrack.core.presentation.errorToUiText
 import id.my.sendiko.fintrack.dashboard.data.DashboardRepository
+import id.my.sendiko.fintrack.transaction.domain.Transaction
+import id.my.sendiko.fintrack.transaction.domain.TransactionType
 import id.my.sendiko.fintrack.wallet.domain.Wallet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,9 +22,10 @@ class DashboardViewModel(
 ): ViewModel() {
 
     private val _token = repository.getToken()
+    private val _userId = repository.getUserId()
     private val _state = MutableStateFlow(DashboardState())
-    val state = combine(_state, _token) { state, token ->
-        state.copy(token = token)
+    val state = combine(_state, _token, _userId) { state, token, userId ->
+        state.copy(token = token, userId = userId)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), DashboardState())
 
     fun onEvent(event: DashboardEvent) {
@@ -36,9 +39,9 @@ class DashboardViewModel(
     private fun fetchData() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
-            repository.getWallets(state.value.token)
+            repository.getWallets(state.value.token, state.value.userId)
                 .onSuccess { result ->
-                    val wallets = result.wallets.map { walletsItem ->
+                    val wallets = result.wallet.map { walletsItem ->
                         Wallet(
                             id = walletsItem.id,
                             name = walletsItem.name,
@@ -63,9 +66,9 @@ class DashboardViewModel(
                         )
                     }
                 }
-            repository.getCategories(state.value.token)
+            repository.getCategories(state.value.token, state.value.userId)
                 .onSuccess { result ->
-                    val categories = result.categories.map { category ->
+                    val categories = result.category.map { category ->
                         Category(
                             id = category.id,
                             name = category.name
@@ -85,6 +88,23 @@ class DashboardViewModel(
                             isLoading = false
                         )
                     }
+                }
+            repository.getTransactions(state.value.token, state.value.userId)
+                .onSuccess { result ->
+                    val transactions = result.transaction
+                    transactions.map { it ->
+                        val new = Transaction(
+                            id = it.id,
+                            name = it.name,
+                            amount = it.amount.toFloat(),
+                            type = TransactionType.valueOf(it.type.uppercase()),
+                            categoryId = it.categoryId,
+                            userId = it.userId,
+                            walletId = it.walletId
+                        )
+                        _state.update { it.copy(transactions = it.transactions + new) }
+                    }
+                    transactions.groupBy { item -> item.categoryId }
                 }
         }
     }

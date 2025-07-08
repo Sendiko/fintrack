@@ -197,16 +197,16 @@ fun DashboardScreen(
                         ),
                         shape = RoundedCornerShape(16.dp)
                     ) {
-                        Column(
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .fillMaxWidth(),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            transactions.take(4).forEach { transaction ->
+                        state.transactions.take(4).forEach { transaction ->
+                            Column(
+                                modifier = Modifier
+                                    .padding(all = 16.dp)
+                                    .fillMaxWidth(),
+                            ) {
                                 TransactionListItem(
                                     modifier = Modifier.fillMaxWidth(),
-                                    transaction = transaction
+                                    transaction = transaction,
+                                    categoryName = state.categories.find { it.id == transaction.categoryId }?.name ?: "Category not found."
                                 )
                             }
                         }
