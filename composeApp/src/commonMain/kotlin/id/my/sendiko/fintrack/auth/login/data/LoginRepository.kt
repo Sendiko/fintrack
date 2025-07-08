@@ -18,7 +18,7 @@ class LoginRepository(
     }
 
     suspend fun saveToken(token: String) {
-        prefs.setToken("Bearer $token")
+        prefs.setToken(token)
     }
 
 }
