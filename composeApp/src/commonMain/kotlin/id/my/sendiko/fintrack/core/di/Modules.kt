@@ -10,6 +10,8 @@ import id.my.sendiko.fintrack.core.network.ApiService
 import id.my.sendiko.fintrack.core.network.HttpClientFactory
 import id.my.sendiko.fintrack.core.network.KtorClient
 import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
+import id.my.sendiko.fintrack.dashboard.data.DashboardRepository
+import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.data.SplashRepositoryImpl
 import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
 import org.koin.core.module.Module
@@ -26,6 +28,8 @@ val sharedModule = module {
     singleOf(::RegisterRepository)
     singleOf(::LoginRepository)
     singleOf(::ChangePasswordRepository)
+    singleOf(::ChangePasswordRepository)
+    singleOf(::DashboardRepository)
 
     factory { PreferencesRepositoryImpl(get()) }
     factory { SplashRepositoryImpl(get()) }
@@ -33,4 +37,5 @@ val sharedModule = module {
     factory { RegisterViewModel(get()) }
     factory { LoginViewModel(get()) }
     factory { ChangePasswordViewModel(get()) }
+    factory { DashboardViewModel(get()) }
 }
