@@ -7,10 +7,11 @@ import id.my.sendiko.fintrack.auth.login.data.dto.LoginRequest
 import id.my.sendiko.fintrack.auth.login.data.dto.LoginResponse
 import id.my.sendiko.fintrack.auth.register.data.dto.RegisterRequest
 import id.my.sendiko.fintrack.auth.register.data.dto.RegisterResponse
+import id.my.sendiko.fintrack.category.data.GetCategoriesResponse
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
-import id.my.sendiko.fintrack.dashboard.data.dto.GetCategoriesResponse
-import id.my.sendiko.fintrack.dashboard.data.dto.GetWalletsResponse
+import id.my.sendiko.fintrack.transaction.data.GetTransactionsResponse
+import id.my.sendiko.fintrack.wallet.data.GetWalletsResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
@@ -56,17 +57,25 @@ class KtorClient(
         }
     }
 
-    override suspend fun getWallets(token: String): Result<GetWalletsResponse, DataError.Remote> {
+    override suspend fun getWallets(token: String, userId: String): Result<GetWalletsResponse, DataError.Remote> {
         return safeCall<GetWalletsResponse> {
-            client.get("$BASE_URL/wallets") {
+            client.get("$BASE_URL/wallets/$userId") {
                 bearerAuth(token)
             }
         }
     }
 
-    override suspend fun getCategories(token: String): Result<GetCategoriesResponse, DataError.Remote> {
+    override suspend fun getCategories(token: String, userId: String): Result<GetCategoriesResponse, DataError.Remote> {
         return safeCall<GetCategoriesResponse> {
-            client.get("$BASE_URL/categories") {
+            client.get("$BASE_URL/categories/$userId") {
+                bearerAuth(token)
+            }
+        }
+    }
+
+    override suspend fun getTransactions(token: String, userId: String): Result<GetTransactionsResponse, DataError.Remote> {
+        return safeCall<GetTransactionsResponse> {
+            client.get("$BASE_URL/transactions/$userId") {
                 bearerAuth(token)
             }
         }
