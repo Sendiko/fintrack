@@ -9,7 +9,10 @@ import id.my.sendiko.fintrack.auth.register.data.dto.RegisterRequest
 import id.my.sendiko.fintrack.auth.register.data.dto.RegisterResponse
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
+import id.my.sendiko.fintrack.dashboard.data.dto.GetCategoriesResponse
+import id.my.sendiko.fintrack.dashboard.data.dto.GetWalletsResponse
 import io.ktor.client.HttpClient
+import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
@@ -49,6 +52,22 @@ class KtorClient(
         return safeCall<ChangePasswordResponse> {
             client.put("$BASE_URL/user/change-password/$userId") {
                 setBody(request)
+            }
+        }
+    }
+
+    override suspend fun getWallets(token: String): Result<GetWalletsResponse, DataError.Remote> {
+        return safeCall<GetWalletsResponse> {
+            client.get("$BASE_URL/wallets") {
+                bearerAuth(token)
+            }
+        }
+    }
+
+    override suspend fun getCategories(token: String): Result<GetCategoriesResponse, DataError.Remote> {
+        return safeCall<GetCategoriesResponse> {
+            client.get("$BASE_URL/categories") {
+                bearerAuth(token)
             }
         }
     }
