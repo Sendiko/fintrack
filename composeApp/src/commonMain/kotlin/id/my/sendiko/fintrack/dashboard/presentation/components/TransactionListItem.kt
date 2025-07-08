@@ -19,7 +19,8 @@ import id.my.sendiko.fintrack.transaction.domain.TransactionType
 @Composable
 fun TransactionListItem(
     modifier: Modifier = Modifier,
-    transaction: Transaction
+    transaction: Transaction,
+    categoryName: String
 ) {
     Row(
         modifier = modifier,
@@ -33,7 +34,7 @@ fun TransactionListItem(
                 color = Color.Black
             )
             Text(
-                text = categories.find { it.id == transaction.categoryId }?.name ?: "Category not found.",
+                text = categoryName,
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Bold
             )
