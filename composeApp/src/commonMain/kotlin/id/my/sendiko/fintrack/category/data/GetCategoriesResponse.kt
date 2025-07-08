@@ -1,17 +1,16 @@
-package id.my.sendiko.fintrack.auth.login.data.dto
+package id.my.sendiko.fintrack.category.data
 
-import id.my.sendiko.fintrack.auth.core.data.UserItem
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 @Serializable
-data class LoginResponse(
+data class GetCategoriesResponse(
 
 	@SerialName("message")
 	val message: String,
 
-	@SerialName("user")
-	val userItem: UserItem,
+	@SerialName("category")
+	val category: List<CategoryItem>,
 
 	@SerialName("status")
 	val status: Int

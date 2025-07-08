@@ -13,3 +13,6 @@ data object LoginDestination
 
 @Serializable
 data object ChangePasswordDestination
+
+@Serializable
+data object DashboardDestination

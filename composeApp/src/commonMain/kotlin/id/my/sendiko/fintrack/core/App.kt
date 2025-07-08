@@ -1,5 +1,9 @@
 package id.my.sendiko.fintrack.core
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -14,9 +18,12 @@ import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterScreen
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
+import id.my.sendiko.fintrack.core.navigation.DashboardDestination
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import id.my.sendiko.fintrack.core.navigation.RegisterDestination
 import id.my.sendiko.fintrack.core.navigation.SplashDestination
+import id.my.sendiko.fintrack.dashboard.presentation.DashboardScreen
+import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.presentation.SplashScreen
 import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
 import id.my.sendiko.fintrack.theme.FinTrackTheme
@@ -31,6 +38,30 @@ fun App() {
         NavHost(
             navController = navController,
             startDestination = SplashDestination,
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = tween(500)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = tween(500)
+                )
+            },
+            popEnterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = tween(500)
+                )
+            },
+            popExitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = tween(500)
+                )
+            }
         ) {
             composable<SplashDestination> {
                 val viewModel = koinViewModel<SplashViewModel>()
@@ -70,6 +101,16 @@ fun App() {
                     state = state,
                     onEvent = viewModel::onEvent,
                     onNavigate = { navController.navigate(it) }
+                )
+            }
+            composable<DashboardDestination>{
+                val viewModel = koinViewModel<DashboardViewModel>()
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                DashboardScreen(
+                    state = state,
+                    onEvent = viewModel::onEvent,
+                    onNavigate = {  },
                 )
             }
         }

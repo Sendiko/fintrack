@@ -46,11 +46,13 @@ class LoginViewModel(
                 username = state.value.username,
                 password = state.value.password
             ).onSuccess { result ->
+                repository.saveToken(result.userItem.token)
+                repository.saveUserId(result.userItem.id)
                 _state.update {
                     it.copy(
                         isLoading = false,
                         isSuccess = true,
-                        message = "Welcome, ${result.userItemData.name}!"
+                        message = "Welcome, ${result.userItem.name}!"
                     )
                 }
             }.onError { error ->

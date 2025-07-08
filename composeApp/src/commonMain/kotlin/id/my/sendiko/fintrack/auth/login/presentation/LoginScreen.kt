@@ -21,6 +21,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,12 +31,12 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.app_name
-import fintrack.composeapp.generated.resources.create_password_hint
 import fintrack.composeapp.generated.resources.fintrack_white
 import fintrack.composeapp.generated.resources.forgot_password
 import fintrack.composeapp.generated.resources.login_hint_2
 import fintrack.composeapp.generated.resources.login_title
 import fintrack.composeapp.generated.resources.or
+import fintrack.composeapp.generated.resources.password_hint
 import fintrack.composeapp.generated.resources.password_label
 import fintrack.composeapp.generated.resources.register_hint_2
 import fintrack.composeapp.generated.resources.track_save_grow
@@ -43,6 +44,7 @@ import fintrack.composeapp.generated.resources.username_hint
 import fintrack.composeapp.generated.resources.username_label
 import fintrack.composeapp.generated.resources.youre_in_charge
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
+import id.my.sendiko.fintrack.core.navigation.DashboardDestination
 import id.my.sendiko.fintrack.core.navigation.RegisterDestination
 import id.my.sendiko.fintrack.core.presentation.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
@@ -51,6 +53,7 @@ import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.theme.primaryOrange
 import id.my.sendiko.fintrack.theme.secondaryBlue
 import id.my.sendiko.fintrack.theme.utilityWhite
+import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -62,6 +65,13 @@ fun LoginScreen(
     onEvent: (LoginEvent) -> Unit,
     onNavigate: (Any) -> Unit
 ) {
+
+    LaunchedEffect(state.isSuccess) {
+        if (state.isSuccess) {
+            delay(1000)
+            onNavigate(DashboardDestination)
+        }
+    }
 
     NotificationBox(
         message = state.message,
@@ -160,7 +170,7 @@ fun LoginScreen(
                                 modifier = Modifier.fillMaxWidth(),
                                 value = state.password,
                                 onValueChange = { onEvent(LoginEvent.OnPasswordChanged(it)) },
-                                hint = stringResource(Res.string.create_password_hint),
+                                hint = stringResource(Res.string.password_hint),
                                 onVisibilityChanged = { onEvent(LoginEvent.OnPasswordVisibilityChanged(it)) },
                                 isVisible = state.isPasswordVisible
                             )
