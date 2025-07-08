@@ -24,6 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -45,6 +46,7 @@ import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionListI
 import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.theme.aliceBlue
+import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -54,6 +56,13 @@ fun DashboardScreen(
     onEvent: (DashboardEvent) -> Unit,
     onNavigate: (Any) -> Unit
 ) {
+
+    LaunchedEffect(state.token) {
+        if (state.token.isNotBlank()) {
+            onEvent(DashboardEvent.OnLoadData)
+        }
+    }
+
     NotificationBox(
         message = state.message,
         isLoading = state.isLoading
