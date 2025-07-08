@@ -3,6 +3,7 @@ package id.my.sendiko.fintrack.dashboard.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import id.my.sendiko.fintrack.category.domain.Category
+import id.my.sendiko.fintrack.category.domain.TopCategory
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
 import id.my.sendiko.fintrack.core.presentation.errorToUiText
@@ -74,10 +75,27 @@ class DashboardViewModel(
                             name = category.name
                         )
                     }
+                    val topCategory = result.category
+                        .map { categoryItem ->
+                            val totalAmount = categoryItem.transactions.sumOf { it.amount }
+                            categoryItem to totalAmount
+                        }
+                        .sortedByDescending { it.second }
+                        .take(2)
+                        .map { (categoryItem, totalAmount) ->
+                            TopCategory(
+                                name = categoryItem.name,
+                                totalAmount = totalAmount.toDouble()
+                            )
+                        }
+
+                    println("Top Category: $topCategory")
+
                     _state.update {
                         it.copy(
                             categories = categories,
-                            isLoading = false
+                            isLoading = false,
+                            topCategory = topCategory
                         )
                     }
                 }

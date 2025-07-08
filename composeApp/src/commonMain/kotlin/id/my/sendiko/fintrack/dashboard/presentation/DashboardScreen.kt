@@ -1,5 +1,8 @@
 package id.my.sendiko.fintrack.dashboard.presentation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -163,20 +166,26 @@ fun DashboardScreen(
                     )
                 }
                 item {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    AnimatedVisibility(
+                        visible = state.topCategory.isNotEmpty(),
+                        enter = slideInHorizontally(),
+                        exit = slideOutHorizontally()
                     ) {
-                        TopCategoryCard(
-                            modifier = Modifier.weight(1f),
-                            category = categories.first().name,
-                            amount = 500000.0
-                        )
-                        TopCategoryCard(
-                            modifier = Modifier.weight(1f),
-                            category = categories.last().name,
-                            amount = 500000.0
-                        )
+                        Row(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            TopCategoryCard(
+                                modifier = Modifier.weight(1f),
+                                category = state.topCategory.first().name,
+                                amount = state.topCategory.first().totalAmount
+                            )
+                            TopCategoryCard(
+                                modifier = Modifier.weight(1f),
+                                category = state.topCategory.last().name,
+                                amount = state.topCategory.last().totalAmount
+                            )
+                        }
                     }
                 }
                 item {
