@@ -104,7 +104,7 @@ fun App() {
                 )
             }
             composable<DashboardDestination>{
-                val viewModel = viewModel<DashboardViewModel>()
+                val viewModel = koinViewModel<DashboardViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
                 DashboardScreen(
