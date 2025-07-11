@@ -30,7 +30,7 @@ import id.my.sendiko.fintrack.dashboard.presentation.toRupiah
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.theme.secondaryBlue
 import id.my.sendiko.fintrack.theme.utilityWhite
-import id.my.sendiko.fintrack.wallet.domain.Wallet
+import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
