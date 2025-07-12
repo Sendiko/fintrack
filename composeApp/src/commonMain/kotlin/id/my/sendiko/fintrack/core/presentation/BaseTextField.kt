@@ -7,6 +7,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import id.my.sendiko.fintrack.theme.primaryOrange
@@ -17,7 +18,8 @@ fun BaseTextField(
     value: String,
     onValueChange: (String) -> Unit,
     hint: String,
-    keyboardType: KeyboardType = KeyboardType.Text
+    keyboardType: KeyboardType = KeyboardType.Text,
+    outlineColor: Color = primaryOrange
 ) {
     OutlinedTextField(
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
@@ -26,8 +28,9 @@ fun BaseTextField(
         value = value,
         onValueChange = onValueChange,
         colors = OutlinedTextFieldDefaults.colors(
-            unfocusedBorderColor = primaryOrange,
-            focusedBorderColor = primaryOrange
+            unfocusedBorderColor = outlineColor,
+            focusedBorderColor = outlineColor,
+            cursorColor = outlineColor
         ),
         placeholder = {
             Text(text = hint)
