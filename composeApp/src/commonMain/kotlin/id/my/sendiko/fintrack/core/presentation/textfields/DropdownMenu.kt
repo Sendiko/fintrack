@@ -48,6 +48,7 @@ fun <T> DropdownMenu(
                         onClick = {
                             onChosen(it)
                             text = it.toString()
+                            isExpanding = false
                                   },
                     )
                 }
