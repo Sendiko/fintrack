@@ -3,6 +3,7 @@ package id.my.sendiko.fintrack.wallet.create.presentation
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -34,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.back
+import fintrack.composeapp.generated.resources.create
 import fintrack.composeapp.generated.resources.create_wallet_title
 import fintrack.composeapp.generated.resources.initial_balance
 import fintrack.composeapp.generated.resources.next
@@ -46,6 +48,7 @@ import fintrack.composeapp.generated.resources.wallet_type_label
 import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.textfields.DropdownMenu
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
+import id.my.sendiko.fintrack.core.presentation.numerickeyboard.NumericKeyboard
 import id.my.sendiko.fintrack.dashboard.presentation.toRupiah
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.theme.primaryOrange
@@ -56,7 +59,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun CreateWalletScreen(
+fun CreateWalletScreen(
     state: CreateWalletState,
     onEvent: (CreateWalletEvent) -> Unit,
     onNavigate: (Any?) -> Unit,
@@ -88,22 +91,23 @@ private fun CreateWalletScreen(
                         Text(
                             text = when (state.stage) {
                                 1 -> stringResource(Res.string.next)
-                                2 -> stringResource(Res.string.next)
+                                2 -> stringResource(Res.string.create)
                                 else -> ""
                             },
                             fontWeight = FontWeight.Bold
                         )
                     }
                 }
-            ) {
+            ) { innerPadding ->
                 Column(
+                    modifier = Modifier.padding(innerPadding),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     Column(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         IconButton(
-                            onClick = { /*TODO*/ },
+                            onClick = { onNavigate(null) },
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Default.ArrowBack,
@@ -149,26 +153,6 @@ private fun CreateWalletScreen(
                                         .padding(16.dp),
                                     verticalArrangement = Arrangement.spacedBy(16.dp)
                                 ) {
-                                    item {
-                                        Column(
-                                            modifier = Modifier.fillMaxWidth()
-                                        ) {
-                                            IconButton(
-                                                onClick = { /*TODO*/ },
-                                            ) {
-                                                Icon(
-                                                    imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                                                    contentDescription = stringResource(Res.string.back)
-                                                )
-                                            }
-                                            Text(
-                                                modifier = Modifier.padding(start = 16.dp),
-                                                text = stringResource(Res.string.create_wallet_title),
-                                                fontSize = 20.sp,
-                                                fontWeight = FontWeight.Bold
-                                            )
-                                        }
-                                    }
                                     item {
                                         Text(
                                             text = stringResource(Res.string.wallet_name_label),
@@ -216,6 +200,7 @@ private fun CreateWalletScreen(
                                 Column(
                                     modifier = Modifier.padding(horizontal = 16.dp)
                                         .padding(top = 16.dp)
+                                        .fillMaxSize()
                                 ) {
                                     Text(
                                         text = stringResource(Res.string.initial_balance),
@@ -223,12 +208,21 @@ private fun CreateWalletScreen(
                                     )
                                     Text(
                                         modifier = Modifier.fillMaxWidth(),
-                                        text = state.number.toRupiah(),
+                                        text = (state.amount.toDoubleOrNull() ?: 0.0).toRupiah(),
                                         style = MaterialTheme.typography.headlineLarge,
                                         textAlign = TextAlign.Center,
-                                        fontWeight = FontWeight.Bold
+                                        fontWeight = FontWeight.Bold,
+                                        color = secondaryBlue
                                     )
-
+                                    Spacer(modifier = Modifier.weight(1f))
+                                    NumericKeyboard(
+                                        onClick = {
+                                            onEvent(CreateWalletEvent.OnNumberPressed(it))
+                                        },
+                                        onBackspace = {
+                                            onEvent(CreateWalletEvent.OnBackspace)
+                                        }
+                                    )
                                 }
                             }
                         }

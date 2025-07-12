@@ -11,6 +11,7 @@ data class CreateWalletState(
     val name: String = "",
     val purpose: String = "",
     val type: String = "",
+    val amount: String = "0.0",
     val walletTypeList: List<WalletType> = WalletType.entries,
     val dropdownExpanding: Boolean = false,
     val number: Double = 0.0,
