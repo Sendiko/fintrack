@@ -38,6 +38,7 @@ import fintrack.composeapp.generated.resources.settings
 import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.total_balance
 import fintrack.composeapp.generated.resources.wallets
+import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddExpenseButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddIncomeButton
@@ -58,7 +59,7 @@ fun DashboardScreen(
 ) {
 
     LaunchedEffect(state.token) {
-        if (state.token.isNotBlank()) {
+        if (state.token.isNotBlank() && state.userId.isNotBlank()) {
             onEvent(DashboardEvent.OnLoadData)
         }
     }
@@ -123,7 +124,7 @@ fun DashboardScreen(
                             AddWalletButton(
                                 modifier = Modifier.width(48.dp)
                                     .height(128.dp),
-                                onClick = { onNavigate(Any()) }
+                                onClick = { onNavigate(CreateWalletDestination) }
                             )
                         }
                         items(state.wallets) { wallet ->
