@@ -4,6 +4,7 @@
     <!--  Commonly used strings  -->
     <string name="back">Navigate back</string>
     <string name="create">Create</string>
+    <string name="backspace">Backspace</string>
 
     <!--  Strings for Authentication  -->
     <string name="username_label">Username</string>
