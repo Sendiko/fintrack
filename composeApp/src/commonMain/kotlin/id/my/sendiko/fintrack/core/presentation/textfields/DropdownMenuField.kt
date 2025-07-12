@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.core.presentation
+package id.my.sendiko.fintrack.core.presentation.textfields
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import id.my.sendiko.fintrack.theme.primaryOrange
 import id.my.sendiko.fintrack.theme.secondaryBlue
 
 @OptIn(ExperimentalMaterial3Api::class)

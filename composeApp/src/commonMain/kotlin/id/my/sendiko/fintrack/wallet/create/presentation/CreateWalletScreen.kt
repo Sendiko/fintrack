@@ -43,8 +43,8 @@ import fintrack.composeapp.generated.resources.wallet_purpose_hint
 import fintrack.composeapp.generated.resources.wallet_purpose_label
 import fintrack.composeapp.generated.resources.wallet_type_hint
 import fintrack.composeapp.generated.resources.wallet_type_label
-import id.my.sendiko.fintrack.core.presentation.BaseTextField
-import id.my.sendiko.fintrack.core.presentation.DropdownMenu
+import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
+import id.my.sendiko.fintrack.core.presentation.textfields.DropdownMenu
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.dashboard.presentation.toRupiah
 import id.my.sendiko.fintrack.theme.FinTrackTheme
