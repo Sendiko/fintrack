@@ -1,10 +1,10 @@
-package id.my.sendiko.fintrack.wallet.core.data
+package id.my.sendiko.fintrack.wallet.core.data.dto.get
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 @Serializable
-data class WalletItem(
+data class WalletsItem(
 
 	@SerialName("createdAt")
 	val createdAt: String,
