@@ -11,7 +11,7 @@ import id.my.sendiko.fintrack.category.data.GetCategoriesResponse
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import id.my.sendiko.fintrack.transaction.data.GetTransactionsResponse
-import id.my.sendiko.fintrack.wallet.core.data.GetWalletsResponse
+import id.my.sendiko.fintrack.wallet.core.data.dto.get.GetWalletsResponse
 
 interface ApiService {
 
