@@ -19,21 +19,27 @@ fun BaseTextField(
     onValueChange: (String) -> Unit,
     hint: String,
     keyboardType: KeyboardType = KeyboardType.Text,
-    outlineColor: Color = primaryOrange
+    outlineColor: Color = primaryOrange,
+    supportingText: String? = null
 ) {
     OutlinedTextField(
-        keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
-        modifier = modifier,
-        shape = RoundedCornerShape(16.dp),
         value = value,
         onValueChange = onValueChange,
+        modifier = modifier,
+        shape = RoundedCornerShape(16.dp),
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         colors = OutlinedTextFieldDefaults.colors(
+            unfocusedContainerColor = Color.Transparent,
+            focusedContainerColor = Color.Transparent,
             unfocusedBorderColor = outlineColor,
             focusedBorderColor = outlineColor,
             cursorColor = outlineColor
         ),
         placeholder = {
             Text(text = hint)
+        },
+        supportingText = if (supportingText.isNullOrBlank()) null else {
+            { Text(text = supportingText) }
         }
     )
 }
