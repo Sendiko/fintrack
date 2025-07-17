@@ -119,7 +119,7 @@ fun App() {
                 )
             }
             composable<CreateWalletDestination> {
-                val viewModel = viewModel<CreateWalletViewModel>()
+                val viewModel = koinViewModel<CreateWalletViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
                 CreateWalletScreen(
