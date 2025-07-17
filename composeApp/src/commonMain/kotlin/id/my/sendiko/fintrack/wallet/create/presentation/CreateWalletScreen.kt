@@ -41,6 +41,9 @@ import fintrack.composeapp.generated.resources.initial_balance
 import fintrack.composeapp.generated.resources.next
 import fintrack.composeapp.generated.resources.wallet_name_hint
 import fintrack.composeapp.generated.resources.wallet_name_label
+import fintrack.composeapp.generated.resources.wallet_number_hint
+import fintrack.composeapp.generated.resources.wallet_number_label
+import fintrack.composeapp.generated.resources.wallet_number_note
 import fintrack.composeapp.generated.resources.wallet_purpose_hint
 import fintrack.composeapp.generated.resources.wallet_purpose_label
 import fintrack.composeapp.generated.resources.wallet_type_hint
@@ -65,8 +68,8 @@ fun CreateWalletScreen(
     onNavigate: (Any?) -> Unit,
 ) {
     NotificationBox(
-        message = "",
-        isLoading = false,
+        message = state.message,
+        isLoading = state.isLoading,
         content = {
             Scaffold(
                 containerColor = utilityWhite,
@@ -162,7 +165,7 @@ fun CreateWalletScreen(
                                         BaseTextField(
                                             modifier = Modifier.fillMaxWidth(),
                                             value = state.name,
-                                            onValueChange = {  },
+                                            onValueChange = { onEvent(CreateWalletEvent.OnNameChanged(it)) },
                                             hint = stringResource(Res.string.wallet_name_hint),
                                             outlineColor = secondaryBlue
                                         )
@@ -176,7 +179,7 @@ fun CreateWalletScreen(
                                         DropdownMenu(
                                             modifier = Modifier.fillMaxWidth(),
                                             items = state.walletTypeList,
-                                            onChosen = {  },
+                                            onChosen = { onEvent(CreateWalletEvent.OnTypeChanged(it.name)) },
                                             hint = stringResource(Res.string.wallet_type_hint)
                                         )
                                     }
@@ -189,9 +192,24 @@ fun CreateWalletScreen(
                                         BaseTextField(
                                             modifier = Modifier.fillMaxWidth(),
                                             value = state.purpose,
-                                            onValueChange = {  },
+                                            onValueChange = { onEvent(CreateWalletEvent.OnPurposeChanged(it)) },
                                             hint = stringResource(Res.string.wallet_purpose_hint),
                                             outlineColor = secondaryBlue
+                                        )
+                                    }
+                                    item {
+                                        Text(
+                                            text = stringResource(Res.string.wallet_number_label),
+                                            style = MaterialTheme.typography.labelMedium
+                                        )
+                                        Spacer(modifier = Modifier.height(8.dp))
+                                        BaseTextField(
+                                            modifier = Modifier.fillMaxWidth(),
+                                            value = state.number,
+                                            onValueChange = { onEvent(CreateWalletEvent.OnWalletNumberChanged(it)) },
+                                            hint = stringResource(Res.string.wallet_number_hint),
+                                            outlineColor = secondaryBlue,
+                                            supportingText = stringResource(Res.string.wallet_number_note)
                                         )
                                     }
                                 }
