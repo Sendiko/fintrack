@@ -12,6 +12,8 @@ import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import id.my.sendiko.fintrack.transaction.data.GetTransactionsResponse
 import id.my.sendiko.fintrack.wallet.core.data.dto.get.GetWalletsResponse
+import id.my.sendiko.fintrack.wallet.core.data.dto.post.PostWalletRequest
+import id.my.sendiko.fintrack.wallet.core.data.dto.post.PostWalletResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
@@ -77,6 +79,18 @@ class KtorClient(
         return safeCall<GetTransactionsResponse> {
             client.get("$BASE_URL/transactions/$userId") {
                 bearerAuth(token)
+            }
+        }
+    }
+
+    override suspend fun postWallet(
+        token: String,
+        request: PostWalletRequest
+    ): Result<PostWalletResponse, DataError.Remote> {
+        return safeCall<PostWalletResponse> {
+            client.post("$BASE_URL/wallets") {
+                bearerAuth(token)
+                setBody(request)
             }
         }
     }

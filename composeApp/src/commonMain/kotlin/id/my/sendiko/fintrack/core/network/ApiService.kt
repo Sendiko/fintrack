@@ -12,6 +12,8 @@ import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import id.my.sendiko.fintrack.transaction.data.GetTransactionsResponse
 import id.my.sendiko.fintrack.wallet.core.data.dto.get.GetWalletsResponse
+import id.my.sendiko.fintrack.wallet.core.data.dto.post.PostWalletRequest
+import id.my.sendiko.fintrack.wallet.core.data.dto.post.PostWalletResponse
 
 interface ApiService {
 
@@ -28,4 +30,6 @@ interface ApiService {
     suspend fun getCategories(token: String, userId: String): Result<GetCategoriesResponse, DataError.Remote>
 
     suspend fun getTransactions(token: String, userId: String): Result<GetTransactionsResponse, DataError.Remote>
+
+    suspend fun postWallet(token: String, request: PostWalletRequest): Result<PostWalletResponse, DataError.Remote>
 }
