@@ -5,8 +5,8 @@ import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
 import id.my.sendiko.fintrack.wallet.core.data.dto.get.GetWalletsResponse
-import id.my.sendiko.fintrack.wallet.core.data.dto.post.PostWalletRequest
-import id.my.sendiko.fintrack.wallet.core.data.dto.post.PostWalletResponse
+import id.my.sendiko.fintrack.wallet.create.data.PostWalletRequest
+import id.my.sendiko.fintrack.wallet.create.data.PostWalletResponse
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import kotlinx.coroutines.flow.Flow
 
