@@ -65,6 +65,9 @@
     <string name="wallet_type_hint">Your wallet type</string>
     <string name="wallet_purpose_label">Purpose</string>
     <string name="wallet_purpose_hint">Savings, Daily, etc...</string>
+    <string name="wallet_number_label">Your wallet number0</string>
+    <string name="wallet_number_hint">ex: 1234567890</string>
+    <string name="wallet_number_note">*Optional</string>
     <string name="initial_balance">Initial Balance</string>
     <string name="next">Next</string>
 </resources>
