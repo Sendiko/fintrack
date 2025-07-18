@@ -3,9 +3,6 @@ package id.my.sendiko.fintrack.auth.changepassword.presentation
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -50,9 +47,9 @@ import fintrack.composeapp.generated.resources.login_hint
 import fintrack.composeapp.generated.resources.password_label
 import fintrack.composeapp.generated.resources.verify_label
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
-import id.my.sendiko.fintrack.core.presentation.BaseTextField
+import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
-import id.my.sendiko.fintrack.core.presentation.SecureTextField
+import id.my.sendiko.fintrack.core.presentation.textfields.SecureTextField
 import id.my.sendiko.fintrack.theme.primaryOrange
 import id.my.sendiko.fintrack.theme.secondaryBlue
 import id.my.sendiko.fintrack.theme.utilityWhite

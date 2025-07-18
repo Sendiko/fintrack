@@ -10,7 +10,7 @@ import id.my.sendiko.fintrack.core.presentation.errorToUiText
 import id.my.sendiko.fintrack.dashboard.data.DashboardRepository
 import id.my.sendiko.fintrack.transaction.domain.Transaction
 import id.my.sendiko.fintrack.transaction.domain.TransactionType
-import id.my.sendiko.fintrack.wallet.domain.Wallet
+import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
