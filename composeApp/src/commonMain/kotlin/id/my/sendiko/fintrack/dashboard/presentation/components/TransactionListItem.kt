@@ -9,8 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import id.my.sendiko.fintrack.dashboard.data.categories
-import id.my.sendiko.fintrack.dashboard.presentation.toRupiah
+import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.theme.greenApproved
 import id.my.sendiko.fintrack.theme.redError
 import id.my.sendiko.fintrack.transaction.domain.Transaction

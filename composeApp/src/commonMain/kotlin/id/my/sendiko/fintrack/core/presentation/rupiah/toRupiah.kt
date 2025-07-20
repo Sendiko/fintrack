@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.dashboard.presentation
+package id.my.sendiko.fintrack.core.presentation.rupiah
 
 fun Double.toRupiah(): String {
     val rounded = this.toLong()  // Assuming no decimals needed

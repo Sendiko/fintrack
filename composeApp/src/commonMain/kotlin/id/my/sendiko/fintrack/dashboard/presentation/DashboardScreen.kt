@@ -3,10 +3,12 @@ package id.my.sendiko.fintrack.dashboard.presentation
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,8 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
@@ -40,6 +41,7 @@ import fintrack.composeapp.generated.resources.total_balance
 import fintrack.composeapp.generated.resources.wallets
 import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
+import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddExpenseButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddIncomeButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddWalletButton
@@ -115,19 +117,19 @@ fun DashboardScreen(
                     )
                 }
                 item {
-                    LazyRow(
-                        modifier = Modifier.fillMaxWidth(),
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                            .height(IntrinsicSize.Min)
+                            .padding(horizontal = 16.dp)
+                            .horizontalScroll(rememberScrollState()),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        contentPadding = PaddingValues(16.dp)
                     ) {
-                        item {
-                            AddWalletButton(
-                                modifier = Modifier.width(48.dp)
-                                    .height(128.dp),
-                                onClick = { onNavigate(CreateWalletDestination) }
-                            )
-                        }
-                        items(state.wallets) { wallet ->
+                        AddWalletButton(
+                            modifier = Modifier.width(48.dp)
+                                .fillMaxHeight(),
+                            onClick = { onNavigate(CreateWalletDestination) }
+                        )
+                        for (wallet in state.wallets) {
                             WalletCard(
                                 wallet = wallet,
                                 isVisible = state.balanceVisible,

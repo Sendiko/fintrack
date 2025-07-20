@@ -8,10 +8,16 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import id.my.sendiko.fintrack.dashboard.presentation.toRupiah
+import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
+import id.my.sendiko.fintrack.core.presentation.rupiah.toShortRupiah
 import id.my.sendiko.fintrack.theme.utilityWhite
 import id.my.sendiko.fintrack.theme.variantBrown
 
@@ -21,6 +27,7 @@ fun TopCategoryCard(
     category: String,
     amount: Double
 ) {
+    var useShortFormat by remember { mutableStateOf(false) }
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
@@ -38,8 +45,10 @@ fun TopCategoryCard(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = amount.toRupiah(),
-                style = MaterialTheme.typography.titleLarge
+                text = amount.toShortRupiah(),
+                style = MaterialTheme.typography.titleLarge,
+                maxLines = 1,
+                overflow = TextOverflow.Clip,
             )
         }
     }

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,7 +25,7 @@ import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.hidden_balance
 import fintrack.composeapp.generated.resources.password_visible
 import id.my.sendiko.fintrack.dashboard.data.wallets
-import id.my.sendiko.fintrack.dashboard.presentation.toRupiah
+import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.theme.secondaryBlue
 import id.my.sendiko.fintrack.theme.utilityWhite
@@ -42,8 +41,7 @@ fun WalletCard(
     onVisibilityToggle: (Boolean) -> Unit,
 ) {
     Card(
-        modifier = modifier.width(256.dp)
-            .height(128.dp),
+        modifier = modifier.width(256.dp),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
             containerColor = secondaryBlue,
@@ -55,12 +53,11 @@ fun WalletCard(
                 .padding(16.dp)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceAround
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
-
             ) {
                 Text(
                     text = wallet.name

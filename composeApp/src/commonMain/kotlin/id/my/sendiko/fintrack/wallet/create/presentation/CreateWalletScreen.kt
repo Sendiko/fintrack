@@ -3,7 +3,6 @@ package id.my.sendiko.fintrack.wallet.create.presentation
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -52,7 +51,7 @@ import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.textfields.DropdownMenu
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.core.presentation.numerickeyboard.NumericKeyboard
-import id.my.sendiko.fintrack.dashboard.presentation.toRupiah
+import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.theme.primaryOrange
 import id.my.sendiko.fintrack.theme.secondaryBlue
