@@ -50,9 +50,9 @@ import fintrack.composeapp.generated.resources.register_title
 import fintrack.composeapp.generated.resources.terms_and_condition_agreement
 import fintrack.composeapp.generated.resources.username_label
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
-import id.my.sendiko.fintrack.core.presentation.BaseTextField
+import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
-import id.my.sendiko.fintrack.core.presentation.SecureTextField
+import id.my.sendiko.fintrack.core.presentation.textfields.SecureTextField
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.theme.primaryOrange
 import id.my.sendiko.fintrack.theme.secondaryBlue
