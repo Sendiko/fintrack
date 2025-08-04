@@ -23,6 +23,7 @@ import id.my.sendiko.fintrack.core.navigation.DashboardDestination
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import id.my.sendiko.fintrack.core.navigation.RegisterDestination
 import id.my.sendiko.fintrack.core.navigation.SplashDestination
+import id.my.sendiko.fintrack.core.navigation.WalletListDestination
 import id.my.sendiko.fintrack.dashboard.presentation.DashboardScreen
 import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.presentation.SplashScreen
@@ -30,6 +31,8 @@ import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletScreen
 import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletViewModel
+import id.my.sendiko.fintrack.wallet.list.presentation.WalletListScreen
+import id.my.sendiko.fintrack.wallet.list.presentation.WalletListViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -130,6 +133,15 @@ fun App() {
                             navController.navigateUp()
                         }
                     }
+                )
+            }
+            composable<WalletListDestination> {
+                val viewModel = koinViewModel<WalletListViewModel>()
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                WalletListScreen(
+                    state = state,
+                    onEvent = viewModel::onEvent
                 )
             }
         }

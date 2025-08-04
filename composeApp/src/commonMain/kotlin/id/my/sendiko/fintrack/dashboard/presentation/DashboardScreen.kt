@@ -40,6 +40,7 @@ import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.total_balance
 import fintrack.composeapp.generated.resources.wallets
 import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
+import id.my.sendiko.fintrack.core.navigation.WalletListDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddExpenseButton
@@ -142,7 +143,9 @@ fun DashboardScreen(
                         AllWalletButton(
                             modifier = Modifier.width(48.dp)
                                 .fillMaxHeight(),
-                            onClick = { }
+                            onClick = {
+                                onNavigate(WalletListDestination)
+                            }
                         )
                     }
                 }

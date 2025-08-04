@@ -15,8 +15,8 @@ class WalletRepository(
     val prefs: PreferencesRepositoryImpl
 ) {
 
-    suspend fun getWallets(token: String, userId: String): Result<GetWalletsResponse, DataError.Remote> {
-        return ktorClient.getWallets(token, userId)
+    suspend fun getWallets(token: String): Result<GetWalletsResponse, DataError.Remote> {
+        return ktorClient.getWallets(token)
     }
 
     suspend fun createWallet(token: String, userId: String, wallet: Wallet): Result<PostWalletResponse, DataError.Remote> {

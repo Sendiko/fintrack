@@ -11,7 +11,7 @@ import id.my.sendiko.fintrack.category.data.GetCategoriesResponse
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import id.my.sendiko.fintrack.transaction.data.GetTransactionsResponse
-import id.my.sendiko.fintrack.wallet.core.data.dto.get.GetWalletsResponse
+import id.my.sendiko.fintrack.wallet.core.data.dto.getdetails.GetWalletsResponse
 import id.my.sendiko.fintrack.wallet.create.data.PostWalletRequest
 import id.my.sendiko.fintrack.wallet.create.data.PostWalletResponse
 import io.ktor.client.HttpClient
@@ -59,25 +59,25 @@ class KtorClient(
         }
     }
 
-    override suspend fun getWallets(token: String, userId: String): Result<GetWalletsResponse, DataError.Remote> {
+    override suspend fun getWallets(token: String): Result<GetWalletsResponse, DataError.Remote> {
         return safeCall<GetWalletsResponse> {
-            client.get("$BASE_URL/wallets/$userId") {
+            client.get("$BASE_URL/wallets") {
                 bearerAuth(token)
             }
         }
     }
 
-    override suspend fun getCategories(token: String, userId: String): Result<GetCategoriesResponse, DataError.Remote> {
+    override suspend fun getCategories(token: String): Result<GetCategoriesResponse, DataError.Remote> {
         return safeCall<GetCategoriesResponse> {
-            client.get("$BASE_URL/categories/$userId") {
+            client.get("$BASE_URL/categories") {
                 bearerAuth(token)
             }
         }
     }
 
-    override suspend fun getTransactions(token: String, userId: String): Result<GetTransactionsResponse, DataError.Remote> {
+    override suspend fun getTransactions(token: String): Result<GetTransactionsResponse, DataError.Remote> {
         return safeCall<GetTransactionsResponse> {
-            client.get("$BASE_URL/transactions/$userId") {
+            client.get("$BASE_URL/transactions") {
                 bearerAuth(token)
             }
         }
