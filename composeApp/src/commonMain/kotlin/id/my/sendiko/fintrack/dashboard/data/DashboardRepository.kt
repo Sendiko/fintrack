@@ -6,7 +6,7 @@ import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
 import id.my.sendiko.fintrack.transaction.data.GetTransactionsResponse
-import id.my.sendiko.fintrack.wallet.core.data.dto.get.GetWalletsResponse
+import id.my.sendiko.fintrack.wallet.core.data.dto.getdetails.GetWalletsResponse
 import kotlinx.coroutines.flow.Flow
 
 class DashboardRepository(

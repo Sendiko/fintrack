@@ -45,6 +45,7 @@ import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddExpenseButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddIncomeButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddWalletButton
+import id.my.sendiko.fintrack.dashboard.presentation.components.AllWalletButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.TopCategoryCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionListItem
 import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
@@ -138,6 +139,11 @@ fun DashboardScreen(
                                 }
                             )
                         }
+                        AllWalletButton(
+                            modifier = Modifier.width(48.dp)
+                                .fillMaxHeight(),
+                            onClick = { }
+                        )
                     }
                 }
                 item {
@@ -215,7 +221,8 @@ fun DashboardScreen(
                                 TransactionListItem(
                                     modifier = Modifier.fillMaxWidth(),
                                     transaction = transaction,
-                                    categoryName = state.categories.find { it.id == transaction.categoryId }?.name ?: "Category not found."
+                                    categoryName = state.categories.find { it.id == transaction.categoryId }?.name
+                                        ?: "Category not found."
                                 )
                             }
                         }
@@ -232,8 +239,8 @@ fun DashboardScreenPreview() {
     FinTrackTheme {
         DashboardScreen(
             state = DashboardState(),
-            onEvent = {  },
-            onNavigate = {  }
+            onEvent = { },
+            onNavigate = { }
         )
     }
 }
