@@ -10,7 +10,7 @@ import id.my.sendiko.fintrack.core.presentation.errorToUiText
 import id.my.sendiko.fintrack.dashboard.data.DashboardRepository
 import id.my.sendiko.fintrack.transaction.domain.Transaction
 import id.my.sendiko.fintrack.transaction.domain.TransactionType
-import id.my.sendiko.fintrack.wallet.domain.Wallet
+import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -40,9 +40,9 @@ class DashboardViewModel(
     private fun fetchData() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
-            repository.getWallets(state.value.token, state.value.userId)
+            repository.getWallets(state.value.token)
                 .onSuccess { result ->
-                    val wallets = result.wallet.map { walletsItem ->
+                    val wallets = result.wallets.map { walletsItem ->
                         Wallet(
                             id = walletsItem.id,
                             name = walletsItem.name,
@@ -67,15 +67,15 @@ class DashboardViewModel(
                         )
                     }
                 }
-            repository.getCategories(state.value.token, state.value.userId)
+            repository.getCategories(state.value.token)
                 .onSuccess { result ->
-                    val categories = result.category.map { category ->
+                    val categories = result.categories.map { category ->
                         Category(
                             id = category.id,
                             name = category.name
                         )
                     }
-                    val topCategory = result.category
+                    val topCategory = result.categories
                         .map { categoryItem ->
                             val totalAmount = categoryItem.transactions.sumOf { it.amount }
                             categoryItem to totalAmount
@@ -107,9 +107,9 @@ class DashboardViewModel(
                         )
                     }
                 }
-            repository.getTransactions(state.value.token, state.value.userId)
+            repository.getTransactions(state.value.token)
                 .onSuccess { result ->
-                    val transactions = result.transaction
+                    val transactions = result.transactions
                     transactions.map { it ->
                         val new = Transaction(
                             id = it.id,

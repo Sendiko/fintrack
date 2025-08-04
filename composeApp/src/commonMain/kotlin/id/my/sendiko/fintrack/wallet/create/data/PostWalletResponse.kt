@@ -1,16 +1,16 @@
-package id.my.sendiko.fintrack.transaction.data
+package id.my.sendiko.fintrack.wallet.create.data
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 @Serializable
-data class GetTransactionsResponse(
+data class PostWalletResponse(
+
+	@SerialName("wallet")
+	val wallet: Wallet,
 
 	@SerialName("message")
 	val message: String,
-
-	@SerialName("transactions")
-	val transactions: List<TransactionsItem>,
 
 	@SerialName("status")
 	val status: Int

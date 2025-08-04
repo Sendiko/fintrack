@@ -16,3 +16,9 @@ data object ChangePasswordDestination
 
 @Serializable
 data object DashboardDestination
+
+@Serializable
+data object CreateWalletDestination
+
+@Serializable
+data object WalletListDestination

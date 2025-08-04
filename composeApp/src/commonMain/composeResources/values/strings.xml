@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">FinTrack</string>
 
+    <!--  Commonly used strings  -->
+    <string name="back">Navigate back</string>
+    <string name="create">Create</string>
+    <string name="backspace">Backspace</string>
+
     <!--  Strings for Authentication  -->
     <string name="username_label">Username</string>
     <string name="password_label">Password</string>
@@ -46,9 +51,27 @@
     <string name="settings">Settings</string>
     <string name="wallets">My Wallets</string>
     <string name="add_wallets">Add Wallets</string>
+    <string name="all_wallets">All Wallets</string>
     <string name="income">Add Income</string>
     <string name="expense">Add Expense</string>
     <string name="top_category">Top Category</string>
     <string name="recet_transaction">Recent Transaction</string>
     <string name="hidden_balance">⬤⬤⬤⬤⬤⬤</string>
+
+    <!--  Strings for Create Wallet  -->
+    <string name="create_wallet_title">Create New Wallet</string>
+    <string name="wallet_name_label">Name</string>
+    <string name="wallet_name_hint">Cash, Gopay, LinkAja, etc...</string>
+    <string name="wallet_type_label">Type</string>
+    <string name="wallet_type_hint">Your wallet type</string>
+    <string name="wallet_purpose_label">Purpose</string>
+    <string name="wallet_purpose_hint">Savings, Daily, etc...</string>
+    <string name="wallet_number_label">Your wallet number0</string>
+    <string name="wallet_number_hint">ex: 1234567890</string>
+    <string name="wallet_number_note">*Optional</string>
+    <string name="initial_balance">Initial Balance</string>
+    <string name="next">Next</string>
+
+    <!--  Strings for Wallet List  -->
+    <string name="wallet_list_title">Your Wallets</string>
 </resources>

@@ -30,7 +30,8 @@ fun NotificationBox(
         content()
         if (isLoading) {
             CircularProgressIndicator(
-                modifier = Modifier.statusBarsPadding(),
+                modifier = Modifier
+                    .align(Alignment.Center),
                 color = secondaryBlue
             )
         }

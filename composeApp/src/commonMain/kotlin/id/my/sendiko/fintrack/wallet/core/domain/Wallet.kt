@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.wallet.domain
+package id.my.sendiko.fintrack.wallet.core.domain
 
 data class Wallet(
     val id: String,

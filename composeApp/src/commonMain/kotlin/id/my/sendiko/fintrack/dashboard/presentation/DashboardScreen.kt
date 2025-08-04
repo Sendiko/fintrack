@@ -3,10 +3,12 @@ package id.my.sendiko.fintrack.dashboard.presentation
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,8 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
@@ -38,10 +39,14 @@ import fintrack.composeapp.generated.resources.settings
 import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.total_balance
 import fintrack.composeapp.generated.resources.wallets
+import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
+import id.my.sendiko.fintrack.core.navigation.WalletListDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
+import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddExpenseButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddIncomeButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddWalletButton
+import id.my.sendiko.fintrack.dashboard.presentation.components.AllWalletButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.TopCategoryCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionListItem
 import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
@@ -58,7 +63,7 @@ fun DashboardScreen(
 ) {
 
     LaunchedEffect(state.token) {
-        if (state.token.isNotBlank()) {
+        if (state.token.isNotBlank() && state.userId.isNotBlank()) {
             onEvent(DashboardEvent.OnLoadData)
         }
     }
@@ -114,19 +119,19 @@ fun DashboardScreen(
                     )
                 }
                 item {
-                    LazyRow(
-                        modifier = Modifier.fillMaxWidth(),
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                            .height(IntrinsicSize.Min)
+                            .padding(horizontal = 16.dp)
+                            .horizontalScroll(rememberScrollState()),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        contentPadding = PaddingValues(16.dp)
                     ) {
-                        item {
-                            AddWalletButton(
-                                modifier = Modifier.width(48.dp)
-                                    .height(128.dp),
-                                onClick = { onNavigate(Any()) }
-                            )
-                        }
-                        items(state.wallets) { wallet ->
+                        AddWalletButton(
+                            modifier = Modifier.width(48.dp)
+                                .fillMaxHeight(),
+                            onClick = { onNavigate(CreateWalletDestination) }
+                        )
+                        for (wallet in state.wallets) {
                             WalletCard(
                                 wallet = wallet,
                                 isVisible = state.balanceVisible,
@@ -135,6 +140,13 @@ fun DashboardScreen(
                                 }
                             )
                         }
+                        AllWalletButton(
+                            modifier = Modifier.width(48.dp)
+                                .fillMaxHeight(),
+                            onClick = {
+                                onNavigate(WalletListDestination)
+                            }
+                        )
                     }
                 }
                 item {
@@ -212,7 +224,8 @@ fun DashboardScreen(
                                 TransactionListItem(
                                     modifier = Modifier.fillMaxWidth(),
                                     transaction = transaction,
-                                    categoryName = state.categories.find { it.id == transaction.categoryId }?.name ?: "Category not found."
+                                    categoryName = state.categories.find { it.id == transaction.categoryId }?.name
+                                        ?: "Category not found."
                                 )
                             }
                         }
@@ -229,8 +242,8 @@ fun DashboardScreenPreview() {
     FinTrackTheme {
         DashboardScreen(
             state = DashboardState(),
-            onEvent = {  },
-            onNavigate = {  }
+            onEvent = { },
+            onNavigate = { }
         )
     }
 }

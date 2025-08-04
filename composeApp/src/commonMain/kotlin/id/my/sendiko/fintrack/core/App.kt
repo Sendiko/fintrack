@@ -18,15 +18,21 @@ import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterScreen
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
+import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
 import id.my.sendiko.fintrack.core.navigation.DashboardDestination
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import id.my.sendiko.fintrack.core.navigation.RegisterDestination
 import id.my.sendiko.fintrack.core.navigation.SplashDestination
+import id.my.sendiko.fintrack.core.navigation.WalletListDestination
 import id.my.sendiko.fintrack.dashboard.presentation.DashboardScreen
 import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.presentation.SplashScreen
 import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
 import id.my.sendiko.fintrack.theme.FinTrackTheme
+import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletScreen
+import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletViewModel
+import id.my.sendiko.fintrack.wallet.list.presentation.WalletListScreen
+import id.my.sendiko.fintrack.wallet.list.presentation.WalletListViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -110,7 +116,32 @@ fun App() {
                 DashboardScreen(
                     state = state,
                     onEvent = viewModel::onEvent,
-                    onNavigate = {  },
+                    onNavigate = {
+                        navController.navigate(it)
+                    },
+                )
+            }
+            composable<CreateWalletDestination> {
+                val viewModel = koinViewModel<CreateWalletViewModel>()
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                CreateWalletScreen(
+                    state = state,
+                    onEvent = viewModel::onEvent,
+                    onNavigate = {
+                        if (it == null) {
+                            navController.navigateUp()
+                        }
+                    }
+                )
+            }
+            composable<WalletListDestination> {
+                val viewModel = koinViewModel<WalletListViewModel>()
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                WalletListScreen(
+                    state = state,
+                    onEvent = viewModel::onEvent
                 )
             }
         }
