@@ -69,13 +69,13 @@ class DashboardViewModel(
                 }
             repository.getCategories(state.value.token)
                 .onSuccess { result ->
-                    val categories = result.category.map { category ->
+                    val categories = result.categories.map { category ->
                         Category(
                             id = category.id,
                             name = category.name
                         )
                     }
-                    val topCategory = result.category
+                    val topCategory = result.categories
                         .map { categoryItem ->
                             val totalAmount = categoryItem.transactions.sumOf { it.amount }
                             categoryItem to totalAmount
@@ -109,7 +109,7 @@ class DashboardViewModel(
                 }
             repository.getTransactions(state.value.token)
                 .onSuccess { result ->
-                    val transactions = result.transaction
+                    val transactions = result.transactions
                     transactions.map { it ->
                         val new = Transaction(
                             id = it.id,
