@@ -31,7 +31,7 @@ data class Wallet(
 	val userId: String,
 
 	@SerialName("walletNumber")
-	val walletNumber: Any,
+	val walletNumber: String,
 
 	@SerialName("updatedAt")
 	val updatedAt: String

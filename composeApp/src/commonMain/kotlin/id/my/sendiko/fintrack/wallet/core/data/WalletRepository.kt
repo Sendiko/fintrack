@@ -4,7 +4,7 @@ import id.my.sendiko.fintrack.core.network.KtorClient
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
-import id.my.sendiko.fintrack.wallet.core.data.dto.get.GetWalletsResponse
+import id.my.sendiko.fintrack.wallet.core.data.dto.getdetails.GetWalletsResponse
 import id.my.sendiko.fintrack.wallet.create.data.PostWalletRequest
 import id.my.sendiko.fintrack.wallet.create.data.PostWalletResponse
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet

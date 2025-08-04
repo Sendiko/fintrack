@@ -16,7 +16,7 @@ data class TransactionsItem(
 	val amount: Int,
 
 	@SerialName("deletedAt")
-	val deletedAt: Any,
+	val deletedAt: String,
 
 	@SerialName("name")
 	val name: String,
