@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.wallet.core.data.dto.getdetails
+package id.my.sendiko.fintrack.transaction.data
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
@@ -18,6 +18,9 @@ data class TransactionsItem(
 	@SerialName("deletedAt")
 	val deletedAt: String?,
 
+	@SerialName("wallet")
+	val wallet: Wallet,
+
 	@SerialName("name")
 	val name: String,
 
@@ -26,6 +29,9 @@ data class TransactionsItem(
 
 	@SerialName("type")
 	val type: String,
+
+	@SerialName("category")
+	val category: Category,
 
 	@SerialName("userId")
 	val userId: String,

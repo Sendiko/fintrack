@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 @Serializable
-data class Wallet(
+data class WalletsItem(
 
 	@SerialName("createdAt")
 	val createdAt: String,
@@ -31,7 +31,7 @@ data class Wallet(
 	val userId: String,
 
 	@SerialName("walletNumber")
-	val walletNumber: String,
+	val walletNumber: String?,
 
 	@SerialName("updatedAt")
 	val updatedAt: String

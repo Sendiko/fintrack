@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 @Serializable
-data class CategoryItem(
+data class CategoriesItem(
 
 	@SerialName("createdAt")
 	val createdAt: String,

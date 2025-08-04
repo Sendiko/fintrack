@@ -6,11 +6,11 @@ import kotlinx.serialization.SerialName
 @Serializable
 data class GetCategoriesResponse(
 
+	@SerialName("categories")
+	val categories: List<CategoriesItem>,
+
 	@SerialName("message")
 	val message: String,
-
-	@SerialName("category")
-	val category: List<CategoryItem>,
 
 	@SerialName("status")
 	val status: Int

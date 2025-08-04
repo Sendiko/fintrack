@@ -9,8 +9,8 @@ data class GetTransactionsResponse(
 	@SerialName("message")
 	val message: String,
 
-	@SerialName("transaction")
-	val transaction: List<TransactionItem>,
+	@SerialName("transactions")
+	val transactions: List<TransactionsItem>,
 
 	@SerialName("status")
 	val status: Int

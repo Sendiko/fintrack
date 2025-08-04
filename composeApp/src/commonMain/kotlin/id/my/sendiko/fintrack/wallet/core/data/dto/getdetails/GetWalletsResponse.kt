@@ -6,8 +6,8 @@ import kotlinx.serialization.SerialName
 @Serializable
 data class GetWalletsResponse(
 
-	@SerialName("wallet")
-	val wallet: Wallet,
+	@SerialName("wallets")
+	val wallets: List<WalletsItem>,
 
 	@SerialName("message")
 	val message: String,
