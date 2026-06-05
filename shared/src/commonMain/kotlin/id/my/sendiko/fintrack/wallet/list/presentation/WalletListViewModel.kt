@@ -2,9 +2,9 @@ package id.my.sendiko.fintrack.wallet.list.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
-import id.my.sendiko.fintrack.core.presentation.errorToUiText
 import id.my.sendiko.fintrack.wallet.core.data.WalletRepository
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -60,7 +60,7 @@ class WalletListViewModel(
                 }
                 .onError { error ->
                     _state.update {
-                        it.copy(message = errorToUiText(error))
+                        it.copy(message = error.asUiText().asString())
                     }
                 }
         }

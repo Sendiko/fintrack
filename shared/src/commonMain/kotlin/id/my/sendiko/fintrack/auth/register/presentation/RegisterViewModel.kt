@@ -3,10 +3,9 @@ package id.my.sendiko.fintrack.auth.register.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import id.my.sendiko.fintrack.auth.register.domain.RegisterRepository
-import id.my.sendiko.fintrack.core.network.utils.DataError.Remote.BAD_REQUEST
+import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
-import id.my.sendiko.fintrack.core.presentation.errorToUiText
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -68,10 +67,7 @@ class RegisterViewModel(
                         it.copy(
                             isLoading = false,
                             isError = true,
-                            message = when (error) {
-                                BAD_REQUEST -> "Email is already registered."
-                                else -> errorToUiText(error)
-                            }
+                            message = error.asUiText().asString()
                         )
                     }
                 }

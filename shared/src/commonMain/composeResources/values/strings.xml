@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">FinTrack</string>
 
+    <!-- Default Network Handling Strings  -->
+    <string name="the_request_timed_out">Request timed out.</string>
+    <string name="youve_hit_your_rate_limit">Rate limit reached.</string>
+    <string name="no_internet">Can't connect, no internet.</string>
+    <string name="file_too_large">File too large.</string>
+    <string name="server_error">Server error, try again later.</string>
+    <string name="unknown_error">Unknown error happened, try again later.</string>
+    <string name="error_disk_full">Failed to save, storage full.</string>
+    <string name="error_serialization">Serialization error happened.</string>
+    <string name="not_found">Can't find what you're looking for.</string>
+    <string name="bad_request">Bad request.</string>
+    <string name="unauthorized">Unauthorized.</string>
+    <string name="conflict">Data already existed.</string>
+    <string name="forbidden">Token Expired.</string>
+
     <!--  Commonly used strings  -->
     <string name="back">Navigate back</string>
     <string name="create">Create</string>

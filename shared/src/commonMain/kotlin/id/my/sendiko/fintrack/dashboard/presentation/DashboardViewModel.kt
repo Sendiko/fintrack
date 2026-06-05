@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import id.my.sendiko.fintrack.category.domain.Category
 import id.my.sendiko.fintrack.category.domain.TopCategory
+import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
-import id.my.sendiko.fintrack.core.presentation.errorToUiText
 import id.my.sendiko.fintrack.dashboard.data.DashboardRepository
 import id.my.sendiko.fintrack.transaction.domain.Transaction
 import id.my.sendiko.fintrack.transaction.domain.TransactionType
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 
 class DashboardViewModel(
     private val repository: DashboardRepository
-): ViewModel() {
+) : ViewModel() {
 
     private val _token = repository.getToken()
     private val _userId = repository.getUserId()
@@ -30,7 +30,7 @@ class DashboardViewModel(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), DashboardState())
 
     fun onEvent(event: DashboardEvent) {
-        when(event) {
+        when (event) {
             DashboardEvent.OnLoadData -> fetchData()
             DashboardEvent.ClearState -> clearState()
             is DashboardEvent.OnBalanceViewChanged -> changeBalanceVisibility(event.isVisible)
@@ -62,7 +62,7 @@ class DashboardViewModel(
                 .onError { error ->
                     _state.update {
                         it.copy(
-                            message = errorToUiText(error),
+                            message = error.asUiText().asString(),
                             isLoading = false
                         )
                     }
@@ -102,7 +102,7 @@ class DashboardViewModel(
                 .onError { error ->
                     _state.update {
                         it.copy(
-                            message = errorToUiText(error),
+                            message = error.asUiText().asString(),
                             isLoading = false
                         )
                     }
