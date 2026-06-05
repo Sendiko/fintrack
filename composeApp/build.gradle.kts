@@ -11,7 +11,7 @@ plugins {
 
 compose {
     resources {
-        packageOfResClass = "id.my.sendiko.fintrack.generated.resources"
+        packageOfResClass = "fintrack.composeapp.generated.resources"
         generateResClass = auto
     }
 }
@@ -22,7 +22,17 @@ kotlin {
 
     androidLibrary {
         namespace = "id.my.sendiko.fintrack"
-        compileSdk = 36
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_11
+        }
+        androidResources {
+            enable = true
+        }
+        withHostTest {
+            isIncludeAndroidResources = true
+        }
     }
 
     listOf(

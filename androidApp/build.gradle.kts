@@ -43,10 +43,7 @@ android {
 
 dependencies {
     implementation(projects.composeApp)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.testExt.junit)
+    implementation(libs.androidx.activity.compose)
+
+    implementation(libs.compose.uiToolingPreview)
 }
