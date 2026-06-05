@@ -34,7 +34,8 @@ class LoginViewModel(
         }
     }
 
-    private fun clearState() {
+    private suspend fun clearState() {
+        delay(2.seconds)
         _state.update { it.copy(
             usernameError = "",
             passwordError = "",
@@ -92,7 +93,6 @@ class LoginViewModel(
                     )
                 }
             }
-            delay(2.seconds)
             clearState()
         }
     }
