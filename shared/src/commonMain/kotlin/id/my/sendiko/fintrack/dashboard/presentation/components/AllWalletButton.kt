@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedCard
@@ -16,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
-import fintrack.composeapp.generated.resources.add_wallets
 import fintrack.composeapp.generated.resources.all_wallets
 import id.my.sendiko.fintrack.theme.secondaryBlue
 import org.jetbrains.compose.resources.stringResource

@@ -3,8 +3,8 @@ package id.my.sendiko.fintrack.core.presentation.textfields
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,9 +31,9 @@ fun <T> DropdownMenu(
 
             DropdownMenuField(
                 modifier = Modifier.fillMaxWidth()
-                    .menuAnchor(MenuAnchorType.PrimaryNotEditable),
+                    .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
                 value = text,
-                onValueChange = {  },
+                onValueChange = { },
                 hint = hint,
                 expanded = isExpanding
             )
@@ -49,7 +49,7 @@ fun <T> DropdownMenu(
                             onChosen(it)
                             text = it.toString()
                             isExpanding = false
-                                  },
+                        },
                     )
                 }
             }

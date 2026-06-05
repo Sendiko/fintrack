@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.core.presentation.rupiah.toShortRupiah
 import id.my.sendiko.fintrack.theme.utilityWhite
 import id.my.sendiko.fintrack.theme.variantBrown

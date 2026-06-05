@@ -1,12 +1,15 @@
 package id.my.sendiko.fintrack.theme
 
 import android.app.Activity
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+@RequiresApi(Build.VERSION_CODES.CUPCAKE)
 @Composable
 actual fun FinTrackTheme(content: @Composable () -> Unit) {
     val view = LocalView.current

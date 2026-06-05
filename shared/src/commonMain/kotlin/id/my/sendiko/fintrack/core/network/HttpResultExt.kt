@@ -8,6 +8,7 @@ import io.ktor.client.network.sockets.SocketTimeoutException
 import io.ktor.client.statement.HttpResponse
 import io.ktor.serialization.JsonConvertException
 import io.ktor.util.network.UnresolvedAddressException
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.serialization.SerializationException
 import kotlin.coroutines.coroutineContext
@@ -26,7 +27,7 @@ suspend inline fun <reified T> safeCall(
     } catch (e: JsonConvertException) {
         return Result.Error(DataError.Remote.SERIALIZATION)
     } catch (e: Exception) {
-        coroutineContext.ensureActive()
+        currentCoroutineContext().ensureActive()
         return Result.Error(DataError.Remote.UNKNOWN)
     }
 
