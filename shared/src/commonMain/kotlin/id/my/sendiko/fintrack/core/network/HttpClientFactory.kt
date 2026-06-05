@@ -1,9 +1,11 @@
 package id.my.sendiko.fintrack.core.network
 
+import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
@@ -13,11 +15,15 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.serialization.json.Json
 
 object HttpClientFactory {
 
-    fun create(engine: HttpClientEngine): HttpClient {
+    fun create(
+        engine: HttpClientEngine,
+        preferences: PreferencesRepositoryImpl
+    ): HttpClient {
         return HttpClient(engine) {
             install(Logging) {
                 level = LogLevel.BODY
@@ -49,11 +55,15 @@ object HttpClientFactory {
             }
             install(Auth) {
                 bearer {
-                    // TODO: Load tokens
+                    loadTokens {
+                        val token = preferences.getToken().firstOrNull()
+                        if (!token.isNullOrBlank()) BearerTokens(token, "") else null
+                    }
                 }
             }
             defaultRequest {
                 contentType(ContentType.Application.Json)
+                url(BASE_URL)
             }
         }
     }

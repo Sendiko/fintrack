@@ -29,7 +29,7 @@ import org.koin.dsl.module
 expect val platformModule: Module
 
 val sharedModule = module {
-    single { HttpClientFactory.create(get()) }
+    single { HttpClientFactory.create(get(), get()) }
     singleOf(::KtorClient).bind<ApiService>()
     singleOf(::SplashRepositoryImpl)
     singleOf(::AuthRemoteDataSourceImpl).bind<AuthRemoteDataSource>()

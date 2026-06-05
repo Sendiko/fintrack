@@ -40,7 +40,7 @@ class DashboardViewModel(
     private fun fetchData() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
-            repository.getWallets(state.value.token)
+            repository.getWallets()
                 .onSuccess { result ->
                     val wallets = result.wallets.map { walletsItem ->
                         Wallet(
@@ -67,7 +67,7 @@ class DashboardViewModel(
                         )
                     }
                 }
-            repository.getCategories(state.value.token)
+            repository.getCategories()
                 .onSuccess { result ->
                     val categories = result.categories.map { category ->
                         Category(
@@ -107,7 +107,7 @@ class DashboardViewModel(
                         )
                     }
                 }
-            repository.getTransactions(state.value.token)
+            repository.getTransactions()
                 .onSuccess { result ->
                     val transactions = result.transactions
                     transactions.map { it ->

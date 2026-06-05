@@ -18,16 +18,16 @@ class DashboardRepository(
         return prefs.getToken()
     }
 
-    suspend fun getWallets(token: String): Result<GetWalletsResponse, DataError.Remote> {
-        return ktorClient.getWallets(token)
+    suspend fun getWallets(): Result<GetWalletsResponse, DataError.Remote> {
+        return ktorClient.getWallets()
     }
 
-    suspend fun getCategories(token: String): Result<GetCategoriesResponse, DataError.Remote> {
-        return ktorClient.getCategories(token)
+    suspend fun getCategories(): Result<GetCategoriesResponse, DataError.Remote> {
+        return ktorClient.getCategories()
     }
 
-    suspend fun getTransactions(token: String): Result<GetTransactionsResponse, DataError.Remote> {
-        return ktorClient.getTransactions(token)
+    suspend fun getTransactions(): Result<GetTransactionsResponse, DataError.Remote> {
+        return ktorClient.getTransactions()
     }
 
     fun getUserId(): Flow<String> {
