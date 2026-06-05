@@ -35,6 +35,8 @@
     <string name="register_hint_2">Don’t have an account? Register here!</string>
     <string name="forgot_password">Forgot password? Change here!</string>
     <string name="or">Or</string>
+    <string name="user_not_found">User not found.</string>
+    <string name="password_not_matched">Password not matched.</string>
 
     <!--  Strings for Change Password  -->
     <string name="dont_worry">Don't worry! Your</string>

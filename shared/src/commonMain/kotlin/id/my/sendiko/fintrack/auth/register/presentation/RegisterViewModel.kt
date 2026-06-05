@@ -2,15 +2,17 @@ package id.my.sendiko.fintrack.auth.register.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import id.my.sendiko.fintrack.auth.register.data.RegisterRepository
-import id.my.sendiko.fintrack.auth.register.data.dto.RegisterRequest
+import id.my.sendiko.fintrack.auth.register.domain.RegisterRepository
+import id.my.sendiko.fintrack.core.network.utils.DataError.Remote.BAD_REQUEST
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
 import id.my.sendiko.fintrack.core.presentation.errorToUiText
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 class RegisterViewModel(
     val repository: RegisterRepository,
@@ -30,25 +32,34 @@ class RegisterViewModel(
         }
     }
 
+    private suspend fun clearState() {
+        delay(2.seconds)
+        _state.update {
+            it.copy(
+                usernameError = "",
+                passwordError = "",
+                isLoading = false,
+                isSuccess = false,
+                isError = false,
+                message = ""
+            )
+        }
+    }
+
     private fun register() {
-        print("RegisterViewModel, register clicked.")
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
-            print("RegisterViewModel, register: ${state.value.isLoading}")
-            _state.update { it.copy(isLoading = false) }
-            print("RegisterViewModel, register: ${state.value.isLoading}")
-            val request = RegisterRequest(
+            repository.register(
                 name = state.value.username,
                 email = state.value.email,
                 password = state.value.password
             )
-            repository.register(request)
                 .onSuccess { result ->
                     _state.update {
                         it.copy(
                             isLoading = false,
                             isSuccess = true,
-                            message = "Hello, ${result.userItem.name}!"
+                            message = "Hello, ${result.name}!"
                         )
                     }
                 }
@@ -57,10 +68,14 @@ class RegisterViewModel(
                         it.copy(
                             isLoading = false,
                             isError = true,
-                            message = errorToUiText(error)
+                            message = when (error) {
+                                BAD_REQUEST -> "Email is already registered."
+                                else -> errorToUiText(error)
+                            }
                         )
                     }
                 }
+            clearState()
         }
     }
 

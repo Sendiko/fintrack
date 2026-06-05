@@ -1,5 +1,7 @@
-package id.my.sendiko.fintrack.auth.core.data
+package id.my.sendiko.fintrack.auth.core.data.dto
 
+import id.my.sendiko.fintrack.auth.core.domain.User
+import id.my.sendiko.fintrack.auth.login.domain.model.UserWithToken
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -26,4 +28,17 @@ data class UserItem(
 
 	@SerialName("updatedAt")
 	val updatedAt: String
-)
+) {
+
+	fun toDomain() = User(
+        userId = id,
+        name = name,
+        email = email
+    )
+
+	fun toDomainWithToken() = UserWithToken(
+        data = this.toDomain(),
+        token = token
+    )
+
+}
