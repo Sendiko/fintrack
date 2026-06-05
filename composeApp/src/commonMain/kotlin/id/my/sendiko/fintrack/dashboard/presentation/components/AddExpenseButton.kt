@@ -23,7 +23,7 @@ import id.my.sendiko.fintrack.theme.primaryOrange
 import id.my.sendiko.fintrack.theme.utilityWhite
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun AddExpenseButton(

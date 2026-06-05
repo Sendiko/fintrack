@@ -22,7 +22,7 @@ import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.theme.secondaryBlue
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun AddIncomeButton(
