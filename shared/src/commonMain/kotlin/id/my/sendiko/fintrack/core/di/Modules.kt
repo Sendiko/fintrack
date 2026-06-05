@@ -2,7 +2,10 @@ package id.my.sendiko.fintrack.core.di
 
 import id.my.sendiko.fintrack.auth.changepassword.data.ChangePasswordRepository
 import id.my.sendiko.fintrack.auth.changepassword.presentation.ChangePasswordViewModel
-import id.my.sendiko.fintrack.auth.login.data.LoginRepository
+import id.my.sendiko.fintrack.auth.core.data.datasource.AuthRemoteDataSource
+import id.my.sendiko.fintrack.auth.core.data.datasource.AuthRemoteDataSourceImpl
+import id.my.sendiko.fintrack.auth.login.data.LoginRepositoryImpl
+import id.my.sendiko.fintrack.auth.login.domain.LoginRepository
 import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.data.RegisterRepository
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
@@ -29,7 +32,8 @@ val sharedModule = module {
     singleOf(::KtorClient).bind<ApiService>()
     singleOf(::SplashRepositoryImpl)
     singleOf(::RegisterRepository)
-    singleOf(::LoginRepository)
+    singleOf(::AuthRemoteDataSourceImpl).bind<AuthRemoteDataSource>()
+    singleOf(::LoginRepositoryImpl).bind<LoginRepository>()
     singleOf(::ChangePasswordRepository)
     singleOf(::ChangePasswordRepository)
     singleOf(::DashboardRepository)
