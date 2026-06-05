@@ -2,20 +2,15 @@ package id.my.sendiko.fintrack.auth.login.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fintrack.composeapp.generated.resources.Res
-import fintrack.composeapp.generated.resources.password_not_matched
-import fintrack.composeapp.generated.resources.user_not_found
 import id.my.sendiko.fintrack.auth.login.domain.LoginRepository
-import id.my.sendiko.fintrack.core.network.utils.DataError.Remote.*
+import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
-import id.my.sendiko.fintrack.core.presentation.errorToUiText
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.getString
 import kotlin.time.Duration.Companion.seconds
 
 class LoginViewModel(
@@ -36,14 +31,16 @@ class LoginViewModel(
 
     private suspend fun clearState() {
         delay(2.seconds)
-        _state.update { it.copy(
-            usernameError = "",
-            passwordError = "",
-            isLoading = false,
-            isSuccess = false,
-            isError = false,
-            message = ""
-        ) }
+        _state.update {
+            it.copy(
+                usernameError = "",
+                passwordError = "",
+                isLoading = false,
+                isSuccess = false,
+                isError = false,
+                message = ""
+            )
+        }
     }
 
     fun changeUsername(username: String) {
@@ -85,11 +82,7 @@ class LoginViewModel(
                     it.copy(
                         isLoading = false,
                         isError = true,
-                        message = when (error) {
-                            NOT_FOUND -> getString(Res.string.user_not_found)
-                            UNAUTHORIZED -> getString(Res.string.password_not_matched)
-                            else -> errorToUiText(error)
-                        }
+                        message = error.asUiText().asString()
                     )
                 }
             }
