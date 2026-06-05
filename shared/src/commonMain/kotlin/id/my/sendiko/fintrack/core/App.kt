@@ -2,12 +2,10 @@ package id.my.sendiko.fintrack.core
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -33,7 +31,6 @@ import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletScreen
 import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletViewModel
 import id.my.sendiko.fintrack.wallet.list.presentation.WalletListScreen
 import id.my.sendiko.fintrack.wallet.list.presentation.WalletListViewModel
-import androidx.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -109,7 +106,7 @@ fun App() {
                     onNavigate = { navController.navigate(it) }
                 )
             }
-            composable<DashboardDestination>{
+            composable<DashboardDestination> {
                 val viewModel = koinViewModel<DashboardViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
