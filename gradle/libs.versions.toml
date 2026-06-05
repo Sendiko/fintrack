@@ -1,23 +1,26 @@
 [versions]
-agp = "8.7.3"
-android-compileSdk = "35"
+agp = "9.0.1"
+android-compileSdk = "36"
 android-minSdk = "24"
-android-targetSdk = "35"
-androidx-activity = "1.10.1"
+android-targetSdk = "36"
+androidx-activity = "1.13.0"
 androidx-appcompat = "1.7.1"
+androidx-core = "1.19.0"
 androidx-constraintlayout = "2.2.1"
-androidx-core = "1.16.0"
-androidx-espresso = "3.6.1"
-androidx-lifecycle = "2.9.0"
-androidx-testExt = "1.2.1"
-composeMultiplatform = "1.8.2"
+androidx-espresso = "3.7.0"
+androidx-lifecycle = "2.11.0-beta01"
+androidx-testExt = "1.3.0"
+composeMultiplatform = "1.11.1"
 junit = "4.13.2"
-kotlin = "2.1.21"
-navigationCompose = "2.9.0-beta04"
-datastore = "1.1.7"
-kotlinxSerializationJson = "1.8.1"
-koin = "4.1.0"
-ktor = "3.1.0"
+kotlin = "2.3.21"
+navigationCompose = "2.9.2"
+datastore = "1.2.1"
+kotlinxSerializationJson = "1.11.0"
+koin = "4.2.1"
+ktor = "3.5.0"
+material = "1.14.0"
+materialIconsExtended = "1.7.3"
+material3 = "1.11.0-alpha07"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -32,6 +35,16 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 navigation-compose = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+
+# Core Compose Libraries
+compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatform" }
+compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "composeMultiplatform" }
+compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
+compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
+compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
+compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatform" }
+compose-materialIconsExtended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+
 # Data store
 datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
 datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
@@ -54,6 +67,7 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -62,12 +76,5 @@ composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMul
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-
-[bundles]
-ktor = [
-    "ktor-client-core",
-    "ktor-client-content-negotiation",
-    "ktor-client-auth",
-    "ktor-client-logging",
-    "ktor-serialization-kotlinx-json",
-]
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
