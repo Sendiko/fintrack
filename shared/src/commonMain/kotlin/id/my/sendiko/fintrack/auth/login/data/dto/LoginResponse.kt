@@ -1,6 +1,6 @@
 package id.my.sendiko.fintrack.auth.login.data.dto
 
-import id.my.sendiko.fintrack.auth.core.data.UserItem
+import id.my.sendiko.fintrack.auth.core.data.dto.UserItem
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
