@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack
+package id.my.sendiko.fintrack.androidapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

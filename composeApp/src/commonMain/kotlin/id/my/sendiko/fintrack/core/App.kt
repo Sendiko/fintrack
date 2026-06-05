@@ -33,7 +33,7 @@ import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletScreen
 import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletViewModel
 import id.my.sendiko.fintrack.wallet.list.presentation.WalletListScreen
 import id.my.sendiko.fintrack.wallet.list.presentation.WalletListViewModel
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

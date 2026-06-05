@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.theme.aliceBlue
 import id.my.sendiko.fintrack.theme.utilityBlack
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun NumericKeyboardButton(
