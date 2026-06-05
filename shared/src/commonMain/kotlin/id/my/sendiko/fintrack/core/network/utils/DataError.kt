@@ -1,17 +1,20 @@
 package id.my.sendiko.fintrack.core.network.utils
 
 sealed interface DataError : Error {
-    enum class Remote : DataError {
-        REQUEST_TIMEOUT,
-        TOO_MANY_REQUESTS,
-        NO_INTERNET,
-        SERVER,
-        SERIALIZATION,
-        UNKNOWN,
-        NOT_FOUND,
-        BAD_REQUEST,
+    sealed interface Remote : DataError {
+        data object RequestTimeout: Remote
+        data object TooManyRequests: Remote
+        data object NoInternet: Remote
+        data object ServerError: Remote
+        data object Serialization: Remote
+        data object Unknown: Remote
+        data object NotFound: Remote
+        data object BadRequest: Remote
+        data object Unauthorized: Remote
+        data object Forbidden: Remote
+        data object Conflict: Remote
 
-        UNAUTHORIZED
+        data class ApiErrorMessage(val message: String) : Remote
     }
 
     enum class Local : DataError {

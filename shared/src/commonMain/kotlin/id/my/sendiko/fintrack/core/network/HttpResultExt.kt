@@ -1,9 +1,11 @@
 package id.my.sendiko.fintrack.core.network
 
+import id.my.sendiko.fintrack.core.network.utils.ApiErrorResponse
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
+import io.ktor.client.network.sockets.ConnectTimeoutException
 import io.ktor.client.network.sockets.SocketTimeoutException
 import io.ktor.client.statement.HttpResponse
 import io.ktor.serialization.JsonConvertException
@@ -11,7 +13,6 @@ import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.serialization.SerializationException
-import kotlin.coroutines.coroutineContext
 
 suspend inline fun <reified T> safeCall(
     execute: () -> HttpResponse
@@ -19,16 +20,24 @@ suspend inline fun <reified T> safeCall(
     val response = try {
         execute()
     } catch (e: SocketTimeoutException) {
-        return Result.Error(DataError.Remote.REQUEST_TIMEOUT)
+        e.printStackTrace()
+        return Result.Error(DataError.Remote.RequestTimeout)
     } catch (e: UnresolvedAddressException) {
-        return Result.Error(DataError.Remote.NO_INTERNET)
+        e.printStackTrace()
+        return Result.Error(DataError.Remote.NoInternet)
     } catch (e: SerializationException) {
-        return Result.Error(DataError.Remote.SERIALIZATION)
+        e.printStackTrace()
+        return Result.Error(DataError.Remote.Serialization)
     } catch (e: JsonConvertException) {
-        return Result.Error(DataError.Remote.SERIALIZATION)
+        e.printStackTrace()
+        return Result.Error(DataError.Remote.Serialization)
+    } catch (e: ConnectTimeoutException) {
+        e.printStackTrace()
+        return Result.Error(DataError.Remote.NoInternet)
     } catch (e: Exception) {
         currentCoroutineContext().ensureActive()
-        return Result.Error(DataError.Remote.UNKNOWN)
+        e.printStackTrace()
+        return Result.Error(DataError.Remote.Unknown)
     }
 
     return responseToResult(response)
@@ -42,16 +51,31 @@ suspend inline fun <reified T> responseToResult(
             try {
                 Result.Success(response.body<T>())
             } catch (e: NoTransformationFoundException) {
-                Result.Error(DataError.Remote.SERIALIZATION)
+                e.printStackTrace()
+                Result.Error(DataError.Remote.Serialization)
             }
         }
+        else -> Result.Error(parseError(response, response.status.value))
+    }
+}
 
-        400 -> Result.Error(DataError.Remote.BAD_REQUEST)
-        401 -> Result.Error(DataError.Remote.UNAUTHORIZED)
-        404 -> Result.Error(DataError.Remote.NOT_FOUND)
-        408 -> Result.Error(DataError.Remote.REQUEST_TIMEOUT)
-        429 -> Result.Error(DataError.Remote.TOO_MANY_REQUESTS)
-        in 500..599 -> Result.Error(DataError.Remote.SERVER)
-        else -> Result.Error(DataError.Remote.UNKNOWN)
+suspend fun parseError(response: HttpResponse, fallback: Int): DataError.Remote {
+    return try {
+        val errorResponse = response.body<ApiErrorResponse>()
+
+        DataError.Remote.ApiErrorMessage(errorResponse.message)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        when (fallback) {
+            400 -> DataError.Remote.BadRequest
+            401 -> DataError.Remote.Unauthorized
+            403 -> DataError.Remote.Forbidden
+            404 -> DataError.Remote.NotFound
+            408 -> DataError.Remote.RequestTimeout
+            409 -> DataError.Remote.Conflict
+            429 -> DataError.Remote.TooManyRequests
+            in 500..599 -> DataError.Remote.ServerError
+            else -> DataError.Remote.Unknown
+        }
     }
 }
