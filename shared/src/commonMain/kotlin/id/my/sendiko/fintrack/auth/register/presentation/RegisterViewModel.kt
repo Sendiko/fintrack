@@ -2,9 +2,8 @@ package id.my.sendiko.fintrack.auth.register.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import id.my.sendiko.fintrack.auth.register.data.dto.RegisterRequest
 import id.my.sendiko.fintrack.auth.register.domain.RegisterRepository
-import id.my.sendiko.fintrack.core.network.utils.DataError.Remote.*
+import id.my.sendiko.fintrack.core.network.utils.DataError.Remote.BAD_REQUEST
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
 import id.my.sendiko.fintrack.core.presentation.errorToUiText
@@ -35,14 +34,16 @@ class RegisterViewModel(
 
     private suspend fun clearState() {
         delay(2.seconds)
-        _state.update { it.copy(
-            usernameError = "",
-            passwordError = "",
-            isLoading = false,
-            isSuccess = false,
-            isError = false,
-            message = ""
-        ) }
+        _state.update {
+            it.copy(
+                usernameError = "",
+                passwordError = "",
+                isLoading = false,
+                isSuccess = false,
+                isError = false,
+                message = ""
+            )
+        }
     }
 
     private fun register() {
