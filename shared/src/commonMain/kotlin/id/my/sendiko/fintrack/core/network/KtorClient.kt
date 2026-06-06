@@ -15,21 +15,20 @@ import id.my.sendiko.fintrack.wallet.core.data.dto.getdetails.GetWalletsResponse
 import id.my.sendiko.fintrack.wallet.create.data.PostWalletRequest
 import id.my.sendiko.fintrack.wallet.create.data.PostWalletResponse
 import io.ktor.client.HttpClient
-import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
 import io.ktor.client.request.put
 import io.ktor.client.request.setBody
 
-const val BASE_URL = "https://fintrack.sendiko.my.id"
+const val BASE_URL = "https://fintrack.sendiko.my.id/"
 
 class KtorClient(
     private val client: HttpClient
-): ApiService {
+) : ApiService {
     override suspend fun register(request: RegisterRequest): Result<RegisterResponse, DataError.Remote> {
         return safeCall<RegisterResponse> {
-            client.post("$BASE_URL/register") {
+            client.post("register") {
                 setBody(request)
             }
         }
@@ -37,7 +36,7 @@ class KtorClient(
 
     override suspend fun login(request: LoginRequest): Result<LoginResponse, DataError.Remote> {
         return safeCall<LoginResponse> {
-            client.post("$BASE_URL/login") {
+            client.post("login") {
                 setBody(request)
             }
         }
@@ -45,51 +44,44 @@ class KtorClient(
 
     override suspend fun searchUser(email: String): Result<SearchUserResponse, DataError.Remote> {
         return safeCall<SearchUserResponse> {
-            client.get("$BASE_URL/users") {
+            client.get("users") {
                 parameter("email", email)
             }
         }
     }
 
-    override suspend fun updatePassword(userId: String, request: ChangePasswordRequest): Result<ChangePasswordResponse, DataError.Remote> {
+    override suspend fun updatePassword(
+        userId: String,
+        request: ChangePasswordRequest
+    ): Result<ChangePasswordResponse, DataError.Remote> {
         return safeCall<ChangePasswordResponse> {
-            client.put("$BASE_URL/user/change-password/$userId") {
+            client.put("user/change-password/$userId") {
                 setBody(request)
             }
         }
     }
 
-    override suspend fun getWallets(token: String): Result<GetWalletsResponse, DataError.Remote> {
+    override suspend fun getWallets(): Result<GetWalletsResponse, DataError.Remote> {
         return safeCall<GetWalletsResponse> {
-            client.get("$BASE_URL/wallets") {
-                bearerAuth(token)
-            }
+            client.get("wallets")
         }
     }
 
-    override suspend fun getCategories(token: String): Result<GetCategoriesResponse, DataError.Remote> {
+    override suspend fun getCategories(): Result<GetCategoriesResponse, DataError.Remote> {
         return safeCall<GetCategoriesResponse> {
-            client.get("$BASE_URL/categories") {
-                bearerAuth(token)
-            }
+            client.get("categories")
         }
     }
 
-    override suspend fun getTransactions(token: String): Result<GetTransactionsResponse, DataError.Remote> {
+    override suspend fun getTransactions(): Result<GetTransactionsResponse, DataError.Remote> {
         return safeCall<GetTransactionsResponse> {
-            client.get("$BASE_URL/transactions") {
-                bearerAuth(token)
-            }
+            client.get("transactions")
         }
     }
 
-    override suspend fun postWallet(
-        token: String,
-        request: PostWalletRequest
-    ): Result<PostWalletResponse, DataError.Remote> {
+    override suspend fun postWallet(request: PostWalletRequest): Result<PostWalletResponse, DataError.Remote> {
         return safeCall<PostWalletResponse> {
-            client.post("$BASE_URL/wallets") {
-                bearerAuth(token)
+            client.post("wallets") {
                 setBody(request)
             }
         }

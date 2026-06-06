@@ -39,7 +39,7 @@ class WalletListViewModel(
     private fun loadData() {
         _state.update { it.copy(isLoading = true) }
         viewModelScope.launch {
-            repository.getWallets(state.value.token)
+            repository.getWallets()
                 .onSuccess { result ->
                     val wallets = result.wallets.map { walletItem ->
                         Wallet(

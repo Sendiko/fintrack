@@ -42,7 +42,6 @@ class CreateWalletViewModel(
         _state.update { it.copy(isLoading = true) }
         viewModelScope.launch {
             val userId = state.value.userId
-            val token = state.value.token
             val wallet = Wallet(
                 id = "",
                 name = state.value.name,
@@ -52,7 +51,7 @@ class CreateWalletViewModel(
                 number = state.value.number
             )
             repository
-                .createWallet(token, userId, wallet)
+                .createWallet(userId, wallet)
                 .onSuccess { result ->
                     _state.update {
                         it.copy(

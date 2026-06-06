@@ -15,11 +15,11 @@ class WalletRepository(
     val prefs: PreferencesRepositoryImpl
 ) {
 
-    suspend fun getWallets(token: String): Result<GetWalletsResponse, DataError.Remote> {
-        return ktorClient.getWallets(token)
+    suspend fun getWallets(): Result<GetWalletsResponse, DataError.Remote> {
+        return ktorClient.getWallets()
     }
 
-    suspend fun createWallet(token: String, userId: String, wallet: Wallet): Result<PostWalletResponse, DataError.Remote> {
+    suspend fun createWallet(userId: String, wallet: Wallet): Result<PostWalletResponse, DataError.Remote> {
         val request = PostWalletRequest(
             balance = wallet.amount,
             purpose = wallet.purpose,
@@ -27,7 +27,7 @@ class WalletRepository(
             type = wallet.type,
             userId = userId,
         )
-        return ktorClient.postWallet(token, request)
+        return ktorClient.postWallet(request)
     }
 
     fun getUserId(): Flow<String> {

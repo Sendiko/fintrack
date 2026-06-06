@@ -25,11 +25,11 @@ interface ApiService {
 
     suspend fun updatePassword(userId: String, request: ChangePasswordRequest): Result<ChangePasswordResponse, DataError.Remote>
 
-    suspend fun getWallets(token: String): Result<GetWalletsResponse, DataError.Remote>
+    suspend fun getWallets(): Result<GetWalletsResponse, DataError.Remote>
 
-    suspend fun getCategories(token: String): Result<GetCategoriesResponse, DataError.Remote>
+    suspend fun getCategories(): Result<GetCategoriesResponse, DataError.Remote>
 
-    suspend fun getTransactions(token: String): Result<GetTransactionsResponse, DataError.Remote>
+    suspend fun getTransactions(): Result<GetTransactionsResponse, DataError.Remote>
 
-    suspend fun postWallet(token: String, request: PostWalletRequest): Result<PostWalletResponse, DataError.Remote>
+    suspend fun postWallet(request: PostWalletRequest): Result<PostWalletResponse, DataError.Remote>
 }
