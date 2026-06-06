@@ -2,17 +2,22 @@ package id.my.sendiko.fintrack.wallet.create.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import fintrack.composeapp.generated.resources.Res
+import fintrack.composeapp.generated.resources.create_wallet_success_message
 import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
-import id.my.sendiko.fintrack.wallet.core.data.WalletRepository
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
+import id.my.sendiko.fintrack.wallet.core.domain.WalletRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.getString
+import kotlin.time.Duration.Companion.seconds
 
 class CreateWalletViewModel(
     private val repository: WalletRepository
@@ -38,6 +43,18 @@ class CreateWalletViewModel(
         }
     }
 
+    private suspend fun clearState() {
+        delay(2.seconds)
+        _state.update {
+            it.copy(
+                isLoading = false,
+                isSuccess = false,
+                isError = false,
+                message = ""
+            )
+        }
+    }
+
     private fun postWallet() {
         _state.update { it.copy(isLoading = true) }
         viewModelScope.launch {
@@ -52,12 +69,12 @@ class CreateWalletViewModel(
             )
             repository
                 .createWallet(userId, wallet)
-                .onSuccess { result ->
+                .onSuccess {
                     _state.update {
                         it.copy(
-                            message = result.message,
+                            message = getString(Res.string.create_wallet_success_message),
                             isLoading = false,
-                            success = true
+                            isSuccess = true
                         )
                     }
                 }
@@ -66,10 +83,11 @@ class CreateWalletViewModel(
                         it.copy(
                             message = error.asUiText().asString(),
                             isLoading = false,
-                            error = true
+                            isError = true
                         )
                     }
                 }
+            clearState()
         }
     }
 
