@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.wallet.create.data
+package id.my.sendiko.fintrack.wallet.core.data.dto.post
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
