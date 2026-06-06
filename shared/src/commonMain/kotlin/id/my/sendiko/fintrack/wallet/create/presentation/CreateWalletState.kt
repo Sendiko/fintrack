@@ -15,6 +15,6 @@ data class CreateWalletState(
     val walletTypeList: List<WalletType> = WalletType.entries,
     val dropdownExpanding: Boolean = false,
     val number: String = "",
-    val success: Boolean = false,
-    val error: Boolean = false
+    val isSuccess: Boolean = false,
+    val isError: Boolean = false
 )

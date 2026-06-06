@@ -5,17 +5,19 @@ import androidx.lifecycle.viewModelScope
 import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
-import id.my.sendiko.fintrack.wallet.core.data.WalletRepository
+import id.my.sendiko.fintrack.wallet.core.data.WalletRepositoryImpl
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 class WalletListViewModel(
-    private val repository: WalletRepository
+    private val repository: WalletRepositoryImpl
 ) : ViewModel() {
 
     private val _token = repository.getToken()
@@ -32,6 +34,16 @@ class WalletListViewModel(
         }
     }
 
+    private suspend fun clearState() {
+        delay(2.seconds)
+        _state.update {
+            it.copy(
+                isLoading = false,
+                message = ""
+            )
+        }
+    }
+
     private fun changeBalanceView(visible: Boolean) {
         _state.update { it.copy(balanceVisible = visible) }
     }
@@ -41,19 +53,9 @@ class WalletListViewModel(
         viewModelScope.launch {
             repository.getWallets()
                 .onSuccess { result ->
-                    val wallets = result.wallets.map { walletItem ->
-                        Wallet(
-                            id = walletItem.id,
-                            name = walletItem.name,
-                            purpose = walletItem.purpose,
-                            type = walletItem.type,
-                            amount = walletItem.balance.toDouble(),
-                            number = walletItem.walletNumber ?: ""
-                        )
-                    }
                     _state.update {
                         it.copy(
-                            wallets = wallets,
+                            wallets = result,
                             isLoading = false
                         )
                     }

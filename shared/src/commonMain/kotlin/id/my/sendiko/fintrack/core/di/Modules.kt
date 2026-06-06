@@ -18,7 +18,10 @@ import id.my.sendiko.fintrack.dashboard.data.DashboardRepository
 import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.data.SplashRepositoryImpl
 import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
-import id.my.sendiko.fintrack.wallet.core.data.WalletRepository
+import id.my.sendiko.fintrack.wallet.core.data.WalletRepositoryImpl
+import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSource
+import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSourceImpl
+import id.my.sendiko.fintrack.wallet.core.domain.WalletRepository
 import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletViewModel
 import id.my.sendiko.fintrack.wallet.list.presentation.WalletListViewModel
 import org.koin.core.module.Module
@@ -38,7 +41,8 @@ val sharedModule = module {
     singleOf(::ChangePasswordRepository)
     singleOf(::ChangePasswordRepository)
     singleOf(::DashboardRepository)
-    singleOf(::WalletRepository)
+    singleOf(::WalletDataSourceImpl).bind<WalletDataSource>()
+    singleOf(::WalletRepositoryImpl).bind<WalletRepository>()
 
     factory { PreferencesRepositoryImpl(get()) }
     factory { SplashRepositoryImpl(get()) }
