@@ -10,11 +10,13 @@ import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.data.RegisterRepositoryImpl
 import id.my.sendiko.fintrack.auth.register.domain.RegisterRepository
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
+import id.my.sendiko.fintrack.category.data.datasource.CategoryDataSource
+import id.my.sendiko.fintrack.category.data.datasource.CategoryDataSourceImpl
 import id.my.sendiko.fintrack.core.network.ApiService
 import id.my.sendiko.fintrack.core.network.HttpClientFactory
 import id.my.sendiko.fintrack.core.network.KtorClient
 import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
-import id.my.sendiko.fintrack.dashboard.data.DashboardRepository
+import id.my.sendiko.fintrack.dashboard.data.DashboardRepositoryImpl
 import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.data.SplashRepositoryImpl
 import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
@@ -40,9 +42,10 @@ val sharedModule = module {
     singleOf(::LoginRepositoryImpl).bind<LoginRepository>()
     singleOf(::ChangePasswordRepository)
     singleOf(::ChangePasswordRepository)
-    singleOf(::DashboardRepository)
+    singleOf(::DashboardRepositoryImpl)
     singleOf(::WalletDataSourceImpl).bind<WalletDataSource>()
     singleOf(::WalletRepositoryImpl).bind<WalletRepository>()
+    singleOf(::CategoryDataSourceImpl).bind<CategoryDataSource>()
 
     factory { PreferencesRepositoryImpl(get()) }
     factory { SplashRepositoryImpl(get()) }
