@@ -6,7 +6,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserItem(
+data class UserDto(
 
 	@SerialName("createdAt")
 	val createdAt: String,

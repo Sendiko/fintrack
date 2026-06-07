@@ -5,7 +5,7 @@ import id.my.sendiko.fintrack.core.network.KtorClient
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
-import id.my.sendiko.fintrack.transaction.data.GetTransactionsResponse
+import id.my.sendiko.fintrack.transaction.data.dto.GetTransactionsResponse
 import id.my.sendiko.fintrack.wallet.core.data.dto.getdetails.GetWalletsResponse
 import kotlinx.coroutines.flow.Flow
 

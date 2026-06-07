@@ -1,11 +1,12 @@
-package id.my.sendiko.fintrack.wallet.core.data.dto.post
+package id.my.sendiko.fintrack.wallet.core.data.dto
 
+import id.my.sendiko.fintrack.transaction.data.dto.TransactionsDto
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PostWalletItem(
+data class WalletDtoWithTransaction(
 
     @SerialName("createdAt")
     val createdAt: String,
@@ -25,8 +26,14 @@ data class PostWalletItem(
     @SerialName("type")
     val type: String,
 
+    @SerialName("transactions")
+    val transactions: List<TransactionsDto>,
+
     @SerialName("userId")
     val userId: String,
+
+    @SerialName("walletNumber")
+    val walletNumber: String?,
 
     @SerialName("updatedAt")
     val updatedAt: String
@@ -38,6 +45,6 @@ data class PostWalletItem(
         purpose = purpose,
         type = type,
         amount = balance.toDouble(),
-        number = ""
+        number = walletNumber ?: ""
     )
 }

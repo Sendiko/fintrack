@@ -1,10 +1,10 @@
-package id.my.sendiko.fintrack.wallet.core.data.dto.getdetails
+package id.my.sendiko.fintrack.transaction.data.dto
 
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
-data class TransactionsItem(
+data class TransactionsDto(
 
 	@SerialName("walletId")
 	val walletId: String,

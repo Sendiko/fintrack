@@ -19,7 +19,7 @@ class LoginRepositoryImpl(
     ): Result<UserWithToken, DataError.Remote> {
         val request = LoginRequest(name = username, password = password)
         return when (val response = remoteDataSource.login(request)) {
-            is Result.Success -> Result.Success(response.data.userItem.toDomainWithToken())
+            is Result.Success -> Result.Success(response.data.userDto.toDomainWithToken())
             is Result.Error -> Result.Error(response.error)
         }
     }

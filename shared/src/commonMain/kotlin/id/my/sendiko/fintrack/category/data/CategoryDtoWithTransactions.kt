@@ -1,22 +1,14 @@
 package id.my.sendiko.fintrack.category.data
 
+import id.my.sendiko.fintrack.transaction.data.dto.TransactionsDto
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 @Serializable
-data class TransactionsItem(
-
-	@SerialName("walletId")
-	val walletId: String,
+data class CategoryDtoWithTransactions(
 
 	@SerialName("createdAt")
 	val createdAt: String,
-
-	@SerialName("amount")
-	val amount: Int,
-
-	@SerialName("deletedAt")
-	val deletedAt: String?,
 
 	@SerialName("name")
 	val name: String,
@@ -24,14 +16,11 @@ data class TransactionsItem(
 	@SerialName("id")
 	val id: String,
 
-	@SerialName("type")
-	val type: String,
+	@SerialName("transactions")
+	val transactions: List<TransactionsDto>,
 
 	@SerialName("userId")
 	val userId: String,
-
-	@SerialName("categoryId")
-	val categoryId: String,
 
 	@SerialName("updatedAt")
 	val updatedAt: String
