@@ -1,15 +1,12 @@
 package id.my.sendiko.fintrack.dashboard.data
 
 import id.my.sendiko.fintrack.category.data.datasource.CategoryDataSource
-import id.my.sendiko.fintrack.category.data.dto.GetCategoriesResponse
-import id.my.sendiko.fintrack.category.domain.Category
 import id.my.sendiko.fintrack.category.domain.CategoryWithTransactions
 import id.my.sendiko.fintrack.core.network.KtorClient
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
 import id.my.sendiko.fintrack.dashboard.domain.DashboardRepository
-import id.my.sendiko.fintrack.transaction.data.dto.GetTransactionsResponse
 import id.my.sendiko.fintrack.transaction.domain.Transaction
 import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSource
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet

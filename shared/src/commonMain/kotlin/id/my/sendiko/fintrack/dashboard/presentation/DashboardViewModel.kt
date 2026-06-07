@@ -2,13 +2,11 @@ package id.my.sendiko.fintrack.dashboard.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import id.my.sendiko.fintrack.category.domain.Category
 import id.my.sendiko.fintrack.category.domain.TopCategory
 import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
 import id.my.sendiko.fintrack.dashboard.data.DashboardRepositoryImpl
-import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine

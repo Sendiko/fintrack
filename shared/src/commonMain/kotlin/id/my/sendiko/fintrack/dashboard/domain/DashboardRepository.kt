@@ -1,6 +1,5 @@
 package id.my.sendiko.fintrack.dashboard.domain
 
-import id.my.sendiko.fintrack.category.domain.Category
 import id.my.sendiko.fintrack.category.domain.CategoryWithTransactions
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
