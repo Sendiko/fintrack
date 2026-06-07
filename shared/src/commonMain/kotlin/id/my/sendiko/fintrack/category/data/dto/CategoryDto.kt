@@ -1,11 +1,10 @@
-package id.my.sendiko.fintrack.category.data
+package id.my.sendiko.fintrack.category.data.dto
 
-import id.my.sendiko.fintrack.transaction.data.dto.TransactionsDto
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
-data class CategoryDtoWithTransactions(
+data class CategoryDto(
 
 	@SerialName("createdAt")
 	val createdAt: String,
@@ -15,9 +14,6 @@ data class CategoryDtoWithTransactions(
 
 	@SerialName("id")
 	val id: String,
-
-	@SerialName("transactions")
-	val transactions: List<TransactionsDto>,
 
 	@SerialName("userId")
 	val userId: String,

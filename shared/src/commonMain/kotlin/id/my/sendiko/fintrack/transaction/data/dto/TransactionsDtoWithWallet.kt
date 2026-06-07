@@ -1,6 +1,6 @@
 package id.my.sendiko.fintrack.transaction.data.dto
 
-import id.my.sendiko.fintrack.category.data.CategoryDto
+import id.my.sendiko.fintrack.category.data.dto.CategoryDto
 import id.my.sendiko.fintrack.wallet.core.data.dto.WalletDto
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
