@@ -1,6 +1,8 @@
 package id.my.sendiko.fintrack.transaction.data.dto
 
 import id.my.sendiko.fintrack.category.data.dto.CategoryDto
+import id.my.sendiko.fintrack.transaction.domain.Transaction
+import id.my.sendiko.fintrack.transaction.domain.TransactionType
 import id.my.sendiko.fintrack.wallet.core.data.dto.WalletDto
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
@@ -43,4 +45,14 @@ data class TransactionsDtoWithWallet(
 
 	@SerialName("updatedAt")
 	val updatedAt: String
-)
+) {
+	fun toDomain() = Transaction(
+        id = id,
+        name = name,
+        amount = amount.toFloat(),
+        type = TransactionType.valueOf(type.uppercase()),
+        categoryId = categoryId,
+        userId = userId,
+        walletId = walletId
+    )
+}

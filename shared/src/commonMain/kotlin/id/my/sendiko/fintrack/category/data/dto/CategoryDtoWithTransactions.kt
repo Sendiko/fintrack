@@ -1,5 +1,7 @@
 package id.my.sendiko.fintrack.category.data.dto
 
+import id.my.sendiko.fintrack.category.domain.Category
+import id.my.sendiko.fintrack.category.domain.CategoryWithTransactions
 import id.my.sendiko.fintrack.transaction.data.dto.TransactionsDto
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
@@ -24,4 +26,14 @@ data class CategoryDtoWithTransactions(
 
 	@SerialName("updatedAt")
 	val updatedAt: String
-)
+) {
+	fun toDomain() = Category(
+        id = id,
+        name = name
+    )
+
+	fun toDomainWithTransaction() = CategoryWithTransactions(
+        category = this.toDomain(),
+        transactions = this.transactions.map { it.toDomain() }
+    )
+}
