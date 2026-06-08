@@ -17,9 +17,6 @@ data class TransactionsDto(
 	@SerialName("amount")
 	val amount: Int,
 
-	@SerialName("deletedAt")
-	val deletedAt: String?,
-
 	@SerialName("name")
 	val name: String,
 
