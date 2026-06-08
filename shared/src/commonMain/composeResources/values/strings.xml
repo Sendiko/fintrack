@@ -77,6 +77,7 @@
     <string name="empty_wallet">You have no wallet \nLet's create one!</string>
     <string name="empty_category">You have no category \nLet's create one!</string>
     <string name="empty_transaction">You have no transaction \nLet's create one!</string>
+    <string name="see_more_transaction">See more transaction</string>
 
     <!--  Strings for Create Wallet  -->
     <string name="create_wallet_title">Create New Wallet</string>
@@ -98,6 +99,7 @@
 
     <!--  Strings for Create Transaction  -->
     <string name="create_income_title">Record Your Income</string>
+    <string name="create_expense_title">Record Your Expense</string>
     <string name="choose_wallet_label">Choose wallet</string>
     <string name="choose_wallet_hint">Choose one of your wallet</string>
     <string name="choose_wallet_error">Please choose a wallet.</string>
@@ -105,7 +107,9 @@
     <string name="choose_category_hint">Choose one of your category</string>
     <string name="choose_category_error">Please choose a category.</string>
     <string name="set_income_name_label">What's this income?</string>
+    <string name="set_expense_name_label">What's this expense?</string>
     <string name="set_income_name_hint">The source of this income.</string>
+    <string name="set_expense_name_hint">Food, Printing, etc.</string>
     <string name="set_name_error">Set a name for this transaction.</string>
     <string name="set_amount_label">Amount</string>
     <string name="set_amount_error">Set the amount for this transaction.</string>
