@@ -1,18 +1,17 @@
 package id.my.sendiko.fintrack.auth.register.data.dto
 
-import id.my.sendiko.fintrack.auth.core.data.dto.UserDto
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class RegisterResponse(
 
     @SerialName("message")
-	val message: String,
+    val message: String,
 
     @SerialName("user")
-	val userDto: UserDto,
+    val userDto: UserDtoWithoutToken,
 
     @SerialName("status")
-	val status: Int
+    val status: Int
 )

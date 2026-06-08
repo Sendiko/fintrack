@@ -53,14 +53,14 @@ fun WalletCard(
                 .padding(16.dp)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = wallet.name
+                    text = wallet.name,
+                    style = MaterialTheme.typography.labelLarge
                 )
                 Text(
                     text = wallet.number.takeLast(4),
@@ -91,7 +91,7 @@ fun WalletCard(
     }
 }
 
-@Preview()
+@Preview
 @Composable
 private fun WalletCardPreview() {
     FinTrackTheme {
