@@ -1,11 +1,7 @@
 package id.my.sendiko.fintrack.dashboard.presentation
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -17,43 +13,36 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
-import fintrack.composeapp.generated.resources.recet_transaction
-import fintrack.composeapp.generated.resources.settings
+import fintrack.composeapp.generated.resources.empty_category
+import fintrack.composeapp.generated.resources.empty_transaction
+import fintrack.composeapp.generated.resources.empty_wallet
+import fintrack.composeapp.generated.resources.recent_transaction
 import fintrack.composeapp.generated.resources.top_category
-import fintrack.composeapp.generated.resources.total_balance
 import fintrack.composeapp.generated.resources.wallets
 import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
 import id.my.sendiko.fintrack.core.navigation.WalletListDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
-import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddExpenseButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddIncomeButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddWalletButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AllWalletButton
+import id.my.sendiko.fintrack.dashboard.presentation.components.DashboardTopBar
 import id.my.sendiko.fintrack.dashboard.presentation.components.TopCategoryCard
-import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionListItem
+import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionsCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
 import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.theme.aliceBlue
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DashboardScreen(
@@ -78,34 +67,9 @@ fun DashboardScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 item {
-                    Row(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(start = 16.dp, end = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        Column(
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(
-                                text = stringResource(Res.string.total_balance),
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontWeight = FontWeight.Bold
-                            )
-                            Text(
-                                text = state.wallets.sumOf { it.amount }.toRupiah(),
-                                style = MaterialTheme.typography.headlineMedium
-                            )
-                        }
-                        IconButton(
-                            onClick = { }
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Settings,
-                                contentDescription = stringResource(Res.string.settings)
-                            )
-                        }
-                    }
+                    DashboardTopBar(
+                        balance = state.wallets.sumOf { it.amount }
+                    )
                 }
                 item {
                     Text(
@@ -129,15 +93,23 @@ fun DashboardScreen(
                                 .fillMaxHeight(),
                             onClick = { onNavigate(CreateWalletDestination) }
                         )
-                        for (wallet in state.wallets) {
-                            WalletCard(
-                                wallet = wallet,
-                                isVisible = state.balanceVisible,
-                                onVisibilityToggle = {
-                                    onEvent(DashboardEvent.OnBalanceViewChanged(it))
-                                }
-                            )
+                        if (state.wallets.isNotEmpty()) {
+                            state.wallets.forEach { wallet ->
+                                WalletCard(
+                                    wallet = wallet,
+                                    isVisible = state.balanceVisible,
+                                    onVisibilityToggle = {
+                                        onEvent(DashboardEvent.OnBalanceViewChanged(it))
+                                    }
+                                )
+                            }
+                            return@Row
                         }
+                        Text(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            text = stringResource(Res.string.empty_wallet),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                         AllWalletButton(
                             modifier = Modifier.width(48.dp)
                                 .fillMaxHeight(),
@@ -173,11 +145,7 @@ fun DashboardScreen(
                     )
                 }
                 item {
-                    AnimatedVisibility(
-                        visible = state.topCategory.isNotEmpty(),
-                        enter = slideInHorizontally(),
-                        exit = slideOutHorizontally()
-                    ) {
+                    if (state.categories.isNotEmpty()) {
                         Row(
                             modifier = Modifier.padding(horizontal = 16.dp),
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -193,41 +161,38 @@ fun DashboardScreen(
                                 amount = state.topCategory.last().totalAmount
                             )
                         }
+                        return@item
                     }
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = stringResource(Res.string.empty_category),
+                        style = MaterialTheme.typography.bodyLarge,
+                        textAlign = TextAlign.Center
+                    )
                 }
                 item {
                     Text(
                         modifier = Modifier
                             .padding(horizontal = 16.dp),
-                        text = stringResource(Res.string.recet_transaction),
+                        text = stringResource(Res.string.recent_transaction),
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.SemiBold
                     )
                 }
                 item {
-                    Card(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = aliceBlue
-                        ),
-                        shape = RoundedCornerShape(16.dp)
-                    ) {
-                        state.transactions.take(4).forEach { transaction ->
-                            Column(
-                                modifier = Modifier
-                                    .padding(all = 16.dp)
-                                    .fillMaxWidth(),
-                            ) {
-                                TransactionListItem(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    transaction = transaction,
-                                    categoryName = state.categories.find { it.id == transaction.categoryId }?.name
-                                        ?: "Category not found."
-                                )
-                            }
-                        }
+                    if (state.transactions.isNotEmpty()) {
+                        TransactionsCard(
+                            transactions = state.transactions,
+                            categories = state.categories
+                        )
+                        return@item
                     }
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = stringResource(Res.string.empty_transaction),
+                        style = MaterialTheme.typography.bodyLarge,
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
         }
