@@ -1,6 +1,6 @@
 package id.my.sendiko.fintrack.category.domain
 
-import id.my.sendiko.fintrack.transaction.domain.Transaction
+import id.my.sendiko.fintrack.transaction.core.domain.Transaction
 
 data class CategoryWithTransactions(
     val category: Category,

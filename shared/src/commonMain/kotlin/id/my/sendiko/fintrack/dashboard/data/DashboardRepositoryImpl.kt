@@ -7,7 +7,7 @@ import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import id.my.sendiko.fintrack.core.preferences.PreferenceRepository
 import id.my.sendiko.fintrack.dashboard.domain.DashboardRepository
-import id.my.sendiko.fintrack.transaction.domain.Transaction
+import id.my.sendiko.fintrack.transaction.core.domain.Transaction
 import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSource
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import kotlinx.coroutines.flow.Flow

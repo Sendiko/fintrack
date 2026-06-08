@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import id.my.sendiko.fintrack.category.domain.Category
 import id.my.sendiko.fintrack.theme.aliceBlue
-import id.my.sendiko.fintrack.transaction.domain.Transaction
+import id.my.sendiko.fintrack.transaction.core.domain.Transaction
 
 @Composable
 fun TransactionsCard(

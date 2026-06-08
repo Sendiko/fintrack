@@ -2,7 +2,7 @@ package id.my.sendiko.fintrack.dashboard.presentation
 
 import id.my.sendiko.fintrack.category.domain.Category
 import id.my.sendiko.fintrack.category.domain.TopCategory
-import id.my.sendiko.fintrack.transaction.domain.Transaction
+import id.my.sendiko.fintrack.transaction.core.domain.Transaction
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 
 data class DashboardState(

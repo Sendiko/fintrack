@@ -1,14 +1,12 @@
-package id.my.sendiko.fintrack.transaction.data.dto
+package id.my.sendiko.fintrack.transaction.core.data.dto
 
-import id.my.sendiko.fintrack.category.data.dto.CategoryDto
-import id.my.sendiko.fintrack.transaction.domain.Transaction
-import id.my.sendiko.fintrack.transaction.domain.TransactionType
-import id.my.sendiko.fintrack.wallet.core.data.dto.WalletDto
-import kotlinx.serialization.Serializable
+import id.my.sendiko.fintrack.transaction.core.domain.Transaction
+import id.my.sendiko.fintrack.transaction.core.domain.TransactionType
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
-data class TransactionsDtoWithWallet(
+data class TransactionsDto(
 
 	@SerialName("walletId")
 	val walletId: String,
@@ -22,9 +20,6 @@ data class TransactionsDtoWithWallet(
 	@SerialName("deletedAt")
 	val deletedAt: String?,
 
-	@SerialName("wallet")
-	val wallet: WalletDto,
-
 	@SerialName("name")
 	val name: String,
 
@@ -33,9 +28,6 @@ data class TransactionsDtoWithWallet(
 
 	@SerialName("type")
 	val type: String,
-
-	@SerialName("category")
-	val category: CategoryDto,
 
 	@SerialName("userId")
 	val userId: String,

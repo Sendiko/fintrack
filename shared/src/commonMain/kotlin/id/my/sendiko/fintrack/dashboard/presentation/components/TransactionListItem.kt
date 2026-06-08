@@ -12,8 +12,8 @@ import androidx.compose.ui.text.font.FontWeight
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.theme.greenApproved
 import id.my.sendiko.fintrack.theme.redError
-import id.my.sendiko.fintrack.transaction.domain.Transaction
-import id.my.sendiko.fintrack.transaction.domain.TransactionType
+import id.my.sendiko.fintrack.transaction.core.domain.Transaction
+import id.my.sendiko.fintrack.transaction.core.domain.TransactionType
 
 @Composable
 fun TransactionListItem(

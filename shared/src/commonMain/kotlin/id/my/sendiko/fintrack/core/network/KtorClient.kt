@@ -10,7 +10,7 @@ import id.my.sendiko.fintrack.auth.register.data.dto.RegisterResponse
 import id.my.sendiko.fintrack.category.data.dto.GetCategoriesResponse
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
-import id.my.sendiko.fintrack.transaction.data.dto.GetTransactionsResponse
+import id.my.sendiko.fintrack.transaction.core.data.dto.GetTransactionsResponse
 import id.my.sendiko.fintrack.wallet.core.data.dto.getdetails.GetWalletsResponse
 import id.my.sendiko.fintrack.wallet.core.data.dto.post.PostWalletRequest
 import id.my.sendiko.fintrack.wallet.core.data.dto.post.PostWalletResponse

@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.transaction.domain
+package id.my.sendiko.fintrack.transaction.core.domain
 
 data class Transaction(
     val id: String,

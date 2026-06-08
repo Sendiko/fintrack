@@ -1,8 +1,8 @@
 package id.my.sendiko.fintrack.dashboard.data
 
 import id.my.sendiko.fintrack.category.domain.Category
-import id.my.sendiko.fintrack.transaction.domain.Transaction
-import id.my.sendiko.fintrack.transaction.domain.TransactionType
+import id.my.sendiko.fintrack.transaction.core.domain.Transaction
+import id.my.sendiko.fintrack.transaction.core.domain.TransactionType
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 
 val wallets = listOf(
