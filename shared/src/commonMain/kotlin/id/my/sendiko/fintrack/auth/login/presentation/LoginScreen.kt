@@ -25,7 +25,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -65,6 +68,7 @@ fun LoginScreen(
     onEvent: (LoginEvent) -> Unit,
     onNavigate: (Any) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
 
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
@@ -157,6 +161,8 @@ fun LoginScreen(
                                 value = state.username,
                                 onValueChange = { onEvent(LoginEvent.OnUsernameChanged(it)) },
                                 hint = stringResource(Res.string.username_hint),
+                                imeAction = ImeAction.Next,
+                                onImeAction = { focusManager.moveFocus(FocusDirection.Down) }
                             )
                         }
                         Column {
@@ -172,7 +178,9 @@ fun LoginScreen(
                                 onValueChange = { onEvent(LoginEvent.OnPasswordChanged(it)) },
                                 hint = stringResource(Res.string.password_hint),
                                 onVisibilityChanged = { onEvent(LoginEvent.OnPasswordVisibilityChanged(it)) },
-                                isVisible = state.isPasswordVisible
+                                isVisible = state.isPasswordVisible,
+                                imeAction = ImeAction.Done,
+                                onImeAction = { onEvent(LoginEvent.OnLogin) }
                             )
                         }
                         Button(

@@ -28,10 +28,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.app_name
@@ -50,8 +54,8 @@ import fintrack.composeapp.generated.resources.register_title
 import fintrack.composeapp.generated.resources.terms_and_condition_agreement
 import fintrack.composeapp.generated.resources.username_label
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
-import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
+import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.textfields.SecureTextField
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.theme.primaryOrange
@@ -60,7 +64,6 @@ import id.my.sendiko.fintrack.theme.utilityWhite
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,7 +72,7 @@ fun RegisterScreen(
     onEvent: (RegisterEvent) -> Unit,
     onNavigate: (Any) -> Unit,
 ) {
-
+    val focusManager = LocalFocusManager.current
     val uriHandler = LocalUriHandler.current
 
     LaunchedEffect(state.isSuccess) {
@@ -163,6 +166,8 @@ fun RegisterScreen(
                                     value = state.username,
                                     onValueChange = { onEvent(RegisterEvent.OnUsernameChanged(it)) },
                                     hint = stringResource(Res.string.create_username_hint),
+                                    imeAction = ImeAction.Next,
+                                    onImeAction = { focusManager.moveFocus(FocusDirection.Down) }
                                 )
                             }
                             Column {
@@ -177,7 +182,9 @@ fun RegisterScreen(
                                     value = state.email,
                                     onValueChange = { onEvent(RegisterEvent.OnEmailChanged(it)) },
                                     hint = stringResource(Res.string.email_hint),
-                                    keyboardType = KeyboardType.Email
+                                    keyboardType = KeyboardType.Email,
+                                    imeAction = ImeAction.Next,
+                                    onImeAction = { focusManager.moveFocus(FocusDirection.Down) }
                                 )
                             }
                             Column {
@@ -199,7 +206,9 @@ fun RegisterScreen(
                                             )
                                         )
                                     },
-                                    isVisible = state.passwordVisible
+                                    isVisible = state.passwordVisible,
+                                    imeAction = ImeAction.Done,
+                                    onImeAction = { onEvent(RegisterEvent.OnRegisterClicked) }
                                 )
                             }
                             Surface(
@@ -238,7 +247,6 @@ fun RegisterScreen(
                                 contentPadding = PaddingValues(vertical = 16.dp),
                                 enabled = !state.isLoading,
                                 onClick = {
-                                    print("RegisterScreen, Register button clicked.")
                                     onEvent(RegisterEvent.OnRegisterClicked)
                                 },
                                 colors = ButtonDefaults.buttonColors(
