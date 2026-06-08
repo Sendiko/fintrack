@@ -1,6 +1,7 @@
 package id.my.sendiko.fintrack.core.presentation.textfields
 
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -12,14 +13,15 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import id.my.sendiko.fintrack.theme.primaryOrange
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.password_not_visible
 import fintrack.composeapp.generated.resources.password_visible
+import id.my.sendiko.fintrack.theme.primaryOrange
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -30,14 +32,20 @@ fun SecureTextField(
     hint: String,
     isVisible: Boolean = true,
     onVisibilityChanged: (Boolean) -> Unit,
+    imeAction: ImeAction = ImeAction.Default,
+    onImeAction: () -> Unit = {}
 ) {
     OutlinedTextField(
         modifier = modifier,
         value = value,
         onValueChange = onValueChange,
         shape = RoundedCornerShape(16.dp),
+        singleLine = true,
+        keyboardActions = KeyboardActions(
+            onAny = { onImeAction() }
+        ),
         visualTransformation = if (isVisible) VisualTransformation.None
-            else PasswordVisualTransformation(),
+        else PasswordVisualTransformation(),
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = primaryOrange,
             focusedBorderColor = primaryOrange
@@ -59,6 +67,9 @@ fun SecureTextField(
                 )
             }
         },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Password,
+            imeAction = imeAction
+        )
     )
 }
