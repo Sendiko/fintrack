@@ -20,6 +20,8 @@ import kotlinx.serialization.json.Json
 
 object HttpClientFactory {
 
+    const val BASE_URL = "https://fintrack.sendiko.my.id/"
+
     fun create(
         engine: HttpClientEngine,
         preferences: PreferenceRepository
