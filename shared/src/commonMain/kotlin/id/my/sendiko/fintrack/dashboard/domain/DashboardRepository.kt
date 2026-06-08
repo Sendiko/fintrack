@@ -3,7 +3,7 @@ package id.my.sendiko.fintrack.dashboard.domain
 import id.my.sendiko.fintrack.category.domain.CategoryWithTransactions
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
-import id.my.sendiko.fintrack.transaction.core.domain.Transaction
+import id.my.sendiko.fintrack.transaction.core.domain.model.Transaction
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import kotlinx.coroutines.flow.Flow
 
