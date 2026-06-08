@@ -27,15 +27,6 @@ object HttpClientFactory {
         preferences: PreferenceRepository
     ): HttpClient {
         return HttpClient(engine) {
-            install(Logging) {
-                level = LogLevel.BODY
-                logger = object : Logger {
-                    override fun log(message: String) {
-                        println("Network Log: $message")
-                    }
-
-                }
-            }
             install(ContentNegotiation) {
                 json(
                     json = Json {
