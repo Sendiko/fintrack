@@ -105,13 +105,13 @@ fun DashboardScreen(
                                     }
                                 )
                             }
-                            return@Row
+                        } else {
+                            Text(
+                                modifier = Modifier.padding(horizontal = 16.dp),
+                                text = stringResource(Res.string.empty_wallet),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
                         }
-                        Text(
-                            modifier = Modifier.padding(horizontal = 16.dp),
-                            text = stringResource(Res.string.empty_wallet),
-                            style = MaterialTheme.typography.bodyLarge
-                        )
                         AllWalletButton(
                             modifier = Modifier.width(48.dp)
                                 .fillMaxHeight(),
