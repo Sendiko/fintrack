@@ -2,7 +2,7 @@ package id.my.sendiko.fintrack.wallet.core.data
 
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
-import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
+import id.my.sendiko.fintrack.core.preferences.PreferenceRepository
 import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSource
 import id.my.sendiko.fintrack.wallet.core.data.dto.post.PostWalletRequest
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 
 class WalletRepositoryImpl(
     val remoteDataSource: WalletDataSource,
-    val prefs: PreferencesRepositoryImpl
+    val prefs: PreferenceRepository
 ) : WalletRepository {
 
     override suspend fun getWallets(): Result<List<Wallet>, DataError.Remote> {
@@ -21,7 +21,10 @@ class WalletRepositoryImpl(
         }
     }
 
-    override suspend fun createWallet(userId: String, wallet: Wallet): Result<Wallet, DataError.Remote> {
+    override suspend fun createWallet(
+        userId: String,
+        wallet: Wallet
+    ): Result<Wallet, DataError.Remote> {
         val request = PostWalletRequest(
             balance = wallet.amount,
             purpose = wallet.purpose,

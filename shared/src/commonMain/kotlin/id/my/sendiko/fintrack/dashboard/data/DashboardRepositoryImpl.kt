@@ -5,7 +5,7 @@ import id.my.sendiko.fintrack.category.domain.CategoryWithTransactions
 import id.my.sendiko.fintrack.core.network.KtorClient
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
-import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
+import id.my.sendiko.fintrack.core.preferences.PreferenceRepository
 import id.my.sendiko.fintrack.dashboard.domain.DashboardRepository
 import id.my.sendiko.fintrack.transaction.domain.Transaction
 import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSource
@@ -16,7 +16,7 @@ class DashboardRepositoryImpl(
     private val ktorClient: KtorClient,
     private val categoryDataSource: CategoryDataSource,
     private val walletDataSource: WalletDataSource,
-    private val prefs: PreferencesRepositoryImpl
+    private val prefs: PreferenceRepository
 ) : DashboardRepository {
 
     override suspend fun getWallets(): Result<List<Wallet>, DataError.Remote> {

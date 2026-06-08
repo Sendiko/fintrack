@@ -1,6 +1,6 @@
 package id.my.sendiko.fintrack.core.network
 
-import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
+import id.my.sendiko.fintrack.core.preferences.PreferenceRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.HttpTimeout
@@ -22,14 +22,14 @@ object HttpClientFactory {
 
     fun create(
         engine: HttpClientEngine,
-        preferences: PreferencesRepositoryImpl
+        preferences: PreferenceRepository
     ): HttpClient {
         return HttpClient(engine) {
             install(Logging) {
                 level = LogLevel.BODY
                 logger = object : Logger {
                     override fun log(message: String) {
-                        println("Ktor $message")
+                        println("Network Log: $message")
                     }
 
                 }

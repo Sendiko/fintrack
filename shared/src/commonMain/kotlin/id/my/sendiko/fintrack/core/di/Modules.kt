@@ -1,6 +1,7 @@
 package id.my.sendiko.fintrack.core.di
 
-import id.my.sendiko.fintrack.auth.changepassword.data.ChangePasswordRepository
+import id.my.sendiko.fintrack.auth.changepassword.data.ChangePasswordRepositoryImpl
+import id.my.sendiko.fintrack.auth.changepassword.domain.ChangePasswordRepository
 import id.my.sendiko.fintrack.auth.changepassword.presentation.ChangePasswordViewModel
 import id.my.sendiko.fintrack.auth.core.data.datasource.AuthRemoteDataSource
 import id.my.sendiko.fintrack.auth.core.data.datasource.AuthRemoteDataSourceImpl
@@ -15,6 +16,7 @@ import id.my.sendiko.fintrack.category.data.datasource.CategoryDataSourceImpl
 import id.my.sendiko.fintrack.core.network.ApiService
 import id.my.sendiko.fintrack.core.network.HttpClientFactory
 import id.my.sendiko.fintrack.core.network.KtorClient
+import id.my.sendiko.fintrack.core.preferences.PreferenceRepository
 import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
 import id.my.sendiko.fintrack.dashboard.data.DashboardRepositoryImpl
 import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
@@ -36,18 +38,17 @@ expect val platformModule: Module
 val sharedModule = module {
     single { HttpClientFactory.create(get(), get()) }
     singleOf(::KtorClient).bind<ApiService>()
+    singleOf(::PreferencesRepositoryImpl).bind<PreferenceRepository>()
     singleOf(::SplashRepositoryImpl)
     singleOf(::AuthRemoteDataSourceImpl).bind<AuthRemoteDataSource>()
     singleOf(::RegisterRepositoryImpl).bind<RegisterRepository>()
     singleOf(::LoginRepositoryImpl).bind<LoginRepository>()
-    singleOf(::ChangePasswordRepository)
-    singleOf(::ChangePasswordRepository)
+    singleOf(::ChangePasswordRepositoryImpl).bind<ChangePasswordRepository>()
     singleOf(::DashboardRepositoryImpl)
     singleOf(::WalletDataSourceImpl).bind<WalletDataSource>()
     singleOf(::WalletRepositoryImpl).bind<WalletRepository>()
     singleOf(::CategoryDataSourceImpl).bind<CategoryDataSource>()
 
-    factory { PreferencesRepositoryImpl(get()) }
     factory { SplashRepositoryImpl(get()) }
     factory { SplashViewModel(get()) }
     factory { RegisterViewModel(get()) }

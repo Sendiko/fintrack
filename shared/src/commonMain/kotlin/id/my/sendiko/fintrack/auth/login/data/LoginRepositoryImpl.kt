@@ -6,11 +6,11 @@ import id.my.sendiko.fintrack.auth.login.domain.LoginRepository
 import id.my.sendiko.fintrack.auth.login.domain.model.UserWithToken
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
-import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
+import id.my.sendiko.fintrack.core.preferences.PreferenceRepository
 
 class LoginRepositoryImpl(
     private val remoteDataSource: AuthRemoteDataSource,
-    private val prefs: PreferencesRepositoryImpl
+    private val prefs: PreferenceRepository
 ) : LoginRepository {
 
     override suspend fun login(
