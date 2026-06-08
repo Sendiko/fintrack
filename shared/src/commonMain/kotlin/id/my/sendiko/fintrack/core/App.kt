@@ -20,6 +20,7 @@ import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
 import id.my.sendiko.fintrack.core.navigation.CreateTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
 import id.my.sendiko.fintrack.core.navigation.DashboardDestination
+import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import id.my.sendiko.fintrack.core.navigation.RegisterDestination
 import id.my.sendiko.fintrack.core.navigation.SplashDestination
@@ -31,6 +32,8 @@ import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.transaction.create.presentation.CreateTransactionScreen
 import id.my.sendiko.fintrack.transaction.create.presentation.CreateTransactionViewModel
+import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionScreen
+import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionViewModel
 import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletScreen
 import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletViewModel
 import id.my.sendiko.fintrack.wallet.list.presentation.WalletListScreen
@@ -150,7 +153,18 @@ fun App() {
                 val viewModel = koinViewModel<CreateTransactionViewModel>()
                 viewModel.setType(type)
                 val state by viewModel.state.collectAsStateWithLifecycle()
+
                 CreateTransactionScreen(
+                    state = state,
+                    onEvent = viewModel::onEvent,
+                    onNavigateBack = { navController.navigateUp() }
+                )
+            }
+            composable<ListTransactionDestination> {
+                val viewModel = koinViewModel<ListTransactionViewModel>()
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                ListTransactionScreen(
                     state = state,
                     onEvent = viewModel::onEvent,
                     onNavigateBack = { navController.navigateUp() }
