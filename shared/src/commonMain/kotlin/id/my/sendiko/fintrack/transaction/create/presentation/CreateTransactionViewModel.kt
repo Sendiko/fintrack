@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.choose_category_error
 import fintrack.composeapp.generated.resources.choose_wallet_error
-import fintrack.composeapp.generated.resources.create_wallet_success_message
 import fintrack.composeapp.generated.resources.set_amount_error
 import fintrack.composeapp.generated.resources.set_name_error
 import fintrack.composeapp.generated.resources.transaction_recorded
