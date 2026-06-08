@@ -7,6 +7,7 @@ import id.my.sendiko.fintrack.transaction.core.data.datasource.TransactionDataSo
 import id.my.sendiko.fintrack.transaction.core.data.dto.PostTransactionRequest
 import id.my.sendiko.fintrack.transaction.core.domain.TransactionRepository
 import id.my.sendiko.fintrack.transaction.core.domain.model.Transaction
+import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionWithCategoryAndWallet
 import kotlinx.coroutines.flow.Flow
 
 class TransactionRepositoryImpl(
@@ -14,9 +15,9 @@ class TransactionRepositoryImpl(
     private val preferences: PreferenceRepository
 ) : TransactionRepository {
 
-    override suspend fun getTransactions(): Result<List<Transaction>, DataError.Remote> {
+    override suspend fun getTransactions(): Result<List<TransactionWithCategoryAndWallet>, DataError.Remote> {
         return when (val response = dataSource.getTransactions()) {
-            is Result.Success -> Result.Success(response.data.transactions.map { it.toDomain() })
+            is Result.Success -> Result.Success(response.data.transactions.map { it.toDomainWithCategoryAndWallet() })
             is Result.Error -> Result.Error(response.error)
         }
     }
