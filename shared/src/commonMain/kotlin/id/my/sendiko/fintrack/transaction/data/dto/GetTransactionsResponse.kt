@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.transaction.data
+package id.my.sendiko.fintrack.transaction.data.dto
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
@@ -10,7 +10,7 @@ data class GetTransactionsResponse(
 	val message: String,
 
 	@SerialName("transactions")
-	val transactions: List<TransactionsItem>,
+	val transactions: List<TransactionsDtoWithWallet>,
 
 	@SerialName("status")
 	val status: Int

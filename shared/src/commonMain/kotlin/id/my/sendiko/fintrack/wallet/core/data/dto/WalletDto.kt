@@ -1,50 +1,43 @@
 package id.my.sendiko.fintrack.wallet.core.data.dto
 
-import id.my.sendiko.fintrack.wallet.core.data.dto.getdetails.TransactionsItem
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class WalletsItem(
+data class WalletDto(
 
     @SerialName("createdAt")
-	val createdAt: String,
+    val createdAt: String,
 
     @SerialName("balance")
-	val balance: Int,
+    val balance: Int,
 
     @SerialName("purpose")
-	val purpose: String,
+    val purpose: String,
 
     @SerialName("name")
-	val name: String,
+    val name: String,
 
     @SerialName("id")
-	val id: String,
+    val id: String,
 
     @SerialName("type")
-	val type: String,
-
-    @SerialName("transactions")
-	val transactions: List<TransactionsItem>,
+    val type: String,
 
     @SerialName("userId")
-	val userId: String,
-
-    @SerialName("walletNumber")
-	val walletNumber: String?,
+    val userId: String,
 
     @SerialName("updatedAt")
-	val updatedAt: String
+    val updatedAt: String
 ) {
 
-	fun toDomain() = Wallet(
+    fun toDomain() = Wallet(
         id = id,
         name = name,
         purpose = purpose,
         type = type,
         amount = balance.toDouble(),
-        number = walletNumber ?: ""
+        number = ""
     )
 }

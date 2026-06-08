@@ -22,7 +22,7 @@ class RegisterRepositoryImpl(
             password = password
         )
         return when (val response = remoteDataSource.register(request)) {
-            is Result.Success -> Result.Success(response.data.userItem.toDomain())
+            is Result.Success -> Result.Success(response.data.userDto.toDomain())
             is Result.Error -> Result.Error(response.error)
         }
     }

@@ -62,10 +62,8 @@ fun DashboardScreen(
     onNavigate: (Any) -> Unit
 ) {
 
-    LaunchedEffect(state.token) {
-        if (state.token.isNotBlank() && state.userId.isNotBlank()) {
-            onEvent(DashboardEvent.OnLoadData)
-        }
+    LaunchedEffect(true) {
+        onEvent(DashboardEvent.OnLoadData)
     }
 
     NotificationBox(
