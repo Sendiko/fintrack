@@ -10,14 +10,13 @@ data class CreateTransactionState(
     val isError: Boolean = false,
     val isLoading: Boolean = false,
     val message: String = "",
-    val types: EnumEntries<TransactionType> = TransactionType.entries,
     val wallets: List<Wallet> = emptyList(),
     val categories: List<Category> = emptyList(),
     val userId: String = "",
     val stage: Int = 1,
     val selectedWallet: Wallet? = null,
     val selectedCategory: Category? = null,
-    val selectedType: String = "",
+    val selectedType: TransactionType = TransactionType.INCOME,
     val name: String = "",
     val amount: String = "0.0"
 )

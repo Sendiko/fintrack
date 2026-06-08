@@ -30,9 +30,12 @@ import fintrack.composeapp.generated.resources.choose_category_label
 import fintrack.composeapp.generated.resources.choose_wallet_hint
 import fintrack.composeapp.generated.resources.choose_wallet_label
 import fintrack.composeapp.generated.resources.create
+import fintrack.composeapp.generated.resources.create_expense_title
 import fintrack.composeapp.generated.resources.create_income_title
 import fintrack.composeapp.generated.resources.next
 import fintrack.composeapp.generated.resources.set_amount_label
+import fintrack.composeapp.generated.resources.set_expense_name_hint
+import fintrack.composeapp.generated.resources.set_expense_name_label
 import fintrack.composeapp.generated.resources.set_income_name_hint
 import fintrack.composeapp.generated.resources.set_income_name_label
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
@@ -43,9 +46,13 @@ import id.my.sendiko.fintrack.core.presentation.textfields.DropdownMenu
 import id.my.sendiko.fintrack.theme.primaryOrange
 import id.my.sendiko.fintrack.theme.secondaryBlue
 import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.EXPENSE
+import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.INCOME
 import id.my.sendiko.fintrack.wallet.core.presentation.CreateTransactionTopBar
 import id.my.sendiko.fintrack.wallet.core.presentation.StageBar
+import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun CreateTransactionScreen(
@@ -56,6 +63,13 @@ fun CreateTransactionScreen(
 
     LaunchedEffect(true) {
         onEvent(CreateTransactionEvent.LoadData)
+    }
+
+    LaunchedEffect(state.isSuccess) {
+        if (state.isSuccess) {
+            delay(2.seconds)
+            onNavigateBack()
+        }
     }
 
     NotificationBox(
@@ -98,7 +112,10 @@ fun CreateTransactionScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     CreateTransactionTopBar(
-                        title = stringResource(Res.string.create_income_title),
+                        title = when (state.selectedType) {
+                            INCOME -> stringResource(Res.string.create_income_title)
+                            EXPENSE -> stringResource(Res.string.create_expense_title)
+                        },
                         onNavigateBack = { onNavigateBack() }
                     )
                     AnimatedContent(
@@ -156,7 +173,10 @@ fun CreateTransactionScreen(
                                     }
                                     item {
                                         Text(
-                                            text = stringResource(Res.string.set_income_name_label),
+                                            text = when (state.selectedType) {
+                                                INCOME -> stringResource(Res.string.set_income_name_label)
+                                                EXPENSE -> stringResource(Res.string.set_expense_name_label)
+                                            },
                                             style = MaterialTheme.typography.labelMedium
                                         )
                                         Spacer(modifier = Modifier.height(8.dp))
@@ -169,7 +189,10 @@ fun CreateTransactionScreen(
                                                         .OnNameChanged(it)
                                                 )
                                             },
-                                            hint = stringResource(Res.string.set_income_name_hint),
+                                            hint = when (state.selectedType) {
+                                                INCOME -> stringResource(Res.string.set_income_name_hint)
+                                                EXPENSE -> stringResource(Res.string.set_expense_name_hint)
+                                            },
                                             outlineColor = secondaryBlue
                                         )
                                     }

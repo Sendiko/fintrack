@@ -13,6 +13,7 @@ import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
 import id.my.sendiko.fintrack.transaction.core.domain.TransactionRepository
+import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import id.my.sendiko.fintrack.wallet.core.domain.WalletRepository
 import kotlinx.coroutines.delay
@@ -23,6 +24,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
+import kotlin.time.Duration.Companion.seconds
 
 class CreateTransactionViewModel(
     private val repository: TransactionRepository,
@@ -51,7 +53,7 @@ class CreateTransactionViewModel(
     }
 
     private suspend fun clearState() {
-        delay(2000)
+        delay(2.seconds)
         setLoading(false)
         _state.update {
             it.copy(
@@ -102,7 +104,7 @@ class CreateTransactionViewModel(
     }
 
     fun setType(type: String) {
-        _state.update { it.copy(selectedType = type) }
+        _state.update { it.copy(selectedType = TransactionType.valueOf(type)) }
     }
 
     private fun changeWallet(wallet: Wallet) {
@@ -143,10 +145,6 @@ class CreateTransactionViewModel(
                 _state.update { it.copy(message = getString(Res.string.set_name_error)) }
                 return@launch
             }
-            if (state.value.amount == "0.0") {
-                _state.update { it.copy(message = getString(Res.string.set_amount_error)) }
-                return@launch
-            }
             setLoading(true)
             repository.postTransaction(
                 userId = state.value.userId,
@@ -154,7 +152,7 @@ class CreateTransactionViewModel(
                 walletId = state.value.selectedWallet?.id.toString(),
                 amount = state.value.amount.toInt(),
                 name = state.value.name,
-                type = state.value.selectedType
+                type = state.value.selectedType.name
             )
                 .onSuccess {
                     _state.update {
