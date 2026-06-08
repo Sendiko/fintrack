@@ -168,7 +168,7 @@ class CreateTransactionViewModel(
                 walletId = state.value.selectedWallet?.id.toString(),
                 amount = state.value.amount.toInt(),
                 name = state.value.name,
-                type = state.value.selectedType.name
+                type = state.value.selectedType.name.lowercase()
             )
                 .onSuccess {
                     _state.update {
