@@ -25,12 +25,10 @@ import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.hidden_balance
 import fintrack.composeapp.generated.resources.password_visible
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
-import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.theme.secondaryBlue
 import id.my.sendiko.fintrack.theme.utilityWhite
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun WalletCard(
