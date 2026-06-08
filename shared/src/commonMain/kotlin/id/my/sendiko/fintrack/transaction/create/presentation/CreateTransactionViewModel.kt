@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.choose_category_error
 import fintrack.composeapp.generated.resources.choose_wallet_error
+import fintrack.composeapp.generated.resources.create_wallet_success_message
 import fintrack.composeapp.generated.resources.set_amount_error
 import fintrack.composeapp.generated.resources.set_name_error
+import fintrack.composeapp.generated.resources.transaction_recorded
 import id.my.sendiko.fintrack.category.domain.CategoryRepository
 import id.my.sendiko.fintrack.category.domain.model.Category
 import id.my.sendiko.fintrack.core.network.utils.asUiText
@@ -145,6 +147,10 @@ class CreateTransactionViewModel(
                 _state.update { it.copy(message = getString(Res.string.set_name_error)) }
                 return@launch
             }
+            if (state.value.amount === "0.0") {
+                _state.update { it.copy(message = getString(Res.string.set_amount_error)) }
+                return@launch
+            }
             setLoading(true)
             repository.postTransaction(
                 userId = state.value.userId,
@@ -157,7 +163,7 @@ class CreateTransactionViewModel(
                 .onSuccess {
                     _state.update {
                         it.copy(
-                            message = getString(Res.string.set_amount_error),
+                            message = getString(Res.string.transaction_recorded),
                             isSuccess = true
                         )
                     }
