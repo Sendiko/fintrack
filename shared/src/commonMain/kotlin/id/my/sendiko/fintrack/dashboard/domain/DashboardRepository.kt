@@ -5,6 +5,7 @@ import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import id.my.sendiko.fintrack.transaction.domain.Transaction
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
+import kotlinx.coroutines.flow.Flow
 
 interface DashboardRepository {
 
@@ -13,5 +14,7 @@ interface DashboardRepository {
     suspend fun getCategories(): Result<List<CategoryWithTransactions>, DataError.Remote>
 
     suspend fun getTransactions(): Result<List<Transaction>, DataError.Remote>
+
+    fun getUserId(): Flow<String>
 
 }

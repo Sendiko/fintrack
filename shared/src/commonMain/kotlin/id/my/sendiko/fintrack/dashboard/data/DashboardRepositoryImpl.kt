@@ -40,7 +40,7 @@ class DashboardRepositoryImpl(
         }
     }
 
-    fun getUserId(): Flow<String> {
+    override fun getUserId(): Flow<String> {
         return prefs.getUserId()
     }
 

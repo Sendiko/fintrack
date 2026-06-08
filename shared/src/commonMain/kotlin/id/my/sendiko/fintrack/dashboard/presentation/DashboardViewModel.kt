@@ -7,6 +7,7 @@ import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
 import id.my.sendiko.fintrack.dashboard.data.DashboardRepositoryImpl
+import id.my.sendiko.fintrack.dashboard.domain.DashboardRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -15,7 +16,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class DashboardViewModel(
-    private val repository: DashboardRepositoryImpl
+    private val repository: DashboardRepository
 ) : ViewModel() {
     private val _userId = repository.getUserId()
     private val _state = MutableStateFlow(DashboardState())
