@@ -32,6 +32,7 @@ import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.wallets
 import id.my.sendiko.fintrack.core.navigation.CreateTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
+import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.WalletListDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddExpenseButton
@@ -185,8 +186,7 @@ fun DashboardScreen(
                     if (state.transactions.isNotEmpty()) {
                         TransactionsCard(
                             transactions = state.transactions,
-                            categories = state.categories,
-                            onSeeMoreClick = {  }
+                            onSeeMoreClick = { onNavigate(ListTransactionDestination) }
                         )
                         return@item
                     }

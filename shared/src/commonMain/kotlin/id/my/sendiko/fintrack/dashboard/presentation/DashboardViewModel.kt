@@ -44,7 +44,7 @@ class DashboardViewModel(
     private suspend fun getTransactions() {
         repository.getTransactions()
             .onSuccess { result ->
-                _state.update { state -> state.copy(transactions = result.sortedByDescending { it.createdAt }) }
+                _state.update { state -> state.copy(transactions = result.sortedByDescending { it.transaction.createdAt }) }
             }
     }
 
