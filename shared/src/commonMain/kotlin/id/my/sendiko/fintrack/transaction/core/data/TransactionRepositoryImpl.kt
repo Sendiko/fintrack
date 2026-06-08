@@ -3,8 +3,8 @@ package id.my.sendiko.fintrack.transaction.core.data
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import id.my.sendiko.fintrack.transaction.core.data.datasource.TransactionDataSource
-import id.my.sendiko.fintrack.transaction.core.domain.model.Transaction
 import id.my.sendiko.fintrack.transaction.core.domain.TransactionRepository
+import id.my.sendiko.fintrack.transaction.core.domain.model.Transaction
 
 class TransactionRepositoryImpl(
     private val dataSource: TransactionDataSource
