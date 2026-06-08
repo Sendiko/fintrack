@@ -133,7 +133,7 @@ fun DashboardScreen(
                         )
                         AddExpenseButton(
                             modifier = Modifier.weight(1f),
-                            onClick = { onNavigate(Any()) }
+                            onClick = { onNavigate(CreateTransactionDestination(TransactionType.EXPENSE.name)) }
                         )
                     }
                 }
@@ -185,7 +185,8 @@ fun DashboardScreen(
                     if (state.transactions.isNotEmpty()) {
                         TransactionsCard(
                             transactions = state.transactions,
-                            categories = state.categories
+                            categories = state.categories,
+                            onSeeMoreClick = {  }
                         )
                         return@item
                     }
