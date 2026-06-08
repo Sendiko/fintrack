@@ -95,4 +95,20 @@
 
     <!--  Strings for Wallet List  -->
     <string name="wallet_list_title">Your Wallets</string>
+
+    <!--  Strings for Create Transaction  -->
+    <string name="create_income_title">Record Your Income</string>
+    <string name="choose_wallet_label">Choose wallet</string>
+    <string name="choose_wallet_hint">Choose one of your wallet</string>
+    <string name="choose_wallet_error">Please choose a wallet.</string>
+    <string name="choose_category_label">Choose category</string>
+    <string name="choose_category_hint">Choose one of your category</string>
+    <string name="choose_category_error">Please choose a category.</string>
+    <string name="set_income_name_label">What's this income?</string>
+    <string name="set_income_name_hint">The source of this income.</string>
+    <string name="set_name_error">Set a name for this transaction.</string>
+    <string name="set_amount_label">Amount</string>
+    <string name="set_amount_error">Set the amount for this transaction.</string>
+    <string name="transaction_recorded">Transaction recorded.</string>
+
 </resources>
