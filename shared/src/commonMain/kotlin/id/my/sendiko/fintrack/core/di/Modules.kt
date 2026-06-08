@@ -19,8 +19,10 @@ import id.my.sendiko.fintrack.core.network.KtorClient
 import id.my.sendiko.fintrack.core.preferences.PreferenceRepository
 import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
 import id.my.sendiko.fintrack.dashboard.data.DashboardRepositoryImpl
+import id.my.sendiko.fintrack.dashboard.domain.DashboardRepository
 import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.data.SplashRepositoryImpl
+import id.my.sendiko.fintrack.splash.domain.SplashRepository
 import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
 import id.my.sendiko.fintrack.wallet.core.data.WalletRepositoryImpl
 import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSource
@@ -39,12 +41,12 @@ val sharedModule = module {
     single { HttpClientFactory.create(get(), get()) }
     singleOf(::KtorClient).bind<ApiService>()
     singleOf(::PreferencesRepositoryImpl).bind<PreferenceRepository>()
-    singleOf(::SplashRepositoryImpl)
+    singleOf(::SplashRepositoryImpl).bind<SplashRepository>()
     singleOf(::AuthRemoteDataSourceImpl).bind<AuthRemoteDataSource>()
     singleOf(::RegisterRepositoryImpl).bind<RegisterRepository>()
     singleOf(::LoginRepositoryImpl).bind<LoginRepository>()
     singleOf(::ChangePasswordRepositoryImpl).bind<ChangePasswordRepository>()
-    singleOf(::DashboardRepositoryImpl)
+    singleOf(::DashboardRepositoryImpl).bind<DashboardRepository>()
     singleOf(::WalletDataSourceImpl).bind<WalletDataSource>()
     singleOf(::WalletRepositoryImpl).bind<WalletRepository>()
     singleOf(::CategoryDataSourceImpl).bind<CategoryDataSource>()
