@@ -3,7 +3,6 @@ package id.my.sendiko.fintrack.transaction.create.presentation
 import id.my.sendiko.fintrack.category.domain.model.Category
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
-import kotlin.enums.EnumEntries
 
 data class CreateTransactionState(
     val isSuccess: Boolean = false,
