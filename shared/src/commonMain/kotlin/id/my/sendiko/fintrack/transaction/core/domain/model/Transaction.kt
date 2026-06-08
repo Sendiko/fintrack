@@ -1,5 +1,7 @@
 package id.my.sendiko.fintrack.transaction.core.domain.model
 
+import kotlinx.datetime.LocalDateTime
+
 data class Transaction(
     val id: String,
     val name: String,
@@ -8,4 +10,5 @@ data class Transaction(
     val categoryId: String,
     val userId: String,
     val walletId: String,
+    val createdAt: LocalDateTime
 )
