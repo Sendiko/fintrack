@@ -115,4 +115,8 @@
     <string name="set_amount_error">Set the amount for this transaction.</string>
     <string name="transaction_recorded">Transaction recorded.</string>
 
+    <!--  Strings for List Transaction  -->
+    <string name="list_transaction_title">Your Transactions</string>
+    <string name="all_label">ALL</string>
+
 </resources>
