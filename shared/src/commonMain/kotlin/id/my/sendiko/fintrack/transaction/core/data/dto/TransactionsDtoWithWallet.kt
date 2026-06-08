@@ -5,7 +5,6 @@ import id.my.sendiko.fintrack.core.presentation.convertStringToDateTime
 import id.my.sendiko.fintrack.transaction.core.domain.model.Transaction
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionWithCategoryAndWallet
-import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionWithWallet
 import id.my.sendiko.fintrack.wallet.core.data.dto.WalletDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -58,11 +57,6 @@ data class TransactionsDtoWithWallet(
         userId = userId,
         walletId = walletId,
         createdAt = convertStringToDateTime(createdAt)
-    )
-
-    fun toDomainWithWallet() = TransactionWithWallet(
-        transaction = this.toDomain(),
-        wallet = wallet.toDomain()
     )
 
     fun toDomainWithCategoryAndWallet() = TransactionWithCategoryAndWallet(

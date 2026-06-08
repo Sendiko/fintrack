@@ -7,12 +7,10 @@ import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
 import id.my.sendiko.fintrack.transaction.core.domain.TransactionRepository
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.time.Duration.Companion.seconds
 
 class ListTransactionViewModel(
     val repository: TransactionRepository
@@ -25,18 +23,6 @@ class ListTransactionViewModel(
         when (event) {
             ListTransactionEvent.LoadData -> loadData()
             is ListTransactionEvent.OnTypeChanged -> filterData(event.type)
-        }
-    }
-
-    private suspend fun clearState() {
-        delay(2.seconds)
-        setLoading(false)
-        _state.update {
-            it.copy(
-                isSuccess = false,
-                isError = false,
-                message = "",
-            )
         }
     }
 
