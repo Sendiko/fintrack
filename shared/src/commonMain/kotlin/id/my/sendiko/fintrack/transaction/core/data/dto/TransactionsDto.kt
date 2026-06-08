@@ -1,7 +1,7 @@
 package id.my.sendiko.fintrack.transaction.core.data.dto
 
-import id.my.sendiko.fintrack.transaction.core.domain.Transaction
-import id.my.sendiko.fintrack.transaction.core.domain.TransactionType
+import id.my.sendiko.fintrack.transaction.core.domain.model.Transaction
+import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
