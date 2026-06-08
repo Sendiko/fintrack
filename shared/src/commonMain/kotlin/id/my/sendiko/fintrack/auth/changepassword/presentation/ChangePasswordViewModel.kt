@@ -2,7 +2,7 @@ package id.my.sendiko.fintrack.auth.changepassword.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import id.my.sendiko.fintrack.auth.changepassword.data.ChangePasswordRepository
+import id.my.sendiko.fintrack.auth.changepassword.data.ChangePasswordRepositoryImpl
 import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ChangePasswordViewModel(
-    private val repository: ChangePasswordRepository
+    private val repository: ChangePasswordRepositoryImpl
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ChangePasswordState())
@@ -45,7 +45,7 @@ class ChangePasswordViewModel(
                     _state.update {
                         it.copy(
                             isLoading = false,
-                            message = result.message
+                            message = result
                         )
                     }
                 }
@@ -75,7 +75,7 @@ class ChangePasswordViewModel(
                 .onSuccess { result ->
                     _state.update {
                         it.copy(
-                            userId = result.user.id,
+                            userId = result.userId,
                             isLoading = false,
                             message = "Account verified."
                         )
