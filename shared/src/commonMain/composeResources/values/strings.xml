@@ -72,8 +72,11 @@
     <string name="income">Add Income</string>
     <string name="expense">Add Expense</string>
     <string name="top_category">Top Category</string>
-    <string name="recet_transaction">Recent Transaction</string>
+    <string name="recent_transaction">Recent Transaction</string>
     <string name="hidden_balance">⬤⬤⬤⬤⬤⬤</string>
+    <string name="empty_wallet">You have no wallet \nLet's create one!</string>
+    <string name="empty_category">You have no category, let's create one!</string>
+    <string name="empty_transaction">You have no transaction, let's create one!</string>
 
     <!--  Strings for Create Wallet  -->
     <string name="create_wallet_title">Create New Wallet</string>
