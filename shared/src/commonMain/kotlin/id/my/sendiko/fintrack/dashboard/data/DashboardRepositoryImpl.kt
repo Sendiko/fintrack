@@ -1,7 +1,7 @@
 package id.my.sendiko.fintrack.dashboard.data
 
 import id.my.sendiko.fintrack.category.data.datasource.CategoryDataSource
-import id.my.sendiko.fintrack.category.domain.CategoryWithTransactions
+import id.my.sendiko.fintrack.category.domain.model.CategoryWithTransactions
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 import id.my.sendiko.fintrack.core.preferences.PreferenceRepository

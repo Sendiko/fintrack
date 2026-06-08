@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.category.domain
+package id.my.sendiko.fintrack.category.domain.model
 
 import id.my.sendiko.fintrack.transaction.core.domain.model.Transaction
 

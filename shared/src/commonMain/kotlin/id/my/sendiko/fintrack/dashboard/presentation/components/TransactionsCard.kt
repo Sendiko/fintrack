@@ -9,7 +9,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import id.my.sendiko.fintrack.category.domain.Category
+import id.my.sendiko.fintrack.category.domain.model.Category
 import id.my.sendiko.fintrack.theme.aliceBlue
 import id.my.sendiko.fintrack.transaction.core.domain.model.Transaction
 

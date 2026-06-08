@@ -1,6 +1,6 @@
 package id.my.sendiko.fintrack.dashboard.data
 
-import id.my.sendiko.fintrack.category.domain.Category
+import id.my.sendiko.fintrack.category.domain.model.Category
 import id.my.sendiko.fintrack.transaction.core.domain.model.Transaction
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
