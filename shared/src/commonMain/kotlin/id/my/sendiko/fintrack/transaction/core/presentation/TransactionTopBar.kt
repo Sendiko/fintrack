@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.wallet.core.presentation
+package id.my.sendiko.fintrack.transaction.core.presentation
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,7 +18,7 @@ import fintrack.composeapp.generated.resources.back
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun CreateTransactionTopBar(
+fun TransactionTopBar(
     modifier: Modifier = Modifier,
     title: String,
     onNavigateBack: () -> Unit,

@@ -17,6 +17,8 @@ sealed interface CreateTransactionEvent {
 
     data object OnNext : CreateTransactionEvent
 
+    data object OnPrevious : CreateTransactionEvent
+
     data class OnNumberPressed(val number: String) : CreateTransactionEvent
 
     data object OnBackspace : CreateTransactionEvent

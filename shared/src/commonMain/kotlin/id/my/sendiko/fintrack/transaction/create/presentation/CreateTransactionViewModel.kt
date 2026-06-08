@@ -47,6 +47,7 @@ class CreateTransactionViewModel(
             is CreateTransactionEvent.OnCategoryChanged -> changeCategory(event.category)
             is CreateTransactionEvent.OnNameChanged -> changeName(event.name)
             CreateTransactionEvent.OnNext -> onNext()
+            CreateTransactionEvent.OnPrevious -> onPrevious()
             is CreateTransactionEvent.OnNumberPressed -> handleNumberPress(event.number)
             CreateTransactionEvent.OnBackspace -> handleBackspace()
             CreateTransactionEvent.OnCreate -> createTransaction()
@@ -117,7 +118,17 @@ class CreateTransactionViewModel(
     }
 
     private fun onNext() {
+        if (state.value.stage == 2) {
+            return
+        }
         _state.update { it.copy(stage = it.stage + 1) }
+    }
+
+    private fun onPrevious() {
+        if (state.value.stage == 1) {
+            return
+        }
+        _state.update { it.copy(stage = it.stage - 1) }
     }
 
     private fun handleNumberPress(number: String) {

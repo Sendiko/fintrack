@@ -48,8 +48,8 @@ import id.my.sendiko.fintrack.theme.secondaryBlue
 import id.my.sendiko.fintrack.theme.utilityWhite
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.EXPENSE
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.INCOME
-import id.my.sendiko.fintrack.wallet.core.presentation.CreateTransactionTopBar
-import id.my.sendiko.fintrack.wallet.core.presentation.StageBar
+import id.my.sendiko.fintrack.transaction.core.presentation.TransactionTopBar
+import id.my.sendiko.fintrack.transaction.core.presentation.StageBar
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration.Companion.seconds
@@ -111,12 +111,16 @@ fun CreateTransactionScreen(
                     modifier = Modifier.padding(paddingValues),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    CreateTransactionTopBar(
+                    TransactionTopBar(
                         title = when (state.selectedType) {
                             INCOME -> stringResource(Res.string.create_income_title)
                             EXPENSE -> stringResource(Res.string.create_expense_title)
                         },
-                        onNavigateBack = { onNavigateBack() }
+                        onNavigateBack = {
+                            if (state.stage == 2)
+                                onEvent(CreateTransactionEvent.OnPrevious)
+                            else onNavigateBack()
+                        }
                     )
                     AnimatedContent(
                         targetState = state.stage,
