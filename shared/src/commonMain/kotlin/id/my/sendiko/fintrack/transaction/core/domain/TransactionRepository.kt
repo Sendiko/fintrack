@@ -31,6 +31,8 @@ interface TransactionRepository {
         type: String
     ): Result<Transaction, DataError.Remote>
 
+    suspend fun deleteTransaction(id: String,): Result<String, DataError.Remote>
+
     fun getUserId(): Flow<String>
 
 }

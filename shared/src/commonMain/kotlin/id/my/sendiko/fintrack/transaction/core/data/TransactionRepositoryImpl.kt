@@ -74,6 +74,13 @@ class TransactionRepositoryImpl(
         }
     }
 
+    override suspend fun deleteTransaction(id: String): Result<String, DataError.Remote> {
+        return when (val response = dataSource.deleteTransaction(id)) {
+            is Result.Success -> Result.Success(response.data.message)
+            is Result.Error -> Result.Error(response.error)
+        }
+    }
+
     override fun getUserId(): Flow<String> {
         return preferences.getUserId()
     }
