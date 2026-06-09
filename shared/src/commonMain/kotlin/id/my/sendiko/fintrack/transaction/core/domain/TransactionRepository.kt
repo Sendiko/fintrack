@@ -10,7 +10,19 @@ interface TransactionRepository {
 
     suspend fun getTransactions(): Result<List<TransactionWithCategoryAndWallet>, DataError.Remote>
 
+    suspend fun getTransaction(id: String): Result<TransactionWithCategoryAndWallet, DataError.Remote>
+
     suspend fun postTransaction(
+        userId: String,
+        categoryId: String,
+        walletId: String,
+        amount: Int,
+        name: String,
+        type: String
+    ): Result<Transaction, DataError.Remote>
+
+    suspend fun putTransaction(
+        transactionId: String,
         userId: String,
         categoryId: String,
         walletId: String,

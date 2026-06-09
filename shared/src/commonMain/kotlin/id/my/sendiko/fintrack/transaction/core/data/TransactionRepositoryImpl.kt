@@ -22,6 +22,13 @@ class TransactionRepositoryImpl(
         }
     }
 
+    override suspend fun getTransaction(id: String): Result<TransactionWithCategoryAndWallet, DataError.Remote> {
+        return when (val response = dataSource.getTransaction(id)) {
+            is Result.Success -> Result.Success(response.data.transaction.toDomainWithCategoryAndWallet())
+            is Result.Error -> Result.Error(response.error)
+        }
+    }
+
     override suspend fun postTransaction(
         userId: String,
         categoryId: String,
@@ -39,6 +46,29 @@ class TransactionRepositoryImpl(
             categoryId = categoryId
         )
         return when (val response = dataSource.postTransaction(request)) {
+            is Result.Success -> Result.Success(response.data.transaction.toDomain())
+            is Result.Error -> Result.Error(response.error)
+        }
+    }
+
+    override suspend fun putTransaction(
+        transactionId: String,
+        userId: String,
+        categoryId: String,
+        walletId: String,
+        amount: Int,
+        name: String,
+        type: String
+    ): Result<Transaction, DataError.Remote> {
+        val request = PostTransactionRequest(
+            walletId = walletId,
+            amount = amount,
+            name = name,
+            type = type,
+            userId = userId,
+            categoryId = categoryId
+        )
+        return when (val response = dataSource.putTransaction(transactionId, request)) {
             is Result.Success -> Result.Success(response.data.transaction.toDomain())
             is Result.Error -> Result.Error(response.error)
         }
