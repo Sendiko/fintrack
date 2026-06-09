@@ -18,7 +18,7 @@
 
     <!--  Commonly used strings  -->
     <string name="back">Navigate back</string>
-    <string name="create">Create</string>
+    <string name="create">Save</string>
     <string name="backspace">Backspace</string>
 
     <!--  Strings for Authentication  -->
@@ -116,6 +116,10 @@
     <string name="set_amount_label">Amount</string>
     <string name="set_amount_error">Set the amount for this transaction.</string>
     <string name="transaction_recorded">Transaction recorded.</string>
+    <string name="delete_transaction_headline">Delete?</string>
+    <string name="delete_transaction_body">This action cannot be undone.</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
 
     <!--  Strings for List Transaction  -->
     <string name="list_transaction_title">Your Transactions</string>
