@@ -30,7 +30,7 @@ import fintrack.composeapp.generated.resources.empty_wallet
 import fintrack.composeapp.generated.resources.recent_transaction
 import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.wallets
-import id.my.sendiko.fintrack.core.navigation.CreateTransactionDestination
+import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
 import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.WalletListDestination
@@ -130,11 +130,11 @@ fun DashboardScreen(
                     ) {
                         AddIncomeButton(
                             modifier = Modifier.weight(1f),
-                            onClick = { onNavigate(CreateTransactionDestination(TransactionType.INCOME.name)) }
+                            onClick = { onNavigate(FormTransactionDestination(TransactionType.INCOME.name)) }
                         )
                         AddExpenseButton(
                             modifier = Modifier.weight(1f),
-                            onClick = { onNavigate(CreateTransactionDestination(TransactionType.EXPENSE.name)) }
+                            onClick = { onNavigate(FormTransactionDestination(TransactionType.EXPENSE.name)) }
                         )
                     }
                 }

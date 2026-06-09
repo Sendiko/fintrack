@@ -17,9 +17,9 @@ import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterScreen
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
-import id.my.sendiko.fintrack.core.navigation.CreateTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
 import id.my.sendiko.fintrack.core.navigation.DashboardDestination
+import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import id.my.sendiko.fintrack.core.navigation.RegisterDestination
@@ -30,8 +30,8 @@ import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.presentation.SplashScreen
 import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
 import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.transaction.create.presentation.CreateTransactionScreen
-import id.my.sendiko.fintrack.transaction.create.presentation.CreateTransactionViewModel
+import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionScreen
+import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionViewModel
 import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionScreen
 import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionViewModel
 import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletScreen
@@ -148,13 +148,14 @@ fun App() {
                     onEvent = viewModel::onEvent
                 )
             }
-            composable<CreateTransactionDestination> {
-                val type = it.toRoute<CreateTransactionDestination>().type
-                val viewModel = koinViewModel<CreateTransactionViewModel>()
+            composable<FormTransactionDestination> {
+                val (type, id) = it.toRoute<FormTransactionDestination>()
+                val viewModel = koinViewModel<FormTransactionViewModel>()
                 viewModel.setType(type)
+                viewModel.setId(id)
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
-                CreateTransactionScreen(
+                FormTransactionScreen(
                     state = state,
                     onEvent = viewModel::onEvent,
                     onNavigateBack = { navController.navigateUp() }
@@ -167,7 +168,11 @@ fun App() {
                 ListTransactionScreen(
                     state = state,
                     onEvent = viewModel::onEvent,
-                    onNavigateBack = { navController.navigateUp() }
+                    onNavigate = { destination ->
+                        if (destination == null)
+                            navController.navigateUp()
+                        else navController.navigate(destination)
+                    }
                 )
             }
         }

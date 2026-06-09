@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.transaction.create.presentation
+package id.my.sendiko.fintrack.transaction.form.presentation
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
@@ -32,6 +32,8 @@ import fintrack.composeapp.generated.resources.choose_wallet_label
 import fintrack.composeapp.generated.resources.create
 import fintrack.composeapp.generated.resources.create_expense_title
 import fintrack.composeapp.generated.resources.create_income_title
+import fintrack.composeapp.generated.resources.edit_expense_title
+import fintrack.composeapp.generated.resources.edit_income_title
 import fintrack.composeapp.generated.resources.next
 import fintrack.composeapp.generated.resources.set_amount_label
 import fintrack.composeapp.generated.resources.set_expense_name_hint
@@ -48,21 +50,21 @@ import id.my.sendiko.fintrack.theme.secondaryBlue
 import id.my.sendiko.fintrack.theme.utilityWhite
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.EXPENSE
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.INCOME
-import id.my.sendiko.fintrack.transaction.core.presentation.TransactionTopBar
 import id.my.sendiko.fintrack.transaction.core.presentation.StageBar
+import id.my.sendiko.fintrack.transaction.core.presentation.TransactionTopBar
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration.Companion.seconds
 
 @Composable
-fun CreateTransactionScreen(
-    state: CreateTransactionState,
-    onEvent: (CreateTransactionEvent) -> Unit,
+fun FormTransactionScreen(
+    state: FormTransactionState,
+    onEvent: (FormTransactionEvent) -> Unit,
     onNavigateBack: () -> Unit,
 ) {
 
     LaunchedEffect(true) {
-        onEvent(CreateTransactionEvent.LoadData)
+        onEvent(FormTransactionEvent.LoadData)
     }
 
     LaunchedEffect(state.isSuccess) {
@@ -87,9 +89,9 @@ fun CreateTransactionScreen(
                         contentPadding = PaddingValues(vertical = 16.dp),
                         onClick = {
                             if (state.stage == 1) {
-                                onEvent(CreateTransactionEvent.OnNext)
+                                onEvent(FormTransactionEvent.OnNext)
                             } else {
-                                onEvent(CreateTransactionEvent.OnCreate)
+                                onEvent(FormTransactionEvent.OnForm)
                             }
                         },
                         colors = ButtonDefaults.buttonColors(
@@ -112,13 +114,20 @@ fun CreateTransactionScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     TransactionTopBar(
-                        title = when (state.selectedType) {
-                            INCOME -> stringResource(Res.string.create_income_title)
-                            EXPENSE -> stringResource(Res.string.create_expense_title)
+                        title = if (state.transactionId.isNotBlank()) {
+                            when (state.selectedType) {
+                                INCOME -> stringResource(Res.string.edit_income_title)
+                                EXPENSE -> stringResource(Res.string.edit_expense_title)
+                            }
+                        } else {
+                            when (state.selectedType) {
+                                INCOME -> stringResource(Res.string.create_income_title)
+                                EXPENSE -> stringResource(Res.string.create_expense_title)
+                            }
                         },
                         onNavigateBack = {
                             if (state.stage == 2)
-                                onEvent(CreateTransactionEvent.OnPrevious)
+                                onEvent(FormTransactionEvent.OnPrevious)
                             else onNavigateBack()
                         }
                     )
@@ -149,9 +158,10 @@ fun CreateTransactionScreen(
                                             modifier = Modifier.fillMaxWidth(),
                                             items = state.wallets,
                                             hint = stringResource(Res.string.choose_wallet_hint),
+                                            initialValue = state.selectedWallet?.name ?: "",
                                             onChosen = {
                                                 onEvent(
-                                                    CreateTransactionEvent
+                                                    FormTransactionEvent
                                                         .OnWalletChanged(it)
                                                 )
                                             }
@@ -167,9 +177,10 @@ fun CreateTransactionScreen(
                                             modifier = Modifier.fillMaxWidth(),
                                             items = state.categories,
                                             hint = stringResource(Res.string.choose_category_hint),
+                                            initialValue = state.selectedCategory?.name ?: "",
                                             onChosen = {
                                                 onEvent(
-                                                    CreateTransactionEvent
+                                                    FormTransactionEvent
                                                         .OnCategoryChanged(it)
                                                 )
                                             }
@@ -189,7 +200,7 @@ fun CreateTransactionScreen(
                                             value = state.name,
                                             onValueChange = {
                                                 onEvent(
-                                                    CreateTransactionEvent
+                                                    FormTransactionEvent
                                                         .OnNameChanged(it)
                                                 )
                                             },
@@ -224,10 +235,10 @@ fun CreateTransactionScreen(
                                     Spacer(modifier = Modifier.weight(1f))
                                     NumericKeyboard(
                                         onClick = {
-                                            onEvent(CreateTransactionEvent.OnNumberPressed(it))
+                                            onEvent(FormTransactionEvent.OnNumberPressed(it))
                                         },
                                         onBackspace = {
-                                            onEvent(CreateTransactionEvent.OnBackspace)
+                                            onEvent(FormTransactionEvent.OnBackspace)
                                         }
                                     )
                                 }

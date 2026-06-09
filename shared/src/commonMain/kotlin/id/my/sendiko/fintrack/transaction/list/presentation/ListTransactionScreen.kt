@@ -1,5 +1,6 @@
 package id.my.sendiko.fintrack.transaction.list.presentation
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.all_label
 import fintrack.composeapp.generated.resources.list_transaction_title
+import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionListItem
 import id.my.sendiko.fintrack.theme.aliceBlue
@@ -40,7 +42,7 @@ import org.jetbrains.compose.resources.stringResource
 fun ListTransactionScreen(
     state: ListTransactionState,
     onEvent: (ListTransactionEvent) -> Unit,
-    onNavigateBack: () -> Unit
+    onNavigate: (Any?) -> Unit
 ) {
 
     LaunchedEffect(true) {
@@ -61,7 +63,7 @@ fun ListTransactionScreen(
                 ) {
                     TransactionTopBar(
                         title = stringResource(Res.string.list_transaction_title),
-                        onNavigateBack = onNavigateBack
+                        onNavigateBack = { onNavigate(null) }
                     )
                     Spacer(Modifier.height(16.dp))
                     SingleChoiceSegmentedButtonRow(
@@ -117,7 +119,15 @@ fun ListTransactionScreen(
                         ) {
                             items(state.transactions) { transaction ->
                                 TransactionListItem(
-                                    modifier = Modifier.fillMaxWidth(),
+                                    modifier = Modifier.fillMaxWidth()
+                                        .clickable {
+                                            onNavigate(
+                                                FormTransactionDestination(
+                                                    type = transaction.transaction.type.name,
+                                                    id = transaction.transaction.id
+                                                )
+                                            )
+                                        },
                                     transaction = transaction.transaction,
                                     categoryName = transaction.category.name + " - " + transaction.wallet.name,
                                     createdAt = transaction.transaction.createdAt

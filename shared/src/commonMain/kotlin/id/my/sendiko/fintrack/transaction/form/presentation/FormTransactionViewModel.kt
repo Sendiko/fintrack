@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.transaction.create.presentation
+package id.my.sendiko.fintrack.transaction.form.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,30 +27,30 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
 import kotlin.time.Duration.Companion.seconds
 
-class CreateTransactionViewModel(
+class FormTransactionViewModel(
     private val repository: TransactionRepository,
     private val walletRepository: WalletRepository,
     private val categoryRepository: CategoryRepository
 ) : ViewModel() {
 
     private val _userId = repository.getUserId()
-    private val _state = MutableStateFlow(CreateTransactionState())
+    private val _state = MutableStateFlow(FormTransactionState())
     val state = combine(_state, _userId) { state, userId ->
         state.copy(userId = userId)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), CreateTransactionState())
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), FormTransactionState())
 
-    fun onEvent(event: CreateTransactionEvent) {
+    fun onEvent(event: FormTransactionEvent) {
         when (event) {
-            CreateTransactionEvent.LoadData -> loadData()
-            is CreateTransactionEvent.OnWalletChanged -> changeWallet(event.wallet)
-            is CreateTransactionEvent.OnTypeChanged -> setType(event.type)
-            is CreateTransactionEvent.OnCategoryChanged -> changeCategory(event.category)
-            is CreateTransactionEvent.OnNameChanged -> changeName(event.name)
-            CreateTransactionEvent.OnNext -> onNext()
-            CreateTransactionEvent.OnPrevious -> onPrevious()
-            is CreateTransactionEvent.OnNumberPressed -> handleNumberPress(event.number)
-            CreateTransactionEvent.OnBackspace -> handleBackspace()
-            CreateTransactionEvent.OnCreate -> createTransaction()
+            FormTransactionEvent.LoadData -> loadData()
+            is FormTransactionEvent.OnWalletChanged -> changeWallet(event.wallet)
+            is FormTransactionEvent.OnTypeChanged -> setType(event.type)
+            is FormTransactionEvent.OnCategoryChanged -> changeCategory(event.category)
+            is FormTransactionEvent.OnNameChanged -> changeName(event.name)
+            FormTransactionEvent.OnNext -> onNext()
+            FormTransactionEvent.OnPrevious -> onPrevious()
+            is FormTransactionEvent.OnNumberPressed -> handleNumberPress(event.number)
+            FormTransactionEvent.OnBackspace -> handleBackspace()
+            FormTransactionEvent.OnForm -> createTransaction()
         }
     }
 
@@ -97,6 +97,19 @@ class CreateTransactionViewModel(
                         )
                     }
                 }
+            if (state.value.transactionId.isNotBlank()) {
+                repository.getTransaction(state.value.transactionId)
+                    .onSuccess { result ->
+                        _state.update {
+                            it.copy(
+                                selectedWallet = result.wallet,
+                                selectedCategory = result.category,
+                                name = result.transaction.name,
+                                amount = result.transaction.amount.toString()
+                            )
+                        }
+                    }
+            }
             setLoading(false)
         }
     }
@@ -107,6 +120,10 @@ class CreateTransactionViewModel(
 
     fun setType(type: String) {
         _state.update { it.copy(selectedType = TransactionType.valueOf(type)) }
+    }
+
+    fun setId(id: String) {
+        _state.update { it.copy(transactionId = id) }
     }
 
     private fun changeWallet(wallet: Wallet) {
@@ -162,30 +179,58 @@ class CreateTransactionViewModel(
                 return@launch
             }
             setLoading(true)
-            repository.postTransaction(
-                userId = state.value.userId,
-                categoryId = state.value.selectedCategory?.id.toString(),
-                walletId = state.value.selectedWallet?.id.toString(),
-                amount = state.value.amount.toInt(),
-                name = state.value.name,
-                type = state.value.selectedType.name.lowercase()
-            )
-                .onSuccess {
-                    _state.update {
-                        it.copy(
-                            message = getString(Res.string.transaction_recorded),
-                            isSuccess = true
-                        )
+            if (state.value.transactionId.isBlank()) {
+                repository.postTransaction(
+                    userId = state.value.userId,
+                    categoryId = state.value.selectedCategory?.id.toString(),
+                    walletId = state.value.selectedWallet?.id.toString(),
+                    amount = state.value.amount.toInt(),
+                    name = state.value.name,
+                    type = state.value.selectedType.name.lowercase()
+                )
+                    .onSuccess {
+                        _state.update {
+                            it.copy(
+                                message = getString(Res.string.transaction_recorded),
+                                isSuccess = true
+                            )
+                        }
                     }
-                }
-                .onError { error ->
-                    _state.update {
-                        it.copy(
-                            message = error.asUiText().asString(),
-                            isError = true
-                        )
+                    .onError { error ->
+                        _state.update {
+                            it.copy(
+                                message = error.asUiText().asString(),
+                                isError = true
+                            )
+                        }
                     }
-                }
+            } else {
+                repository.putTransaction(
+                    transactionId = state.value.transactionId,
+                    userId = state.value.userId,
+                    categoryId = state.value.selectedCategory?.id.toString(),
+                    walletId = state.value.selectedWallet?.id.toString(),
+                    amount = state.value.amount.toInt(),
+                    name = state.value.name,
+                    type = state.value.selectedType.name.lowercase()
+                )
+                    .onSuccess {
+                        _state.update {
+                            it.copy(
+                                message = getString(Res.string.transaction_recorded),
+                                isSuccess = true
+                            )
+                        }
+                    }
+                    .onError { error ->
+                        _state.update {
+                            it.copy(
+                                message = error.asUiText().asString(),
+                                isError = true
+                            )
+                        }
+                    }
+            }
             clearState()
         }
     }

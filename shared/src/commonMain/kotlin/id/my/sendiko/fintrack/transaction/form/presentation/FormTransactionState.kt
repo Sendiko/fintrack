@@ -1,14 +1,15 @@
-package id.my.sendiko.fintrack.transaction.create.presentation
+package id.my.sendiko.fintrack.transaction.form.presentation
 
 import id.my.sendiko.fintrack.category.domain.model.Category
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 
-data class CreateTransactionState(
+data class FormTransactionState(
     val isSuccess: Boolean = false,
     val isError: Boolean = false,
     val isLoading: Boolean = false,
     val message: String = "",
+    val transactionId: String = "",
     val wallets: List<Wallet> = emptyList(),
     val categories: List<Category> = emptyList(),
     val userId: String = "",

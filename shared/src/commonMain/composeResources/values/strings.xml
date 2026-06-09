@@ -99,7 +99,9 @@
 
     <!--  Strings for Create Transaction  -->
     <string name="create_income_title">Record Your Income</string>
+    <string name="edit_income_title">Update Your Income</string>
     <string name="create_expense_title">Record Your Expense</string>
+    <string name="edit_expense_title">Update Your Expense</string>
     <string name="choose_wallet_label">Choose wallet</string>
     <string name="choose_wallet_hint">Choose one of your wallet</string>
     <string name="choose_wallet_error">Please choose a wallet.</string>

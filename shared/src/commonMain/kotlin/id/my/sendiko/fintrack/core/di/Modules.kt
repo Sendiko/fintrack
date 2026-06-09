@@ -28,7 +28,7 @@ import id.my.sendiko.fintrack.transaction.core.data.TransactionRepositoryImpl
 import id.my.sendiko.fintrack.transaction.core.data.datasource.TransactionDataSource
 import id.my.sendiko.fintrack.transaction.core.data.datasource.TransactionDataSourceImpl
 import id.my.sendiko.fintrack.transaction.core.domain.TransactionRepository
-import id.my.sendiko.fintrack.transaction.create.presentation.CreateTransactionViewModel
+import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionViewModel
 import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionViewModel
 import id.my.sendiko.fintrack.wallet.core.data.WalletRepositoryImpl
 import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSource
@@ -66,6 +66,6 @@ val sharedModule = module {
     factory { DashboardViewModel(get()) }
     factory { CreateWalletViewModel(get()) }
     factory { WalletListViewModel(get()) }
-    factory { CreateTransactionViewModel(get(), get(), get()) }
+    factory { FormTransactionViewModel(get(), get(), get()) }
     factory { ListTransactionViewModel(get()) }
 }
