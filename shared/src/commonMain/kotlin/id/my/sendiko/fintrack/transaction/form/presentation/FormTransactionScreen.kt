@@ -3,20 +3,35 @@ package id.my.sendiko.fintrack.transaction.form.presentation
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,13 +40,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
+import fintrack.composeapp.generated.resources.cancel
 import fintrack.composeapp.generated.resources.choose_category_hint
 import fintrack.composeapp.generated.resources.choose_category_label
 import fintrack.composeapp.generated.resources.choose_wallet_hint
 import fintrack.composeapp.generated.resources.choose_wallet_label
+import fintrack.composeapp.generated.resources.confirm
 import fintrack.composeapp.generated.resources.create
 import fintrack.composeapp.generated.resources.create_expense_title
 import fintrack.composeapp.generated.resources.create_income_title
+import fintrack.composeapp.generated.resources.delete_transaction_body
+import fintrack.composeapp.generated.resources.delete_transaction_headline
 import fintrack.composeapp.generated.resources.edit_expense_title
 import fintrack.composeapp.generated.resources.edit_income_title
 import fintrack.composeapp.generated.resources.next
@@ -46,6 +65,7 @@ import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.textfields.DropdownMenu
 import id.my.sendiko.fintrack.theme.primaryOrange
+import id.my.sendiko.fintrack.theme.redError
 import id.my.sendiko.fintrack.theme.secondaryBlue
 import id.my.sendiko.fintrack.theme.utilityWhite
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.EXPENSE
@@ -56,6 +76,7 @@ import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration.Companion.seconds
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormTransactionScreen(
     state: FormTransactionState,
@@ -74,6 +95,69 @@ fun FormTransactionScreen(
         }
     }
 
+    if (state.showDeleteDialog) {
+        BasicAlertDialog(
+            onDismissRequest = { onEvent(FormTransactionEvent.DismissDeleteDialog) },
+            content = {
+                Surface(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.delete_transaction_headline),
+                            style = MaterialTheme.typography.headlineMedium
+                        )
+                        Text(
+                            text = stringResource(Res.string.delete_transaction_body),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            OutlinedButton(
+                                shape = RoundedCornerShape(
+                                    topEnd = 4.dp,
+                                    topStart = 8.dp,
+                                    bottomEnd = 4.dp,
+                                    bottomStart = 8.dp
+                                ),
+                                colors = ButtonDefaults.outlinedButtonColors(
+                                    contentColor = secondaryBlue,
+                                ),
+                                border = BorderStroke(1.dp, secondaryBlue),
+                                onClick = { onEvent(FormTransactionEvent.DismissDeleteDialog) },
+                                modifier = Modifier.weight(2f),
+                            ) {
+                                Text(stringResource(Res.string.cancel))
+                            }
+                            Spacer(Modifier.width(2.dp))
+                            Button(
+                                modifier = Modifier.weight(3f),
+                                shape = RoundedCornerShape(
+                                    topStart = 4.dp,
+                                    topEnd = 8.dp,
+                                    bottomStart = 4.dp,
+                                    bottomEnd = 8.dp
+                                ),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = redError,
+                                    contentColor = utilityWhite
+                                ),
+                                onClick = { onEvent(FormTransactionEvent.OnDelete) }
+                            ) {
+                                Text(stringResource(Res.string.confirm))
+                            }
+                        }
+                    }
+                }
+            }
+        )
+    }
+
     NotificationBox(
         message = state.message,
         isLoading = state.isLoading,
@@ -82,30 +166,64 @@ fun FormTransactionScreen(
                 containerColor = utilityWhite,
                 contentColor = secondaryBlue,
                 bottomBar = {
-                    Button(
+                    Row(
                         modifier = Modifier.fillMaxWidth()
-                            .padding(16.dp),
-                        shape = RoundedCornerShape(16.dp),
-                        contentPadding = PaddingValues(vertical = 16.dp),
-                        onClick = {
-                            if (state.stage == 1) {
-                                onEvent(FormTransactionEvent.OnNext)
-                            } else {
-                                onEvent(FormTransactionEvent.OnForm)
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = primaryOrange,
-                        )
+                            .padding(16.dp)
+                            .height(IntrinsicSize.Min)
                     ) {
-                        Text(
-                            text = when (state.stage) {
-                                1 -> stringResource(Res.string.next)
-                                2 -> stringResource(Res.string.create)
-                                else -> ""
+                        Button(
+                            modifier = Modifier.weight(1f),
+                            shape = if (state.transactionId.isBlank())
+                                RoundedCornerShape(16.dp)
+                            else RoundedCornerShape(
+                                topStart = 16.dp,
+                                topEnd = 4.dp,
+                                bottomStart = 16.dp,
+                                bottomEnd = 4.dp
+                            ),
+                            contentPadding = PaddingValues(vertical = 16.dp),
+                            onClick = {
+                                if (state.stage == 1) {
+                                    onEvent(FormTransactionEvent.OnNext)
+                                } else {
+                                    onEvent(FormTransactionEvent.OnSave)
+                                }
                             },
-                            fontWeight = FontWeight.Bold
-                        )
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = primaryOrange,
+                            )
+                        ) {
+                            Text(
+                                text = when (state.stage) {
+                                    1 -> stringResource(Res.string.next)
+                                    2 -> stringResource(Res.string.create)
+                                    else -> ""
+                                },
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                        if (state.transactionId.isNotBlank()) {
+                            Spacer(Modifier.width(4.dp))
+                            IconButton(
+                                modifier = Modifier.fillMaxHeight().aspectRatio(1f),
+                                colors = IconButtonDefaults.iconButtonColors(
+                                    containerColor = redError,
+                                    contentColor = utilityWhite
+                                ),
+                                shape = RoundedCornerShape(
+                                    topStart = 4.dp,
+                                    topEnd = 16.dp,
+                                    bottomStart = 4.dp,
+                                    bottomEnd = 16.dp
+                                ),
+                                onClick = { onEvent(FormTransactionEvent.ShowDeleteDialog) }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = null
+                                )
+                            }
+                        }
                     }
                 }
             ) { paddingValues ->

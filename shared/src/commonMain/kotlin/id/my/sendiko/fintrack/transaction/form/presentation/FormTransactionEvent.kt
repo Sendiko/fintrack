@@ -7,6 +7,10 @@ sealed interface FormTransactionEvent {
 
     data object LoadData: FormTransactionEvent
 
+    data object DismissDeleteDialog: FormTransactionEvent
+
+    data object ShowDeleteDialog: FormTransactionEvent
+
     data class OnNameChanged(val name: String) : FormTransactionEvent
 
     data class OnTypeChanged(val type: String) : FormTransactionEvent
@@ -23,6 +27,8 @@ sealed interface FormTransactionEvent {
 
     data object OnBackspace : FormTransactionEvent
 
-    data object OnForm : FormTransactionEvent
+    data object OnSave : FormTransactionEvent
+
+    data object OnDelete: FormTransactionEvent
 
 }

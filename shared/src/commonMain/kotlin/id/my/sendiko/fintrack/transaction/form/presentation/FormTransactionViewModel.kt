@@ -42,6 +42,8 @@ class FormTransactionViewModel(
     fun onEvent(event: FormTransactionEvent) {
         when (event) {
             FormTransactionEvent.LoadData -> loadData()
+            FormTransactionEvent.ShowDeleteDialog -> showDialog()
+            FormTransactionEvent.DismissDeleteDialog -> dismissDialog()
             is FormTransactionEvent.OnWalletChanged -> changeWallet(event.wallet)
             is FormTransactionEvent.OnTypeChanged -> setType(event.type)
             is FormTransactionEvent.OnCategoryChanged -> changeCategory(event.category)
@@ -50,8 +52,33 @@ class FormTransactionViewModel(
             FormTransactionEvent.OnPrevious -> onPrevious()
             is FormTransactionEvent.OnNumberPressed -> handleNumberPress(event.number)
             FormTransactionEvent.OnBackspace -> handleBackspace()
-            FormTransactionEvent.OnForm -> createTransaction()
+            FormTransactionEvent.OnSave -> createTransaction()
+            FormTransactionEvent.OnDelete -> deleteTransaction()
         }
+    }
+
+    private fun deleteTransaction() {
+        viewModelScope.launch {
+            setLoading(true)
+            dismissDialog()
+            repository.deleteTransaction(state.value.transactionId)
+                .onSuccess { result ->
+                    _state.update { it.copy(message = result) }
+                }
+                .onError { error ->
+                    _state.update { it.copy(isError = true, message = error.asUiText().asString()) }
+                }
+            setLoading(false)
+            clearState()
+        }
+    }
+
+    private fun showDialog() {
+        _state.update { it.copy(showDeleteDialog = true) }
+    }
+
+    private fun dismissDialog() {
+        _state.update { it.copy(showDeleteDialog = false) }
     }
 
     private suspend fun clearState() {
