@@ -33,7 +33,7 @@ fun <T> DropdownMenu(
     ExposedDropdownMenuBox(
         modifier = modifier,
         expanded = isExpanding,
-        onExpandedChange = { isExpanding = it },
+        onExpandedChange = { },
         content = {
 
             DropdownMenuField(
@@ -49,7 +49,7 @@ fun <T> DropdownMenu(
                 expanded = isExpanding,
                 onDismissRequest = { isExpanding = !isExpanding },
             ) {
-                items.forEach { it ->
+                items.forEach {
                     DropdownMenuItem(
                         text = { Text(text = it.toString()) },
                         onClick = {
