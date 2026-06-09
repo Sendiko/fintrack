@@ -2,7 +2,7 @@ package id.my.sendiko.fintrack.dashboard.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import id.my.sendiko.fintrack.category.domain.TopCategory
+import id.my.sendiko.fintrack.category.domain.model.TopCategory
 import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
@@ -44,8 +44,7 @@ class DashboardViewModel(
     private suspend fun getTransactions() {
         repository.getTransactions()
             .onSuccess { result ->
-                result.groupBy { item -> item.categoryId }
-                _state.update { it.copy(transactions = result) }
+                _state.update { state -> state.copy(transactions = result.sortedByDescending { it.transaction.createdAt }) }
             }
     }
 

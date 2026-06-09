@@ -22,3 +22,9 @@ data object CreateWalletDestination
 
 @Serializable
 data object WalletListDestination
+
+@Serializable
+data class FormTransactionDestination(val type: String, val id: String = "")
+
+@Serializable
+data object ListTransactionDestination

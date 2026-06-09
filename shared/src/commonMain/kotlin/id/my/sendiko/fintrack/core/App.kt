@@ -9,6 +9,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import id.my.sendiko.fintrack.auth.changepassword.presentation.ChangePasswordScreen
 import id.my.sendiko.fintrack.auth.changepassword.presentation.ChangePasswordViewModel
 import id.my.sendiko.fintrack.auth.login.presentation.LoginScreen
@@ -18,6 +19,8 @@ import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
 import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
 import id.my.sendiko.fintrack.core.navigation.DashboardDestination
+import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
+import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import id.my.sendiko.fintrack.core.navigation.RegisterDestination
 import id.my.sendiko.fintrack.core.navigation.SplashDestination
@@ -27,6 +30,10 @@ import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.presentation.SplashScreen
 import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
 import id.my.sendiko.fintrack.theme.FinTrackTheme
+import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionScreen
+import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionViewModel
+import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionScreen
+import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionViewModel
 import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletScreen
 import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletViewModel
 import id.my.sendiko.fintrack.wallet.list.presentation.WalletListScreen
@@ -139,6 +146,33 @@ fun App() {
                 WalletListScreen(
                     state = state,
                     onEvent = viewModel::onEvent
+                )
+            }
+            composable<FormTransactionDestination> {
+                val (type, id) = it.toRoute<FormTransactionDestination>()
+                val viewModel = koinViewModel<FormTransactionViewModel>()
+                viewModel.setType(type)
+                viewModel.setId(id)
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                FormTransactionScreen(
+                    state = state,
+                    onEvent = viewModel::onEvent,
+                    onNavigateBack = { navController.navigateUp() }
+                )
+            }
+            composable<ListTransactionDestination> {
+                val viewModel = koinViewModel<ListTransactionViewModel>()
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                ListTransactionScreen(
+                    state = state,
+                    onEvent = viewModel::onEvent,
+                    onNavigate = { destination ->
+                        if (destination == null)
+                            navController.navigateUp()
+                        else navController.navigate(destination)
+                    }
                 )
             }
         }

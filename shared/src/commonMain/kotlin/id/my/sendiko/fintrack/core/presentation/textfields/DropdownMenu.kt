@@ -7,6 +7,7 @@ import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -19,10 +20,16 @@ fun <T> DropdownMenu(
     modifier: Modifier = Modifier,
     items: List<T>,
     onChosen: (T) -> Unit,
-    hint: String
+    hint: String,
+    initialValue: String = ""
 ) {
     var isExpanding by rememberSaveable { mutableStateOf(false) }
-    var text by rememberSaveable { mutableStateOf("") }
+    var text by rememberSaveable { mutableStateOf(initialValue) }
+
+    LaunchedEffect(initialValue) {
+        text = initialValue
+    }
+
     ExposedDropdownMenuBox(
         modifier = modifier,
         expanded = isExpanding,
@@ -42,7 +49,7 @@ fun <T> DropdownMenu(
                 expanded = isExpanding,
                 onDismissRequest = { isExpanding = !isExpanding },
             ) {
-                items.forEach { it ->
+                items.forEach {
                     DropdownMenuItem(
                         text = { Text(text = it.toString()) },
                         onClick = {

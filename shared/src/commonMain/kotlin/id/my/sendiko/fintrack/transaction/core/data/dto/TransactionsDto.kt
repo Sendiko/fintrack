@@ -1,7 +1,8 @@
-package id.my.sendiko.fintrack.transaction.data.dto
+package id.my.sendiko.fintrack.transaction.core.data.dto
 
-import id.my.sendiko.fintrack.transaction.domain.Transaction
-import id.my.sendiko.fintrack.transaction.domain.TransactionType
+import id.my.sendiko.fintrack.core.presentation.convertStringToDateTime
+import id.my.sendiko.fintrack.transaction.core.domain.model.Transaction
+import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -16,9 +17,6 @@ data class TransactionsDto(
 
 	@SerialName("amount")
 	val amount: Int,
-
-	@SerialName("deletedAt")
-	val deletedAt: String?,
 
 	@SerialName("name")
 	val name: String,
@@ -45,6 +43,7 @@ data class TransactionsDto(
         type = TransactionType.valueOf(type.uppercase()),
         categoryId = categoryId,
         userId = userId,
-        walletId = walletId
+        walletId = walletId,
+		createdAt = convertStringToDateTime(createdAt)
     )
 }

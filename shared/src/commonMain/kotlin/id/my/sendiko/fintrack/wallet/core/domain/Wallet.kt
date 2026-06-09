@@ -7,4 +7,8 @@ data class Wallet(
     val type: String,
     val amount: Double,
     val number: String,
-)
+) {
+    override fun toString(): String {
+        return name
+    }
+}
