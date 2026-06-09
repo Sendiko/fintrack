@@ -33,7 +33,7 @@ fun <T> DropdownMenu(
     ExposedDropdownMenuBox(
         modifier = modifier,
         expanded = isExpanding,
-        onExpandedChange = { },
+        onExpandedChange = { isExpanding = it },
         content = {
 
             DropdownMenuField(
