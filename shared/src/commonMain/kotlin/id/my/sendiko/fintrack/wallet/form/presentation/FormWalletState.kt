@@ -7,6 +7,8 @@ data class FormWalletState(
     val isLoading: Boolean = false,
     val message: String = "",
     val userId: String = "",
+    val walletId: String = "",
+    val showDeleteDialog: Boolean = false,
     val stage: Int = 1,
     val name: String = "",
     val purpose: String = "",
