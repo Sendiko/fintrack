@@ -34,8 +34,8 @@ import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionScree
 import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionViewModel
 import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionScreen
 import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionViewModel
-import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletScreen
-import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletViewModel
+import id.my.sendiko.fintrack.wallet.form.presentation.FormWalletScreen
+import id.my.sendiko.fintrack.wallet.form.presentation.FormWalletViewModel
 import id.my.sendiko.fintrack.wallet.list.presentation.WalletListScreen
 import id.my.sendiko.fintrack.wallet.list.presentation.WalletListViewModel
 import org.koin.compose.viewmodel.koinViewModel
