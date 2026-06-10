@@ -18,7 +18,7 @@ data object ChangePasswordDestination
 data object DashboardDestination
 
 @Serializable
-data object CreateWalletDestination
+data class FormWalletDestination(val id: String = "")
 
 @Serializable
 data object WalletListDestination
