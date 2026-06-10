@@ -78,6 +78,7 @@
     <string name="empty_category">You have no category \nLet's create one!</string>
     <string name="empty_transaction">You have no transaction \nLet's create one!</string>
     <string name="see_more_transaction">See more transaction</string>
+    <string name="see_more_categories">More categories</string>
 
     <!--  Strings for Create Wallet  -->
     <string name="create_wallet_title">Create New Wallet</string>
