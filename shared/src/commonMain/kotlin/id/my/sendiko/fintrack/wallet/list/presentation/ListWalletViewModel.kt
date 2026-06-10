@@ -13,24 +13,24 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class WalletListViewModel(
+class ListWalletViewModel(
     private val repository: WalletRepositoryImpl
 ) : ViewModel() {
 
     private val _token = repository.getToken()
     private val _userId = repository.getUserId()
-    private val _state = MutableStateFlow(WalletListState())
+    private val _state = MutableStateFlow(ListWalletState())
     val state = combine(_token, _userId, _state) { token, userId, state ->
         state.copy(token = token, userId = userId)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), WalletListState())
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ListWalletState())
 
-    fun onEvent(event: WalletListEvent) {
+    fun onEvent(event: ListWalletEvent) {
         when (event) {
-            WalletListEvent.OnLoadData -> loadData()
-            is WalletListEvent.OnBalanceViewChanged -> changeBalanceView(event.isVisible)
-            is WalletListEvent.OnShowDeleteDialog -> showDeleteDialog(event.walletId)
-            WalletListEvent.OnDismissDeleteDialog -> dismissDeleteDialog()
-            WalletListEvent.OnDelete -> deleteWallet()
+            ListWalletEvent.OnLoadData -> loadData()
+            is ListWalletEvent.OnBalanceViewChanged -> changeBalanceView(event.isVisible)
+            is ListWalletEvent.OnShowDeleteDialog -> showDeleteDialog(event.walletId)
+            ListWalletEvent.OnDismissDeleteDialog -> dismissDeleteDialog()
+            ListWalletEvent.OnDelete -> deleteWallet()
         }
     }
 

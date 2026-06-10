@@ -54,19 +54,19 @@ import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WalletListScreen(
-    state: WalletListState,
-    onEvent: (WalletListEvent) -> Unit,
+fun ListWalletScreen(
+    state: ListWalletState,
+    onEvent: (ListWalletEvent) -> Unit,
     onNavigate: (Any?) -> Unit,
 ) {
 
     LaunchedEffect(true) {
-        onEvent(WalletListEvent.OnLoadData)
+        onEvent(ListWalletEvent.OnLoadData)
     }
 
     if (state.showDeleteDialog) {
         BasicAlertDialog(
-            onDismissRequest = { onEvent(WalletListEvent.OnDismissDeleteDialog) },
+            onDismissRequest = { onEvent(ListWalletEvent.OnDismissDeleteDialog) },
             content = {
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
@@ -98,7 +98,7 @@ fun WalletListScreen(
                                     contentColor = secondaryBlue,
                                 ),
                                 border = BorderStroke(1.dp, secondaryBlue),
-                                onClick = { onEvent(WalletListEvent.OnDismissDeleteDialog) },
+                                onClick = { onEvent(ListWalletEvent.OnDismissDeleteDialog) },
                                 modifier = Modifier.weight(2f),
                             ) {
                                 Text(stringResource(Res.string.cancel))
@@ -116,7 +116,7 @@ fun WalletListScreen(
                                     containerColor = redError,
                                     contentColor = utilityWhite
                                 ),
-                                onClick = { onEvent(WalletListEvent.OnDelete) }
+                                onClick = { onEvent(ListWalletEvent.OnDelete) }
                             ) {
                                 Text(stringResource(Res.string.confirm))
                             }
@@ -164,11 +164,11 @@ fun WalletListScreen(
                             modifier = Modifier.fillMaxWidth(),
                             wallet = it,
                             isVisible = state.balanceVisible,
-                            onVisibilityToggle = { onEvent(WalletListEvent.OnBalanceViewChanged(it)) },
+                            onVisibilityToggle = { onEvent(ListWalletEvent.OnBalanceViewChanged(it)) },
                             onEdit = {
                                 onNavigate(FormWalletDestination(it.id))
                             },
-                            onDelete = { onEvent(WalletListEvent.OnShowDeleteDialog(it.id)) },
+                            onDelete = { onEvent(ListWalletEvent.OnShowDeleteDialog(it.id)) },
                         )
                     }
                 }
@@ -191,10 +191,10 @@ fun WalletListScreen(
 
 @Preview
 @Composable
-private fun WalletListScreenPreview() {
+private fun ListWalletScreenPreview() {
     FinTrackTheme {
-        WalletListScreen(
-            state = WalletListState(),
+        ListWalletScreen(
+            state = ListWalletState(),
             onEvent = { },
             onNavigate = { }
         )

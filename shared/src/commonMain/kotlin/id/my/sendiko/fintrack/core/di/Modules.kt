@@ -35,7 +35,7 @@ import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSource
 import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSourceImpl
 import id.my.sendiko.fintrack.wallet.core.domain.WalletRepository
 import id.my.sendiko.fintrack.wallet.form.presentation.FormWalletViewModel
-import id.my.sendiko.fintrack.wallet.list.presentation.WalletListViewModel
+import id.my.sendiko.fintrack.wallet.list.presentation.ListWalletViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
@@ -65,7 +65,7 @@ val sharedModule = module {
     factory { ChangePasswordViewModel(get()) }
     factory { DashboardViewModel(get()) }
     factory { FormWalletViewModel(get()) }
-    factory { WalletListViewModel(get()) }
+    factory { ListWalletViewModel(get()) }
     factory { FormTransactionViewModel(get(), get(), get()) }
     factory { ListTransactionViewModel(get()) }
 }

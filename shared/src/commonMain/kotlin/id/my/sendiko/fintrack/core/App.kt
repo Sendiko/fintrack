@@ -36,8 +36,8 @@ import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionScree
 import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionViewModel
 import id.my.sendiko.fintrack.wallet.form.presentation.FormWalletScreen
 import id.my.sendiko.fintrack.wallet.form.presentation.FormWalletViewModel
-import id.my.sendiko.fintrack.wallet.list.presentation.WalletListScreen
-import id.my.sendiko.fintrack.wallet.list.presentation.WalletListViewModel
+import id.my.sendiko.fintrack.wallet.list.presentation.ListWalletScreen
+import id.my.sendiko.fintrack.wallet.list.presentation.ListWalletViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -142,10 +142,10 @@ fun App() {
                 )
             }
             composable<WalletListDestination> {
-                val viewModel = koinViewModel<WalletListViewModel>()
+                val viewModel = koinViewModel<ListWalletViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
-                WalletListScreen(
+                ListWalletScreen(
                     state = state,
                     onEvent = viewModel::onEvent,
                     onNavigate = { destination ->
