@@ -5,7 +5,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -17,10 +21,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fintrack.composeapp.generated.resources.Res
+import fintrack.composeapp.generated.resources.back
 import fintrack.composeapp.generated.resources.wallet_list_title
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
 import id.my.sendiko.fintrack.theme.FinTrackTheme
+import id.my.sendiko.fintrack.wallet.list.presentation.components.EditableWalletCard
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,12 +34,13 @@ import org.jetbrains.compose.resources.stringResource
 fun WalletListScreen(
     state: WalletListState,
     onEvent: (WalletListEvent) -> Unit,
+    onNavigateBack: () -> Unit,
 ) {
-    LaunchedEffect(state.wallets, state.token) {
-        if (state.wallets.isEmpty() && state.token.isNotBlank()) {
-            onEvent(WalletListEvent.OnLoadData)
-        }
+
+    LaunchedEffect(true) {
+        onEvent(WalletListEvent.OnLoadData)
     }
+
     NotificationBox(
         message = state.message,
         isLoading = state.isLoading
@@ -47,6 +54,16 @@ fun WalletListScreen(
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Normal
                         )
+                    },
+                    navigationIcon = {
+                        IconButton(
+                            onClick = onNavigateBack,
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                                contentDescription = stringResource(Res.string.back)
+                            )
+                        }
                     }
                 )
             },
@@ -56,12 +73,13 @@ fun WalletListScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 items(state.wallets) {
-                    WalletCard(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(horizontal = 16.dp),
+                    EditableWalletCard(
+                        modifier = Modifier.fillMaxWidth(),
                         wallet = it,
                         isVisible = state.balanceVisible,
                         onVisibilityToggle = { onEvent(WalletListEvent.OnBalanceViewChanged(it)) },
+                        onEdit = {  },
+                        onDelete = {  },
                     )
                 }
             }
@@ -75,7 +93,8 @@ private fun WalletListScreenPreview() {
     FinTrackTheme {
         WalletListScreen(
             state = WalletListState(),
-            onEvent = { }
+            onEvent = { },
+            onNavigateBack = { }
         )
     }
 }

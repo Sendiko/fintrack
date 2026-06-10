@@ -45,43 +45,45 @@ fun WalletCard(
             contentColor = utilityWhite
         ),
     ) {
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
+        Row {
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Text(
-                    text = wallet.name,
-                    style = MaterialTheme.typography.labelLarge
-                )
-                Text(
-                    text = wallet.number.takeLast(4),
-                    fontWeight = FontWeight.Bold
-                )
-            }
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = if (isVisible)
-                        wallet.amount.toRupiah()
-                    else stringResource(Res.string.hidden_balance),
-                    style = MaterialTheme.typography.titleLarge
-                )
-                IconButton(
-                    onClick = { onVisibilityToggle(!isVisible) }
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Visibility,
-                        contentDescription = stringResource(Res.string.password_visible)
+                    Text(
+                        text = wallet.name,
+                        style = MaterialTheme.typography.labelLarge
                     )
+                    Text(
+                        text = wallet.number.takeLast(4),
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = if (isVisible)
+                            wallet.amount.toRupiah()
+                        else stringResource(Res.string.hidden_balance),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    IconButton(
+                        onClick = { onVisibilityToggle(!isVisible) }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Visibility,
+                            contentDescription = stringResource(Res.string.password_visible)
+                        )
+                    }
                 }
             }
         }
