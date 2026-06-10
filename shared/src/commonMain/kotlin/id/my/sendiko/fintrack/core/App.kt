@@ -17,9 +17,9 @@ import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterScreen
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
-import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
 import id.my.sendiko.fintrack.core.navigation.DashboardDestination
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
+import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
 import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import id.my.sendiko.fintrack.core.navigation.RegisterDestination
@@ -125,15 +125,17 @@ fun App() {
                     },
                 )
             }
-            composable<CreateWalletDestination> {
+            composable<FormWalletDestination> {
+                val args = it.toRoute<FormWalletDestination>()
                 val viewModel = koinViewModel<FormWalletViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
+                viewModel.setId(args.id)
 
                 FormWalletScreen(
                     state = state,
                     onEvent = viewModel::onEvent,
-                    onNavigate = {
-                        if (it == null) {
+                    onNavigate = { destination ->
+                        if (destination == null) {
                             navController.navigateUp()
                         }
                     }
@@ -146,7 +148,11 @@ fun App() {
                 WalletListScreen(
                     state = state,
                     onEvent = viewModel::onEvent,
-                    onNavigateBack = { navController.navigateUp() }
+                    onNavigate = { destination ->
+                        if (destination == null)
+                            navController.navigateUp()
+                        else navController.navigate(destination)
+                    }
                 )
             }
             composable<FormTransactionDestination> {

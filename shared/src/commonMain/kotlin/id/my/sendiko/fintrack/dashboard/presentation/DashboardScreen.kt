@@ -31,7 +31,7 @@ import fintrack.composeapp.generated.resources.recent_transaction
 import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.wallets
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
-import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
+import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
 import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.WalletListDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
@@ -94,7 +94,7 @@ fun DashboardScreen(
                         AddWalletButton(
                             modifier = Modifier.width(48.dp)
                                 .fillMaxHeight(),
-                            onClick = { onNavigate(CreateWalletDestination) }
+                            onClick = { onNavigate(FormWalletDestination()) }
                         )
                         if (state.wallets.isNotEmpty()) {
                             state.wallets.forEach { wallet ->

@@ -70,7 +70,7 @@ import id.my.sendiko.fintrack.theme.secondaryBlue
 import id.my.sendiko.fintrack.theme.utilityWhite
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.EXPENSE
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.INCOME
-import id.my.sendiko.fintrack.transaction.core.presentation.StageBar
+import id.my.sendiko.fintrack.core.presentation.StageBar
 import id.my.sendiko.fintrack.transaction.core.presentation.TransactionTopBar
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource

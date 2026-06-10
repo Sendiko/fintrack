@@ -6,15 +6,12 @@ import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
 import id.my.sendiko.fintrack.wallet.core.data.WalletRepositoryImpl
-import id.my.sendiko.fintrack.wallet.core.domain.Wallet
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.time.Duration.Companion.seconds
 
 class WalletListViewModel(
     private val repository: WalletRepositoryImpl
@@ -31,17 +28,22 @@ class WalletListViewModel(
         when (event) {
             WalletListEvent.OnLoadData -> loadData()
             is WalletListEvent.OnBalanceViewChanged -> changeBalanceView(event.isVisible)
+            is WalletListEvent.OnShowDeleteDialog -> showDeleteDialog(event.walletId)
+            WalletListEvent.OnDismissDeleteDialog -> dismissDeleteDialog()
+            WalletListEvent.OnDelete -> deleteWallet()
         }
     }
 
-    private suspend fun clearState() {
-        delay(2.seconds)
-        _state.update {
-            it.copy(
-                isLoading = false,
-                message = ""
-            )
-        }
+    private fun setLoading(loading: Boolean) {
+        _state.update { it.copy(isLoading = loading) }
+    }
+
+    private fun showDeleteDialog(walletId: String) {
+        _state.update { it.copy(showDeleteDialog = true, walletId = walletId) }
+    }
+
+    private fun dismissDeleteDialog() {
+        _state.update { it.copy(showDeleteDialog = false) }
     }
 
     private fun changeBalanceView(visible: Boolean) {
@@ -56,7 +58,6 @@ class WalletListViewModel(
                     _state.update {
                         it.copy(
                             wallets = result,
-                            isLoading = false
                         )
                     }
                 }
@@ -65,6 +66,22 @@ class WalletListViewModel(
                         it.copy(message = error.asUiText().asString())
                     }
                 }
+            setLoading(false)
+        }
+    }
+
+    private fun deleteWallet() {
+        viewModelScope.launch {
+            setLoading(true)
+            dismissDeleteDialog()
+            repository.deleteWallet(state.value.walletId)
+                .onSuccess { result ->
+                    _state.update { it.copy(message = result) }
+                }
+                .onError { error ->
+                    _state.update { it.copy(message = error.asUiText().asString()) }
+                }
+            loadData()
         }
     }
 

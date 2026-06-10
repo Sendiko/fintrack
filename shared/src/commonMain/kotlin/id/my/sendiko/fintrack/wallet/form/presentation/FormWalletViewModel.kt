@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.create_wallet_success_message
+import fintrack.composeapp.generated.resources.update_wallet_success_message
 import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
@@ -32,6 +33,7 @@ class FormWalletViewModel(
 
     fun onEvent(event: FormWalletEvent) {
         when (event) {
+            FormWalletEvent.OnLoadWallet -> loadWallet()
             is FormWalletEvent.OnNameChanged -> _state.update { it.copy(name = event.name) }
             is FormWalletEvent.OnPurposeChanged -> _state.update { it.copy(purpose = event.purpose) }
             is FormWalletEvent.OnTypeChanged -> _state.update { it.copy(type = event.type) }
@@ -40,11 +42,57 @@ class FormWalletViewModel(
             FormWalletEvent.OnSave -> postWallet()
             is FormWalletEvent.OnWalletNumberChanged -> _state.update { it.copy(number = event.number) }
             FormWalletEvent.OnBackspace -> handleBackspace()
+            FormWalletEvent.OnShowDeleteDialog -> showDeleteDialog()
+            FormWalletEvent.OnDismissDeleteDialog -> dismissDeleteDialog()
+            FormWalletEvent.OnDelete -> deleteWallet()
         }
     }
 
+    private fun loadWallet() {
+        viewModelScope.launch {
+            setLoading(true)
+            repository.getWallet(state.value.walletId)
+                .onSuccess { result ->
+                    _state.update {
+                        it.copy(
+                            name = result.name,
+                            type = result.type,
+                            purpose = result.purpose,
+                            number = result.number,
+                            amount = result.amount.toString()
+                        )
+                    }
+                }
+                .onError { error ->
+                    _state.update {
+                        it.copy(
+                            message = error.asUiText().asString(),
+                            isError = true
+                        )
+                    }
+                }
+            setLoading(false)
+        }
+    }
+
+    fun setId(id: String) {
+        _state.update { it.copy(walletId = id) }
+    }
+
+    private fun setLoading(loading: Boolean) {
+        _state.update { it.copy(isLoading = loading) }
+    }
+
+    private fun showDeleteDialog() {
+        _state.update { it.copy(showDeleteDialog = true) }
+    }
+
+    private fun dismissDeleteDialog() {
+        _state.update { it.copy(showDeleteDialog = false) }
+    }
+
     private suspend fun clearState() {
-        delay(2.seconds)
+        delay(3.seconds)
         _state.update {
             it.copy(
                 isLoading = false,
@@ -56,7 +104,7 @@ class FormWalletViewModel(
     }
 
     private fun postWallet() {
-        _state.update { it.copy(isLoading = true) }
+        setLoading(true)
         viewModelScope.launch {
             val userId = state.value.userId
             val wallet = Wallet(
@@ -67,26 +115,50 @@ class FormWalletViewModel(
                 amount = state.value.amount.toDouble(),
                 number = state.value.number
             )
-            repository
-                .createWallet(userId, wallet)
-                .onSuccess {
-                    _state.update {
-                        it.copy(
-                            message = getString(Res.string.create_wallet_success_message),
-                            isLoading = false,
-                            isSuccess = true
-                        )
+            if (state.value.walletId.isNotBlank()) {
+                repository
+                    .updateWallet(userId, wallet)
+                    .onSuccess {
+                        _state.update {
+                            it.copy(
+                                message = getString(Res.string.update_wallet_success_message),
+                                isLoading = false,
+                                isSuccess = true
+                            )
+                        }
                     }
-                }
-                .onError { error ->
-                    _state.update {
-                        it.copy(
-                            message = error.asUiText().asString(),
-                            isLoading = false,
-                            isError = true
-                        )
+                    .onError { error ->
+                        _state.update {
+                            it.copy(
+                                message = error.asUiText().asString(),
+                                isLoading = false,
+                                isError = true
+                            )
+                        }
                     }
-                }
+            } else {
+                repository
+                    .createWallet(userId, wallet)
+                    .onSuccess {
+                        _state.update {
+                            it.copy(
+                                message = getString(Res.string.create_wallet_success_message),
+                                isLoading = false,
+                                isSuccess = true
+                            )
+                        }
+                    }
+                    .onError { error ->
+                        _state.update {
+                            it.copy(
+                                message = error.asUiText().asString(),
+                                isLoading = false,
+                                isError = true
+                            )
+                        }
+                    }
+            }
+            setLoading(false)
             clearState()
         }
     }
@@ -101,6 +173,21 @@ class FormWalletViewModel(
         if (state.value.amount != "0.0") {
             _state.update { it.copy(amount = it.amount.dropLast(1)) }
         } else _state.update { it.copy(amount = "0.0") }
+    }
+
+    private fun deleteWallet() {
+        viewModelScope.launch {
+            setLoading(true)
+            dismissDeleteDialog()
+            repository.deleteWallet(state.value.walletId)
+                .onSuccess { result ->
+                    _state.update { it.copy(message = result, isSuccess = true) }
+                }
+                .onError { error ->
+                    _state.update { it.copy(isError = true, message = error.asUiText().asString()) }
+                }
+            clearState()
+        }
     }
 
 }

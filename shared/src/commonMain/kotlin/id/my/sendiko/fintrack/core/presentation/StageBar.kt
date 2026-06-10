@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.transaction.core.presentation
+package id.my.sendiko.fintrack.core.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

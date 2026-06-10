@@ -81,6 +81,7 @@
 
     <!--  Strings for Create Wallet  -->
     <string name="create_wallet_title">Create New Wallet</string>
+    <string name="update_wallet_title">Edit Your Wallet</string>
     <string name="wallet_name_label">Name</string>
     <string name="wallet_name_hint">Cash, Gopay, LinkAja, etc...</string>
     <string name="wallet_type_label">Type</string>
@@ -93,6 +94,9 @@
     <string name="initial_balance">Initial Balance</string>
     <string name="next">Next</string>
     <string name="create_wallet_success_message">Wallet successfully created.</string>
+    <string name="update_wallet_success_message">Wallet successfully updated.</string>
+    <string name="delete_wallet_headline">Delete?</string>
+    <string name="delete_wallet_body">This action will delete all transaction from this wallet.</string>
 
     <!--  Strings for Wallet List  -->
     <string name="wallet_list_title">Your Wallets</string>

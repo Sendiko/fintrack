@@ -7,6 +7,8 @@ data class WalletListState(
     val isLoading: Boolean = false,
     val message: String = "",
     val userId: String = "",
+    val walletId: String = "",
+    val showDeleteDialog: Boolean = false,
     val wallets: List<Wallet> = emptyList(),
     val balanceVisible: Boolean = false,
 )

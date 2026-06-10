@@ -82,11 +82,10 @@ class FormTransactionViewModel(
     }
 
     private suspend fun clearState() {
-        delay(2.seconds)
+        delay(3.seconds)
         setLoading(false)
         _state.update {
             it.copy(
-                isSuccess = false,
                 isError = false,
                 message = "",
             )
