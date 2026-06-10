@@ -1,6 +1,6 @@
-package id.my.sendiko.fintrack.category.data.datasource
+package id.my.sendiko.fintrack.category.core.data.datasource
 
-import id.my.sendiko.fintrack.category.data.dto.GetCategoriesResponse
+import id.my.sendiko.fintrack.category.core.data.dto.GetCategoriesResponse
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
 

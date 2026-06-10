@@ -1,6 +1,6 @@
 package id.my.sendiko.fintrack.transaction.form.presentation
 
-import id.my.sendiko.fintrack.category.domain.model.Category
+import id.my.sendiko.fintrack.category.core.domain.model.Category
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 

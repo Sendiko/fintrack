@@ -1,7 +1,7 @@
-package id.my.sendiko.fintrack.category.data.dto
+package id.my.sendiko.fintrack.category.core.data.dto
 
-import id.my.sendiko.fintrack.category.domain.model.Category
-import id.my.sendiko.fintrack.category.domain.model.CategoryWithTransactions
+import id.my.sendiko.fintrack.category.core.domain.model.Category
+import id.my.sendiko.fintrack.category.core.domain.model.CategoryWithTransactions
 import id.my.sendiko.fintrack.transaction.core.data.dto.TransactionsDto
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName

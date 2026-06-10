@@ -1,7 +1,7 @@
 package id.my.sendiko.fintrack.dashboard.presentation
 
-import id.my.sendiko.fintrack.category.domain.model.Category
-import id.my.sendiko.fintrack.category.domain.model.TopCategory
+import id.my.sendiko.fintrack.category.core.domain.model.Category
+import id.my.sendiko.fintrack.category.core.domain.model.TopCategory
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionWithCategoryAndWallet
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 

@@ -11,10 +11,10 @@ import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.data.RegisterRepositoryImpl
 import id.my.sendiko.fintrack.auth.register.domain.RegisterRepository
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
-import id.my.sendiko.fintrack.category.data.CategoryRepositoryImpl
-import id.my.sendiko.fintrack.category.data.datasource.CategoryDataSource
-import id.my.sendiko.fintrack.category.data.datasource.CategoryDataSourceImpl
-import id.my.sendiko.fintrack.category.domain.CategoryRepository
+import id.my.sendiko.fintrack.category.core.data.CategoryRepositoryImpl
+import id.my.sendiko.fintrack.category.core.data.datasource.CategoryDataSource
+import id.my.sendiko.fintrack.category.core.data.datasource.CategoryDataSourceImpl
+import id.my.sendiko.fintrack.category.core.domain.CategoryRepository
 import id.my.sendiko.fintrack.core.network.HttpClientFactory
 import id.my.sendiko.fintrack.core.preferences.PreferenceRepository
 import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl

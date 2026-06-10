@@ -1,6 +1,6 @@
 package id.my.sendiko.fintrack.transaction.core.data.dto
 
-import id.my.sendiko.fintrack.category.data.dto.CategoryDto
+import id.my.sendiko.fintrack.category.core.data.dto.CategoryDto
 import id.my.sendiko.fintrack.core.presentation.convertStringToDateTime
 import id.my.sendiko.fintrack.transaction.core.domain.model.Transaction
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType

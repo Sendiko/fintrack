@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.category.domain.model
+package id.my.sendiko.fintrack.category.core.domain.model
 
 data class Category(
     val id: String,

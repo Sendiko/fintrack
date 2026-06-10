@@ -8,8 +8,8 @@ import fintrack.composeapp.generated.resources.choose_wallet_error
 import fintrack.composeapp.generated.resources.set_amount_error
 import fintrack.composeapp.generated.resources.set_name_error
 import fintrack.composeapp.generated.resources.transaction_recorded
-import id.my.sendiko.fintrack.category.domain.CategoryRepository
-import id.my.sendiko.fintrack.category.domain.model.Category
+import id.my.sendiko.fintrack.category.core.domain.CategoryRepository
+import id.my.sendiko.fintrack.category.core.domain.model.Category
 import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
