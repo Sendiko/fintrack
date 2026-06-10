@@ -6,15 +6,12 @@ import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
 import id.my.sendiko.fintrack.wallet.core.data.WalletRepositoryImpl
-import id.my.sendiko.fintrack.wallet.core.domain.Wallet
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.time.Duration.Companion.seconds
 
 class WalletListViewModel(
     private val repository: WalletRepositoryImpl
@@ -47,16 +44,6 @@ class WalletListViewModel(
 
     private fun dismissDeleteDialog() {
         _state.update { it.copy(showDeleteDialog = false) }
-    }
-
-    private suspend fun clearState() {
-        delay(2.seconds)
-        _state.update {
-            it.copy(
-                isLoading = false,
-                message = ""
-            )
-        }
     }
 
     private fun changeBalanceView(visible: Boolean) {

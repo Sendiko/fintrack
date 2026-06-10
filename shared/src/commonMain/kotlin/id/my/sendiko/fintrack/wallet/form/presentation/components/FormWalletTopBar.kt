@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.back
-import fintrack.composeapp.generated.resources.create_wallet_title
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

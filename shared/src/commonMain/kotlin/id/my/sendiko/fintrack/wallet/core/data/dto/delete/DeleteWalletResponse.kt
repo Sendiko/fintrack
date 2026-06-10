@@ -1,6 +1,5 @@
 package id.my.sendiko.fintrack.wallet.core.data.dto.delete
 
-import id.my.sendiko.fintrack.wallet.core.data.dto.WalletDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
