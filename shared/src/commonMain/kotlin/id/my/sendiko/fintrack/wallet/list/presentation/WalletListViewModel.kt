@@ -31,7 +31,22 @@ class WalletListViewModel(
         when (event) {
             WalletListEvent.OnLoadData -> loadData()
             is WalletListEvent.OnBalanceViewChanged -> changeBalanceView(event.isVisible)
+            is WalletListEvent.OnShowDeleteDialog -> showDeleteDialog(event.walletId)
+            WalletListEvent.OnDismissDeleteDialog -> dismissDeleteDialog()
+            WalletListEvent.OnDelete -> deleteWallet()
         }
+    }
+
+    private fun setLoading(loading: Boolean) {
+        _state.update { it.copy(isLoading = loading) }
+    }
+
+    private fun showDeleteDialog(walletId: String) {
+        _state.update { it.copy(showDeleteDialog = true, walletId = walletId) }
+    }
+
+    private fun dismissDeleteDialog() {
+        _state.update { it.copy(showDeleteDialog = false) }
     }
 
     private suspend fun clearState() {
@@ -56,7 +71,6 @@ class WalletListViewModel(
                     _state.update {
                         it.copy(
                             wallets = result,
-                            isLoading = false
                         )
                     }
                 }
@@ -65,6 +79,22 @@ class WalletListViewModel(
                         it.copy(message = error.asUiText().asString())
                     }
                 }
+            setLoading(false)
+        }
+    }
+
+    private fun deleteWallet() {
+        viewModelScope.launch {
+            setLoading(true)
+            dismissDeleteDialog()
+            repository.deleteWallet(state.value.walletId)
+                .onSuccess { result ->
+                    _state.update { it.copy(message = result) }
+                }
+                .onError { error ->
+                    _state.update { it.copy(message = error.asUiText().asString()) }
+                }
+            loadData()
         }
     }
 
