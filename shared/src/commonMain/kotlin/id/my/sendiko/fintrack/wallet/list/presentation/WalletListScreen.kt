@@ -2,7 +2,6 @@ package id.my.sendiko.fintrack.wallet.list.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -24,7 +23,6 @@ import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.back
 import fintrack.composeapp.generated.resources.wallet_list_title
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
-import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.wallet.list.presentation.components.EditableWalletCard
 import org.jetbrains.compose.resources.stringResource
@@ -78,8 +76,8 @@ fun WalletListScreen(
                         wallet = it,
                         isVisible = state.balanceVisible,
                         onVisibilityToggle = { onEvent(WalletListEvent.OnBalanceViewChanged(it)) },
-                        onEdit = {  },
-                        onDelete = {  },
+                        onEdit = { },
+                        onDelete = { },
                     )
                 }
             }
