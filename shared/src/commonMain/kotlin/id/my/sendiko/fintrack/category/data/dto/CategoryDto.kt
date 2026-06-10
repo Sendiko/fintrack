@@ -1,5 +1,6 @@
 package id.my.sendiko.fintrack.category.data.dto
 
+import id.my.sendiko.fintrack.category.domain.model.Category
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -20,4 +21,9 @@ data class CategoryDto(
 
 	@SerialName("updatedAt")
 	val updatedAt: String
-)
+) {
+	fun toDomain() = Category(
+        id = id,
+        name = name
+    )
+}

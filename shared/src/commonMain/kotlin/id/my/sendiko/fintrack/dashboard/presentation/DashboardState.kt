@@ -1,8 +1,8 @@
 package id.my.sendiko.fintrack.dashboard.presentation
 
-import id.my.sendiko.fintrack.category.domain.Category
-import id.my.sendiko.fintrack.category.domain.TopCategory
-import id.my.sendiko.fintrack.transaction.domain.Transaction
+import id.my.sendiko.fintrack.category.domain.model.Category
+import id.my.sendiko.fintrack.category.domain.model.TopCategory
+import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionWithCategoryAndWallet
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 
 data class DashboardState(
@@ -15,6 +15,6 @@ data class DashboardState(
     val topCategory: List<TopCategory> = emptyList(),
     val wallets: List<Wallet> = emptyList(),
     val categories: List<Category> = emptyList(),
-    val transactions: List<Transaction> = emptyList(),
+    val transactions: List<TransactionWithCategoryAndWallet> = emptyList(),
     val balanceVisible: Boolean = false,
 )

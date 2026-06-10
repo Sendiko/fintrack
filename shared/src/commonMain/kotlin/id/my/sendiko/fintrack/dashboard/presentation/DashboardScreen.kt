@@ -30,7 +30,9 @@ import fintrack.composeapp.generated.resources.empty_wallet
 import fintrack.composeapp.generated.resources.recent_transaction
 import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.wallets
+import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.CreateWalletDestination
+import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.WalletListDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddExpenseButton
@@ -42,6 +44,7 @@ import id.my.sendiko.fintrack.dashboard.presentation.components.TopCategoryCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionsCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
 import id.my.sendiko.fintrack.theme.FinTrackTheme
+import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -103,13 +106,13 @@ fun DashboardScreen(
                                     }
                                 )
                             }
-                            return@Row
+                        } else {
+                            Text(
+                                modifier = Modifier.padding(horizontal = 16.dp),
+                                text = stringResource(Res.string.empty_wallet),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
                         }
-                        Text(
-                            modifier = Modifier.padding(horizontal = 16.dp),
-                            text = stringResource(Res.string.empty_wallet),
-                            style = MaterialTheme.typography.bodyLarge
-                        )
                         AllWalletButton(
                             modifier = Modifier.width(48.dp)
                                 .fillMaxHeight(),
@@ -127,11 +130,11 @@ fun DashboardScreen(
                     ) {
                         AddIncomeButton(
                             modifier = Modifier.weight(1f),
-                            onClick = { onNavigate(Any()) }
+                            onClick = { onNavigate(FormTransactionDestination(TransactionType.INCOME.name)) }
                         )
                         AddExpenseButton(
                             modifier = Modifier.weight(1f),
-                            onClick = { onNavigate(Any()) }
+                            onClick = { onNavigate(FormTransactionDestination(TransactionType.EXPENSE.name)) }
                         )
                     }
                 }
@@ -183,7 +186,7 @@ fun DashboardScreen(
                     if (state.transactions.isNotEmpty()) {
                         TransactionsCard(
                             transactions = state.transactions,
-                            categories = state.categories
+                            onSeeMoreClick = { onNavigate(ListTransactionDestination) }
                         )
                         return@item
                     }

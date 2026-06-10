@@ -6,18 +6,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import id.my.sendiko.fintrack.category.domain.Category
+import fintrack.composeapp.generated.resources.Res
+import fintrack.composeapp.generated.resources.see_more_transaction
 import id.my.sendiko.fintrack.theme.aliceBlue
-import id.my.sendiko.fintrack.transaction.domain.Transaction
+import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionWithCategoryAndWallet
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TransactionsCard(
     modifier: Modifier = Modifier,
-    transactions: List<Transaction>,
-    categories: List<Category>,
+    transactions: List<TransactionWithCategoryAndWallet>,
+    onSeeMoreClick: () -> Unit,
 ) {
     Card(
         modifier = modifier
@@ -35,9 +41,23 @@ fun TransactionsCard(
             ) {
                 TransactionListItem(
                     modifier = Modifier.fillMaxWidth(),
-                    transaction = transaction,
-                    categoryName = categories.find { it.id == transaction.categoryId }?.name
-                        ?: "Category not found."
+                    transaction = transaction.transaction,
+                    categoryName = transaction.category.name,
+                    createdAt = transaction.transaction.createdAt
+                )
+            }
+        }
+        if (transactions.size > 4) {
+            TextButton(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(8.dp)
+                    .fillMaxWidth(),
+                onClick = onSeeMoreClick
+            ) {
+                Text(
+                    text = stringResource(Res.string.see_more_transaction),
+                    fontWeight = FontWeight.SemiBold
                 )
             }
         }
