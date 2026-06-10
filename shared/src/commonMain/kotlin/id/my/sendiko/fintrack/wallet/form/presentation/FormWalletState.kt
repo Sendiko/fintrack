@@ -1,8 +1,8 @@
-package id.my.sendiko.fintrack.wallet.create.presentation
+package id.my.sendiko.fintrack.wallet.form.presentation
 
 import id.my.sendiko.fintrack.wallet.core.domain.WalletType
 
-data class CreateWalletState(
+data class FormWalletState(
     val token: String = "",
     val isLoading: Boolean = false,
     val message: String = "",

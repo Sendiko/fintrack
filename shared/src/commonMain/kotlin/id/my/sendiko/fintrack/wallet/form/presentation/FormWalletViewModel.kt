@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.wallet.create.presentation
+package id.my.sendiko.fintrack.wallet.form.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,27 +19,27 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
 import kotlin.time.Duration.Companion.seconds
 
-class CreateWalletViewModel(
+class FormWalletViewModel(
     private val repository: WalletRepository
 ) : ViewModel() {
 
     private val _userId = repository.getUserId()
     private val _token = repository.getToken()
-    private val _state = MutableStateFlow(CreateWalletState())
+    private val _state = MutableStateFlow(FormWalletState())
     val state = combine(_userId, _token, _state) { userId, token, state ->
         state.copy(userId = userId, token = token)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), CreateWalletState())
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), FormWalletState())
 
-    fun onEvent(event: CreateWalletEvent) {
+    fun onEvent(event: FormWalletEvent) {
         when (event) {
-            is CreateWalletEvent.OnNameChanged -> _state.update { it.copy(name = event.name) }
-            is CreateWalletEvent.OnPurposeChanged -> _state.update { it.copy(purpose = event.purpose) }
-            is CreateWalletEvent.OnTypeChanged -> _state.update { it.copy(type = event.type) }
-            is CreateWalletEvent.OnNumberPressed -> handleNumberPress(event.number)
-            CreateWalletEvent.OnNext -> _state.update { it.copy(stage = 2) }
-            CreateWalletEvent.OnCreate -> postWallet()
-            is CreateWalletEvent.OnWalletNumberChanged -> _state.update { it.copy(number = event.number) }
-            CreateWalletEvent.OnBackspace -> handleBackspace()
+            is FormWalletEvent.OnNameChanged -> _state.update { it.copy(name = event.name) }
+            is FormWalletEvent.OnPurposeChanged -> _state.update { it.copy(purpose = event.purpose) }
+            is FormWalletEvent.OnTypeChanged -> _state.update { it.copy(type = event.type) }
+            is FormWalletEvent.OnNumberPressed -> handleNumberPress(event.number)
+            FormWalletEvent.OnNext -> _state.update { it.copy(stage = 2) }
+            FormWalletEvent.OnSave -> postWallet()
+            is FormWalletEvent.OnWalletNumberChanged -> _state.update { it.copy(number = event.number) }
+            FormWalletEvent.OnBackspace -> handleBackspace()
         }
     }
 

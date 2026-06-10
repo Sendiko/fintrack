@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.wallet.create.presentation
+package id.my.sendiko.fintrack.wallet.form.presentation
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
@@ -61,9 +61,9 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateWalletScreen(
-    state: CreateWalletState,
-    onEvent: (CreateWalletEvent) -> Unit,
+fun FormWalletScreen(
+    state: FormWalletState,
+    onEvent: (FormWalletEvent) -> Unit,
     onNavigate: (Any?) -> Unit,
 ) {
     NotificationBox(
@@ -81,9 +81,9 @@ fun CreateWalletScreen(
                         contentPadding = PaddingValues(vertical = 16.dp),
                         onClick = {
                             if (state.stage == 1) {
-                                onEvent(CreateWalletEvent.OnNext)
+                                onEvent(FormWalletEvent.OnNext)
                             } else {
-                                onEvent(CreateWalletEvent.OnCreate)
+                                onEvent(FormWalletEvent.OnSave)
                             }
                         },
                         colors = ButtonDefaults.buttonColors(
@@ -164,7 +164,7 @@ fun CreateWalletScreen(
                                         BaseTextField(
                                             modifier = Modifier.fillMaxWidth(),
                                             value = state.name,
-                                            onValueChange = { onEvent(CreateWalletEvent.OnNameChanged(it)) },
+                                            onValueChange = { onEvent(FormWalletEvent.OnNameChanged(it)) },
                                             hint = stringResource(Res.string.wallet_name_hint),
                                             outlineColor = secondaryBlue
                                         )
@@ -178,7 +178,7 @@ fun CreateWalletScreen(
                                         DropdownMenu(
                                             modifier = Modifier.fillMaxWidth(),
                                             items = state.walletTypeList,
-                                            onChosen = { onEvent(CreateWalletEvent.OnTypeChanged(it.name)) },
+                                            onChosen = { onEvent(FormWalletEvent.OnTypeChanged(it.name)) },
                                             hint = stringResource(Res.string.wallet_type_hint)
                                         )
                                     }
@@ -191,7 +191,7 @@ fun CreateWalletScreen(
                                         BaseTextField(
                                             modifier = Modifier.fillMaxWidth(),
                                             value = state.purpose,
-                                            onValueChange = { onEvent(CreateWalletEvent.OnPurposeChanged(it)) },
+                                            onValueChange = { onEvent(FormWalletEvent.OnPurposeChanged(it)) },
                                             hint = stringResource(Res.string.wallet_purpose_hint),
                                             outlineColor = secondaryBlue
                                         )
@@ -205,7 +205,7 @@ fun CreateWalletScreen(
                                         BaseTextField(
                                             modifier = Modifier.fillMaxWidth(),
                                             value = state.number,
-                                            onValueChange = { onEvent(CreateWalletEvent.OnWalletNumberChanged(it)) },
+                                            onValueChange = { onEvent(FormWalletEvent.OnWalletNumberChanged(it)) },
                                             hint = stringResource(Res.string.wallet_number_hint),
                                             outlineColor = secondaryBlue,
                                             supportingText = stringResource(Res.string.wallet_number_note)
@@ -234,10 +234,10 @@ fun CreateWalletScreen(
                                     Spacer(modifier = Modifier.weight(1f))
                                     NumericKeyboard(
                                         onClick = {
-                                            onEvent(CreateWalletEvent.OnNumberPressed(it))
+                                            onEvent(FormWalletEvent.OnNumberPressed(it))
                                         },
                                         onBackspace = {
-                                            onEvent(CreateWalletEvent.OnBackspace)
+                                            onEvent(FormWalletEvent.OnBackspace)
                                         }
                                     )
                                 }
@@ -252,10 +252,10 @@ fun CreateWalletScreen(
 
 @Preview
 @Composable
-private fun CreateWalletScreenPreview() {
+private fun FormWalletScreenPreview() {
     FinTrackTheme {
-        CreateWalletScreen(
-            state = CreateWalletState(
+        FormWalletScreen(
+            state = FormWalletState(
                 stage = 2
             ),
             onEvent = {  },
