@@ -28,7 +28,7 @@ import id.my.sendiko.fintrack.wallet.core.data.WalletRepositoryImpl
 import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSource
 import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSourceImpl
 import id.my.sendiko.fintrack.wallet.core.domain.WalletRepository
-import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletViewModel
+import id.my.sendiko.fintrack.wallet.form.presentation.FormWalletViewModel
 import id.my.sendiko.fintrack.wallet.list.presentation.WalletListViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -39,7 +39,6 @@ expect val platformModule: Module
 
 val sharedModule = module {
     single { HttpClientFactory.create(get(), get()) }
-    singleOf(::KtorClient).bind<ApiService>()
     singleOf(::PreferencesRepositoryImpl).bind<PreferenceRepository>()
     singleOf(::SplashRepositoryImpl).bind<SplashRepository>()
     singleOf(::AuthRemoteDataSourceImpl).bind<AuthRemoteDataSource>()
@@ -51,12 +50,11 @@ val sharedModule = module {
     singleOf(::WalletRepositoryImpl).bind<WalletRepository>()
     singleOf(::CategoryDataSourceImpl).bind<CategoryDataSource>()
 
-    factory { SplashRepositoryImpl(get()) }
     factory { SplashViewModel(get()) }
     factory { RegisterViewModel(get()) }
     factory { LoginViewModel(get()) }
     factory { ChangePasswordViewModel(get()) }
     factory { DashboardViewModel(get()) }
-    factory { CreateWalletViewModel(get()) }
+    factory { FormWalletViewModel(get()) }
     factory { WalletListViewModel(get()) }
 }

@@ -27,8 +27,8 @@ import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.presentation.SplashScreen
 import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
 import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletScreen
-import id.my.sendiko.fintrack.wallet.create.presentation.CreateWalletViewModel
+import id.my.sendiko.fintrack.wallet.form.presentation.FormWalletScreen
+import id.my.sendiko.fintrack.wallet.form.presentation.FormWalletViewModel
 import id.my.sendiko.fintrack.wallet.list.presentation.WalletListScreen
 import id.my.sendiko.fintrack.wallet.list.presentation.WalletListViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -119,10 +119,10 @@ fun App() {
                 )
             }
             composable<CreateWalletDestination> {
-                val viewModel = koinViewModel<CreateWalletViewModel>()
+                val viewModel = koinViewModel<FormWalletViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
-                CreateWalletScreen(
+                FormWalletScreen(
                     state = state,
                     onEvent = viewModel::onEvent,
                     onNavigate = {
@@ -138,7 +138,8 @@ fun App() {
 
                 WalletListScreen(
                     state = state,
-                    onEvent = viewModel::onEvent
+                    onEvent = viewModel::onEvent,
+                    onNavigateBack = { navController.navigateUp() }
                 )
             }
         }
