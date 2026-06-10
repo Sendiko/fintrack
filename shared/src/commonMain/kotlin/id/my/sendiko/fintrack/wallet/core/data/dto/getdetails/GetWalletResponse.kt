@@ -5,10 +5,10 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GetWalletsResponse(
+data class GetWalletResponse(
 
-    @SerialName("wallets")
-    val wallets: List<WalletDtoWithTransaction>,
+    @SerialName("wallet")
+    val wallet: WalletDtoWithTransaction,
 
     @SerialName("message")
     val message: String,
