@@ -17,4 +17,6 @@ interface DashboardRepository {
 
     fun getUserId(): Flow<String>
 
+    suspend fun logout()
+
 }
