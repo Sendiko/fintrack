@@ -39,6 +39,7 @@ import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
 import id.my.sendiko.fintrack.core.navigation.ListCategoryDestination
 import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.ListWalletDestination
+import id.my.sendiko.fintrack.core.navigation.SplashDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddExpenseButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddIncomeButton
@@ -63,6 +64,11 @@ fun DashboardScreen(
         onEvent(DashboardEvent.OnLoadData)
     }
 
+    LaunchedEffect(state.logoutSuccess) {
+        if (state.logoutSuccess)
+            onNavigate(SplashDestination)
+    }
+
     NotificationBox(
         message = state.message,
         isLoading = state.isLoading
@@ -76,7 +82,8 @@ fun DashboardScreen(
             ) {
                 item {
                     DashboardTopBar(
-                        balance = state.wallets.sumOf { it.amount }
+                        balance = state.wallets.sumOf { it.amount },
+                        onLogout = { onEvent(DashboardEvent.OnLogout) }
                     )
                 }
                 item {
