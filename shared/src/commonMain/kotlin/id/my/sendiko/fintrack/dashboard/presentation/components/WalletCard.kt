@@ -58,7 +58,8 @@ fun WalletCard(
                 ) {
                     Text(
                         text = wallet.name,
-                        style = MaterialTheme.typography.labelLarge
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.Bold
                     )
                     Text(
                         text = wallet.number.takeLast(4),

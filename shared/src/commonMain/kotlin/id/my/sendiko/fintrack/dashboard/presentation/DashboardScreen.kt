@@ -36,8 +36,9 @@ import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.wallets
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
+import id.my.sendiko.fintrack.core.navigation.ListCategoryDestination
 import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
-import id.my.sendiko.fintrack.core.navigation.WalletListDestination
+import id.my.sendiko.fintrack.core.navigation.ListWalletDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddExpenseButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddIncomeButton
@@ -121,7 +122,7 @@ fun DashboardScreen(
                             modifier = Modifier.width(48.dp)
                                 .fillMaxHeight(),
                             onClick = {
-                                onNavigate(WalletListDestination)
+                                onNavigate(ListWalletDestination)
                             }
                         )
                     }
@@ -156,7 +157,7 @@ fun DashboardScreen(
                             fontWeight = FontWeight.SemiBold
                         )
                         Text(
-                            modifier = Modifier.clickable { TODO("Navigate to Category List Screen") },
+                            modifier = Modifier.clickable { onNavigate(ListCategoryDestination) },
                             text = stringResource(Res.string.see_more_categories),
                             style = MaterialTheme.typography.labelLarge,
                             textDecoration = TextDecoration.Underline
