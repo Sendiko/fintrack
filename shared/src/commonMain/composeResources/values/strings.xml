@@ -134,5 +134,7 @@
     <string name="list_category_title">Your categories</string>
     <string name="category_name_label">Name</string>
     <string name="category_name_hint">Name your category</string>
+    <string name="delete_category_headline">Delete?</string>
+    <string name="delete_category_body">This will delete transaction with this category.</string>
 
 </resources>

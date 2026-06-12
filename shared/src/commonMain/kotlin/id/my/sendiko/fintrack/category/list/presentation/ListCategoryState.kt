@@ -6,6 +6,7 @@ data class ListCategoryState(
     val token: String = "",
     val isLoading: Boolean = false,
     val message: String = "",
+    val userId: String = "",
     val categoryId: String = "",
     val showModalBottomSheet: Boolean = false,
     val showDeleteDialog: Boolean = false,
