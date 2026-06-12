@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "919061215755",
+    "project_id": "fintrack-37107",
+    "storage_bucket": "fintrack-37107.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919061215755:android:a1240b0f021a0c9c05a50e",
+        "android_client_info": {
+          "package_name": "id.my.sendiko.fintrack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvHWMp_zAcDaYLWkAoVLtf0QJ1rYXNZlU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

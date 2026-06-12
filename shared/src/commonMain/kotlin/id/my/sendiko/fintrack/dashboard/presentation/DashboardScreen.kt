@@ -1,5 +1,6 @@
 package id.my.sendiko.fintrack.dashboard.presentation
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -18,9 +19,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
@@ -28,12 +31,14 @@ import fintrack.composeapp.generated.resources.empty_category
 import fintrack.composeapp.generated.resources.empty_transaction
 import fintrack.composeapp.generated.resources.empty_wallet
 import fintrack.composeapp.generated.resources.recent_transaction
+import fintrack.composeapp.generated.resources.see_more_categories
 import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.wallets
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
+import id.my.sendiko.fintrack.core.navigation.ListCategoryDestination
 import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
-import id.my.sendiko.fintrack.core.navigation.WalletListDestination
+import id.my.sendiko.fintrack.core.navigation.ListWalletDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddExpenseButton
 import id.my.sendiko.fintrack.dashboard.presentation.components.AddIncomeButton
@@ -117,7 +122,7 @@ fun DashboardScreen(
                             modifier = Modifier.width(48.dp)
                                 .fillMaxHeight(),
                             onClick = {
-                                onNavigate(WalletListDestination)
+                                onNavigate(ListWalletDestination)
                             }
                         )
                     }
@@ -139,13 +144,25 @@ fun DashboardScreen(
                     }
                 }
                 item {
-                    Text(
+                    Row(
                         modifier = Modifier
-                            .padding(horizontal = 16.dp),
-                        text = stringResource(Res.string.top_category),
-                        style = MaterialTheme.typography.labelLarge,
-                        fontWeight = FontWeight.SemiBold
-                    )
+                            .padding(horizontal = 16.dp)
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.top_category),
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                        Text(
+                            modifier = Modifier.clickable { onNavigate(ListCategoryDestination) },
+                            text = stringResource(Res.string.see_more_categories),
+                            style = MaterialTheme.typography.labelLarge,
+                            textDecoration = TextDecoration.Underline
+                        )
+                    }
                 }
                 item {
                     if (state.categories.isNotEmpty()) {

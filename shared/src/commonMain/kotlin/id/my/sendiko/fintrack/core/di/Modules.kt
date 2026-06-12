@@ -11,10 +11,11 @@ import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.data.RegisterRepositoryImpl
 import id.my.sendiko.fintrack.auth.register.domain.RegisterRepository
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
-import id.my.sendiko.fintrack.category.data.CategoryRepositoryImpl
-import id.my.sendiko.fintrack.category.data.datasource.CategoryDataSource
-import id.my.sendiko.fintrack.category.data.datasource.CategoryDataSourceImpl
-import id.my.sendiko.fintrack.category.domain.CategoryRepository
+import id.my.sendiko.fintrack.category.core.data.CategoryRepositoryImpl
+import id.my.sendiko.fintrack.category.core.data.datasource.CategoryDataSource
+import id.my.sendiko.fintrack.category.core.data.datasource.CategoryDataSourceImpl
+import id.my.sendiko.fintrack.category.core.domain.CategoryRepository
+import id.my.sendiko.fintrack.category.list.presentation.ListCategoryViewModel
 import id.my.sendiko.fintrack.core.network.HttpClientFactory
 import id.my.sendiko.fintrack.core.preferences.PreferenceRepository
 import id.my.sendiko.fintrack.core.preferences.PreferencesRepositoryImpl
@@ -35,7 +36,7 @@ import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSource
 import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSourceImpl
 import id.my.sendiko.fintrack.wallet.core.domain.WalletRepository
 import id.my.sendiko.fintrack.wallet.form.presentation.FormWalletViewModel
-import id.my.sendiko.fintrack.wallet.list.presentation.WalletListViewModel
+import id.my.sendiko.fintrack.wallet.list.presentation.ListWalletViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
@@ -64,8 +65,9 @@ val sharedModule = module {
     factory { LoginViewModel(get()) }
     factory { ChangePasswordViewModel(get()) }
     factory { DashboardViewModel(get()) }
+    factory { ListCategoryViewModel(get()) }
     factory { FormWalletViewModel(get()) }
-    factory { WalletListViewModel(get()) }
+    factory { ListWalletViewModel(get()) }
     factory { FormTransactionViewModel(get(), get(), get()) }
     factory { ListTransactionViewModel(get()) }
 }

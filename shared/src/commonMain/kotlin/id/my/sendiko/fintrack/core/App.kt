@@ -16,15 +16,18 @@ import id.my.sendiko.fintrack.auth.login.presentation.LoginScreen
 import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterScreen
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
+import id.my.sendiko.fintrack.category.list.presentation.ListCategoryScreen
+import id.my.sendiko.fintrack.category.list.presentation.ListCategoryViewModel
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
 import id.my.sendiko.fintrack.core.navigation.DashboardDestination
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
+import id.my.sendiko.fintrack.core.navigation.ListCategoryDestination
 import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
+import id.my.sendiko.fintrack.core.navigation.ListWalletDestination
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import id.my.sendiko.fintrack.core.navigation.RegisterDestination
 import id.my.sendiko.fintrack.core.navigation.SplashDestination
-import id.my.sendiko.fintrack.core.navigation.WalletListDestination
 import id.my.sendiko.fintrack.dashboard.presentation.DashboardScreen
 import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.presentation.SplashScreen
@@ -36,8 +39,8 @@ import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionScree
 import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionViewModel
 import id.my.sendiko.fintrack.wallet.form.presentation.FormWalletScreen
 import id.my.sendiko.fintrack.wallet.form.presentation.FormWalletViewModel
-import id.my.sendiko.fintrack.wallet.list.presentation.WalletListScreen
-import id.my.sendiko.fintrack.wallet.list.presentation.WalletListViewModel
+import id.my.sendiko.fintrack.wallet.list.presentation.ListWalletScreen
+import id.my.sendiko.fintrack.wallet.list.presentation.ListWalletViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -125,6 +128,16 @@ fun App() {
                     },
                 )
             }
+            composable<ListCategoryDestination> {
+                val viewModel = koinViewModel<ListCategoryViewModel>()
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                ListCategoryScreen(
+                    state = state,
+                    onEvent = viewModel::onEvent,
+                    onNavigateBack = { navController.navigateUp() }
+                )
+            }
             composable<FormWalletDestination> {
                 val args = it.toRoute<FormWalletDestination>()
                 val viewModel = koinViewModel<FormWalletViewModel>()
@@ -141,11 +154,11 @@ fun App() {
                     }
                 )
             }
-            composable<WalletListDestination> {
-                val viewModel = koinViewModel<WalletListViewModel>()
+            composable<ListWalletDestination> {
+                val viewModel = koinViewModel<ListWalletViewModel>()
                 val state by viewModel.state.collectAsStateWithLifecycle()
 
-                WalletListScreen(
+                ListWalletScreen(
                     state = state,
                     onEvent = viewModel::onEvent,
                     onNavigate = { destination ->

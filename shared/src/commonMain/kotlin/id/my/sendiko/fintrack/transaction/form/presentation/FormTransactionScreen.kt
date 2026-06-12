@@ -60,6 +60,7 @@ import fintrack.composeapp.generated.resources.set_expense_name_label
 import fintrack.composeapp.generated.resources.set_income_name_hint
 import fintrack.composeapp.generated.resources.set_income_name_label
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
+import id.my.sendiko.fintrack.core.presentation.StageBar
 import id.my.sendiko.fintrack.core.presentation.numerickeyboard.NumericKeyboard
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
@@ -70,7 +71,6 @@ import id.my.sendiko.fintrack.theme.secondaryBlue
 import id.my.sendiko.fintrack.theme.utilityWhite
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.EXPENSE
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.INCOME
-import id.my.sendiko.fintrack.core.presentation.StageBar
 import id.my.sendiko.fintrack.transaction.core.presentation.TransactionTopBar
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
@@ -293,7 +293,7 @@ fun FormTransactionScreen(
                                         Spacer(modifier = Modifier.height(8.dp))
                                         DropdownMenu(
                                             modifier = Modifier.fillMaxWidth(),
-                                            items = state.categories,
+                                            items = state.categories.map { it.category },
                                             hint = stringResource(Res.string.choose_category_hint),
                                             initialValue = state.selectedCategory?.name ?: "",
                                             onChosen = {

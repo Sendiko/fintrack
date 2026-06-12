@@ -78,6 +78,7 @@
     <string name="empty_category">You have no category \nLet's create one!</string>
     <string name="empty_transaction">You have no transaction \nLet's create one!</string>
     <string name="see_more_transaction">See more transaction</string>
+    <string name="see_more_categories">More categories</string>
 
     <!--  Strings for Create Wallet  -->
     <string name="create_wallet_title">Create New Wallet</string>
@@ -128,5 +129,12 @@
     <!--  Strings for List Transaction  -->
     <string name="list_transaction_title">Your Transactions</string>
     <string name="all_label">ALL</string>
+
+    <!--  Strings for List Categories  -->
+    <string name="list_category_title">Your categories</string>
+    <string name="category_name_label">Name</string>
+    <string name="category_name_hint">Name your category</string>
+    <string name="delete_category_headline">Delete?</string>
+    <string name="delete_category_body">This will delete transaction with this category.</string>
 
 </resources>

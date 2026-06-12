@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.category.data.dto
+package id.my.sendiko.fintrack.category.core.data.dto
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
