@@ -200,7 +200,7 @@ class FormTransactionViewModel(
                 _state.update { it.copy(message = getString(Res.string.set_name_error)) }
                 return@launch
             }
-            if (state.value.amount === "0.0") {
+            if (state.value.amount == "0.0") {
                 _state.update { it.copy(message = getString(Res.string.set_amount_error)) }
                 return@launch
             }
