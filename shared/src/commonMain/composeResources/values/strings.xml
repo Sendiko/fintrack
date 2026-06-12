@@ -132,5 +132,7 @@
 
     <!--  Strings for List Categories  -->
     <string name="list_category_title">Your categories</string>
+    <string name="category_name_label">Name</string>
+    <string name="category_name_hint">Name your category</string>
 
 </resources>

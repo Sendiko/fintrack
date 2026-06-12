@@ -21,12 +21,17 @@ class ListCategoryViewModel(
     fun onEvent(event: ListCategoryEvent) {
         when (event) {
             ListCategoryEvent.OnLoadData -> loadData()
+            is ListCategoryEvent.OnNameChanged -> changeName(event.name)
             ListCategoryEvent.OnDismissDeleteDialog -> dismissDeleteDialog()
             ListCategoryEvent.OnShowDeleteDialog -> showDeleteDialog()
             ListCategoryEvent.OnDismissModalBottomSheet -> dismissModalBottomSheet()
             is ListCategoryEvent.OnShowModalBottomSheet -> showModalBottomSheet()
             ListCategoryEvent.OnSave -> saveCategory()
         }
+    }
+
+    private fun changeName(name: String) {
+        _state.update { it.copy(categoryName = name) }
     }
 
     private fun setLoading(loading: Boolean) {
@@ -58,7 +63,7 @@ class ListCategoryViewModel(
     }
 
     private fun dismissModalBottomSheet() {
-        _state.update { it.copy(showModalBottomSheet = false) }
+        _state.update { it.copy(showModalBottomSheet = false, categoryName = "") }
     }
 
     private fun showDeleteDialog() {
