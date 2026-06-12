@@ -15,13 +15,16 @@ data object LoginDestination
 data object ChangePasswordDestination
 
 @Serializable
+data object ListCategoryDestination
+
+@Serializable
 data object DashboardDestination
 
 @Serializable
 data class FormWalletDestination(val id: String = "")
 
 @Serializable
-data object WalletListDestination
+data object ListWalletDestination
 
 @Serializable
 data class FormTransactionDestination(val type: String, val id: String = "")
