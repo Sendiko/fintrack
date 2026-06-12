@@ -44,4 +44,9 @@ class DashboardRepositoryImpl(
         return prefs.getUserId()
     }
 
+    override suspend fun logout() {
+        prefs.setToken("")
+        prefs.setUserId("")
+    }
+
 }

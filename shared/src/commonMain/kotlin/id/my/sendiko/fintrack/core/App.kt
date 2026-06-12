@@ -82,7 +82,9 @@ fun App() {
                 SplashScreen(
                     state = state,
                     onNavigate = {
-                        navController.navigate(it)
+                        navController.navigate(it) {
+                            popUpTo(it) { inclusive = true }
+                        }
                     }
                 )
             }
@@ -123,8 +125,14 @@ fun App() {
                 DashboardScreen(
                     state = state,
                     onEvent = viewModel::onEvent,
-                    onNavigate = {
-                        navController.navigate(it)
+                    onNavigate = { destination ->
+                        if (destination is SplashDestination) {
+                            navController.navigate(SplashDestination) {
+                                popUpTo(SplashDestination) { inclusive = true }
+                            }
+                        } else {
+                            navController.navigate(destination)
+                        }
                     },
                 )
             }

@@ -7,12 +7,14 @@ import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
 import id.my.sendiko.fintrack.dashboard.domain.DashboardRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 class DashboardViewModel(
     private val repository: DashboardRepository
@@ -28,6 +30,16 @@ class DashboardViewModel(
             DashboardEvent.OnLoadData -> fetchData()
             DashboardEvent.ClearState -> clearState()
             is DashboardEvent.OnBalanceViewChanged -> changeBalanceVisibility(event.isVisible)
+            DashboardEvent.OnLogout -> logout()
+        }
+    }
+
+    private fun logout() {
+        viewModelScope.launch {
+            _state.update { it.copy(isLoading = true) }
+            repository.logout()
+            delay(2.seconds)
+            _state.update { it.copy(isLoading = false, logoutSuccess = true) }
         }
     }
 

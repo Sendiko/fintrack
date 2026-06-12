@@ -9,6 +9,7 @@ data class DashboardState(
     val token: String = "",
     val isLoading: Boolean = false,
     val message: String = "",
+    val logoutSuccess: Boolean = false,
     val userId: String = "",
     val email: String = "",
     val totalBalance: Double = 0.0,
