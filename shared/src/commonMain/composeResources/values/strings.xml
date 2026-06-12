@@ -130,4 +130,7 @@
     <string name="list_transaction_title">Your Transactions</string>
     <string name="all_label">ALL</string>
 
+    <!--  Strings for List Categories  -->
+    <string name="list_category_title">Your categories</string>
+
 </resources>
