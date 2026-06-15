@@ -15,7 +15,6 @@ import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
 import id.my.sendiko.fintrack.transaction.core.domain.OcrEngine
 import id.my.sendiko.fintrack.transaction.core.domain.ReceiptParser
-import id.my.sendiko.fintrack.transaction.core.domain.ReceiptStrategy
 import id.my.sendiko.fintrack.transaction.core.domain.TransactionRepository
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
