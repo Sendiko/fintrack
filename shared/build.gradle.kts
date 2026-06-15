@@ -93,6 +93,13 @@ kotlin {
 
             /* Ktor OkHttp */
             implementation(libs.ktor.client.okhttp)
+
+            /* Google MLKit */
+            implementation(libs.google.mlkit)
+            implementation(libs.vision.common)
+
+            /* Kotlin Coroutines */
+            implementation(libs.kotlinx.coroutines.play.services) // Use your project's coroutines version
         }
 
         commonTest.dependencies {
