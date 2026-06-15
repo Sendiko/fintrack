@@ -10,6 +10,7 @@ data class FormTransactionState(
     val isError: Boolean = false,
     val isLoading: Boolean = false,
     val message: String = "",
+    val reviewReceipt: Boolean = false,
     val showDeleteDialog: Boolean = false,
     val transactionId: String = "",
     val wallets: List<Wallet> = emptyList(),

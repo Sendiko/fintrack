@@ -13,6 +13,9 @@ import id.my.sendiko.fintrack.category.core.domain.model.Category
 import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
+import id.my.sendiko.fintrack.transaction.core.domain.OcrEngine
+import id.my.sendiko.fintrack.transaction.core.domain.ReceiptParser
+import id.my.sendiko.fintrack.transaction.core.domain.ReceiptStrategy
 import id.my.sendiko.fintrack.transaction.core.domain.TransactionRepository
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
@@ -30,7 +33,9 @@ import kotlin.time.Duration.Companion.seconds
 class FormTransactionViewModel(
     private val repository: TransactionRepository,
     private val walletRepository: WalletRepository,
-    private val categoryRepository: CategoryRepository
+    private val categoryRepository: CategoryRepository,
+    private val ocrEngine: OcrEngine,
+    private val parser: ReceiptParser
 ) : ViewModel() {
 
     private val _userId = repository.getUserId()
@@ -54,6 +59,29 @@ class FormTransactionViewModel(
             FormTransactionEvent.OnBackspace -> handleBackspace()
             FormTransactionEvent.OnSave -> createTransaction()
             FormTransactionEvent.OnDelete -> deleteTransaction()
+            is FormTransactionEvent.ProcessSharedImage -> handleImageProcessing(event.imageBytes)
+            FormTransactionEvent.HideOverlay -> hideOverlay()
+        }
+    }
+
+    private fun hideOverlay() {
+        _state.update { it.copy(reviewReceipt = false) }
+    }
+
+    private fun handleImageProcessing(imageBytes: ByteArray) {
+        viewModelScope.launch {
+            _state.update { it.copy(isLoading = true, reviewReceipt = true) }
+
+            val extractedText = ocrEngine.extractTextFromImage(imageBytes)
+            val parsedReceipt = parser.parse(extractedText)
+
+            _state.update {
+                it.copy(
+                    isLoading = false,
+                    amount = parsedReceipt.amount,
+                    name = parsedReceipt.receiver,
+                )
+            }
         }
     }
 
@@ -84,6 +112,9 @@ class FormTransactionViewModel(
     private suspend fun clearState() {
         delay(3.seconds)
         setLoading(false)
+        if (state.value.reviewReceipt) {
+            _state.update { it.copy(reviewReceipt = false) }
+        }
         _state.update {
             it.copy(
                 isError = false,

@@ -9,18 +9,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import id.my.sendiko.fintrack.core.navigation.LoginDestination
-import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.theme.primaryOrange
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.app_name
 import fintrack.composeapp.generated.resources.fintrack_blue
 import id.my.sendiko.fintrack.core.navigation.DashboardDestination
+import id.my.sendiko.fintrack.core.navigation.LoginDestination
+import id.my.sendiko.fintrack.theme.FinTrackTheme
+import id.my.sendiko.fintrack.theme.primaryOrange
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun SplashScreen(
@@ -31,10 +32,10 @@ fun SplashScreen(
 
     LaunchedEffect(state.token) {
         if (state.token.isBlank()) {
-            delay(1000)
+            delay(1.seconds)
             onNavigate(LoginDestination)
         } else {
-            delay(1000)
+            delay(1.seconds)
             onNavigate(DashboardDestination)
         }
     }

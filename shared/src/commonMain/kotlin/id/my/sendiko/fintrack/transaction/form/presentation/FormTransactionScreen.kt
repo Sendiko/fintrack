@@ -43,6 +43,7 @@ import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.cancel
 import fintrack.composeapp.generated.resources.choose_category_hint
 import fintrack.composeapp.generated.resources.choose_category_label
+import fintrack.composeapp.generated.resources.choose_transaction_label
 import fintrack.composeapp.generated.resources.choose_wallet_hint
 import fintrack.composeapp.generated.resources.choose_wallet_label
 import fintrack.composeapp.generated.resources.confirm
@@ -72,6 +73,7 @@ import id.my.sendiko.fintrack.theme.utilityWhite
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.EXPENSE
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.INCOME
 import id.my.sendiko.fintrack.transaction.core.presentation.TransactionTopBar
+import id.my.sendiko.fintrack.transaction.form.presentation.components.TransactionTypeRadioButton
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration.Companion.seconds
@@ -266,6 +268,32 @@ fun FormTransactionScreen(
                                         .padding(16.dp),
                                     verticalArrangement = Arrangement.spacedBy(16.dp)
                                 ) {
+                                    if (state.reviewReceipt) {
+                                        item {
+                                            Text(
+                                                text = stringResource(Res.string.choose_transaction_label),
+                                                style = MaterialTheme.typography.labelMedium
+                                            )
+                                            Spacer(modifier = Modifier.height(8.dp))
+                                            Row(
+                                                modifier = Modifier.fillMaxWidth(),
+                                            ) {
+                                                TransactionTypeRadioButton(
+                                                    modifier = Modifier.weight(1f),
+                                                    type = INCOME,
+                                                    onClick = { onEvent(FormTransactionEvent.OnTypeChanged(INCOME.name)) },
+                                                    isSelected = state.selectedType == INCOME
+                                                )
+                                                Spacer(Modifier.width(16.dp))
+                                                TransactionTypeRadioButton(
+                                                    modifier = Modifier.weight(1f),
+                                                    type = EXPENSE,
+                                                    onClick = { onEvent(FormTransactionEvent.OnTypeChanged(EXPENSE.name)) },
+                                                    isSelected = state.selectedType == EXPENSE
+                                                )
+                                            }
+                                        }
+                                    }
                                     item {
                                         Text(
                                             text = stringResource(Res.string.choose_wallet_label),
