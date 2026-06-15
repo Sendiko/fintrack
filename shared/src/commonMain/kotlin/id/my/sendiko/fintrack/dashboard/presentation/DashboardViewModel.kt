@@ -43,7 +43,7 @@ class DashboardViewModel(
         }
     }
 
-    private fun fetchData() {
+    fun fetchData() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
             getWallets()

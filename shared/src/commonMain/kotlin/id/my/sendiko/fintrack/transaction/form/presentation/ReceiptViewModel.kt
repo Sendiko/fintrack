@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
 import kotlin.time.Duration.Companion.seconds
 
-class FormTransactionViewModel(
+class ReceiptViewModel(
     private val repository: TransactionRepository,
     private val walletRepository: WalletRepository,
     private val categoryRepository: CategoryRepository,

@@ -25,11 +25,14 @@ import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.data.SplashRepositoryImpl
 import id.my.sendiko.fintrack.splash.domain.SplashRepository
 import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
+import id.my.sendiko.fintrack.transaction.core.data.ReceiptParserImpl
 import id.my.sendiko.fintrack.transaction.core.data.TransactionRepositoryImpl
 import id.my.sendiko.fintrack.transaction.core.data.datasource.TransactionDataSource
 import id.my.sendiko.fintrack.transaction.core.data.datasource.TransactionDataSourceImpl
+import id.my.sendiko.fintrack.transaction.core.domain.ReceiptParser
 import id.my.sendiko.fintrack.transaction.core.domain.TransactionRepository
 import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionViewModel
+import id.my.sendiko.fintrack.transaction.form.presentation.ReceiptViewModel
 import id.my.sendiko.fintrack.transaction.list.presentation.ListTransactionViewModel
 import id.my.sendiko.fintrack.wallet.core.data.WalletRepositoryImpl
 import id.my.sendiko.fintrack.wallet.core.data.datasource.WalletDataSource
@@ -46,6 +49,7 @@ expect val platformModule: Module
 
 val sharedModule = module {
     single { HttpClientFactory.create(get(), get()) }
+    single<ReceiptParser> { ReceiptParserImpl() }
     singleOf(::PreferencesRepositoryImpl).bind<PreferenceRepository>()
     singleOf(::SplashRepositoryImpl).bind<SplashRepository>()
     singleOf(::AuthRemoteDataSourceImpl).bind<AuthRemoteDataSource>()
@@ -59,7 +63,9 @@ val sharedModule = module {
     singleOf(::CategoryRepositoryImpl).bind<CategoryRepository>()
     singleOf(::TransactionDataSourceImpl).bind<TransactionDataSource>()
     singleOf(::TransactionRepositoryImpl).bind<TransactionRepository>()
+    single { ReceiptViewModel(get(), get(), get(), get(), get()) }
 
+    factory { FormTransactionViewModel(get(), get(), get(), get(), get()) }
     factory { SplashViewModel(get()) }
     factory { RegisterViewModel(get()) }
     factory { LoginViewModel(get()) }
@@ -68,6 +74,5 @@ val sharedModule = module {
     factory { ListCategoryViewModel(get()) }
     factory { FormWalletViewModel(get()) }
     factory { ListWalletViewModel(get()) }
-    factory { FormTransactionViewModel(get(), get(), get()) }
     factory { ListTransactionViewModel(get()) }
 }
