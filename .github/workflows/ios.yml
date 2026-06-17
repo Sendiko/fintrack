@@ -18,6 +18,10 @@ jobs:
       - name: Make Gradle Wrapper Executable
         run: chmod +x ./gradlew
 
+      - name: Build KMP Framework
+        run: |
+          ./gradlew :shared:linkDebugFrameworkIosSimulatorArm64 --stacktrace --info
+
       - name: Build iOS
         run: |
             cd iosApp
