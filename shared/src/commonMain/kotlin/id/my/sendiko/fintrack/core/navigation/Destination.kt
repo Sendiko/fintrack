@@ -31,3 +31,9 @@ data class FormTransactionDestination(val type: String, val id: String = "")
 
 @Serializable
 data object ListTransactionDestination
+
+@Serializable
+data object FormBudgetDestination
+
+@Serializable
+data object ListBudgetDestination

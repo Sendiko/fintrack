@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -33,8 +34,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.back
+import fintrack.composeapp.generated.resources.budget_label
 import fintrack.composeapp.generated.resources.cancel
 import fintrack.composeapp.generated.resources.confirm
+import fintrack.composeapp.generated.resources.create
+import fintrack.composeapp.generated.resources.date_hint
+import fintrack.composeapp.generated.resources.end_form_label
+import fintrack.composeapp.generated.resources.form_budget_title
+import fintrack.composeapp.generated.resources.start_form_label
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.core.presentation.numerickeyboard.NumericKeyboard
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
@@ -126,6 +133,7 @@ fun FormBudgetScreen(
         isLoading = state.isLoading,
         content = {
             Scaffold(
+                modifier = Modifier.systemBarsPadding(),
                 containerColor = utilityWhite,
                 contentColor = secondaryBlue,
                 topBar = {
@@ -142,7 +150,7 @@ fun FormBudgetScreen(
                         }
                         Text(
                             modifier = Modifier.padding(start = 16.dp),
-                            text = "Buat anggaran baru",
+                            text = stringResource(Res.string.form_budget_title),
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -158,7 +166,7 @@ fun FormBudgetScreen(
                 ) {
                     Column {
                         Text(
-                            text = "Mulai dari",
+                            text = stringResource(Res.string.start_form_label),
                             style = MaterialTheme.typography.labelMedium
                         )
                         Spacer(modifier = Modifier.height(8.dp))
@@ -166,7 +174,7 @@ fun FormBudgetScreen(
                             modifier = Modifier.fillMaxWidth(),
                             value = state.startDate,
                             onValueChange = { onEvent(FormBudgetEvent.OnStartDateConfirmed(it)) },
-                            hint = "yyyy-mm-dd",
+                            hint = stringResource(Res.string.date_hint),
                             trailingIcon = {
                                 IconButton(
                                     onClick = {
@@ -185,7 +193,7 @@ fun FormBudgetScreen(
 
                     Column {
                         Text(
-                            text = "Sampai",
+                            text = stringResource(Res.string.end_form_label),
                             style = MaterialTheme.typography.labelMedium
                         )
                         Spacer(modifier = Modifier.height(8.dp))
@@ -193,7 +201,7 @@ fun FormBudgetScreen(
                             modifier = Modifier.fillMaxWidth(),
                             value = state.endDate,
                             onValueChange = { onEvent(FormBudgetEvent.OnEndDateConfirmed(it)) },
-                            hint = "yyyy-mm-dd",
+                            hint = stringResource(Res.string.date_hint),
                             trailingIcon = {
                                 IconButton(
                                     onClick = {
@@ -210,7 +218,7 @@ fun FormBudgetScreen(
                         )
                     }
                     Text(
-                        text = "Anggaran",
+                        text = stringResource(Res.string.budget_label),
                         fontWeight = FontWeight.Bold
                     )
                     Text(
@@ -242,7 +250,7 @@ fun FormBudgetScreen(
                         )
                     ) {
                         Text(
-                            text = "Simpan",
+                            text = stringResource(Res.string.create),
                             fontWeight = FontWeight.Bold
                         )
                     }

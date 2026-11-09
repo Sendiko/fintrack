@@ -32,6 +32,7 @@ import fintrack.composeapp.generated.resources.empty_category
 import fintrack.composeapp.generated.resources.empty_transaction
 import fintrack.composeapp.generated.resources.empty_wallet
 import fintrack.composeapp.generated.resources.recent_transaction
+import fintrack.composeapp.generated.resources.see_more_budgets
 import fintrack.composeapp.generated.resources.see_more_categories
 import fintrack.composeapp.generated.resources.today_budget
 import fintrack.composeapp.generated.resources.top_category
@@ -39,6 +40,7 @@ import fintrack.composeapp.generated.resources.wallets
 import id.my.sendiko.fintrack.budget.presentation.core.components.BudgetCard
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
+import id.my.sendiko.fintrack.core.navigation.ListBudgetDestination
 import id.my.sendiko.fintrack.core.navigation.ListCategoryDestination
 import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.ListWalletDestination
@@ -210,13 +212,24 @@ fun DashboardScreen(
                     )
                 }
                 item {
-                    Text(
-                        modifier = Modifier
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
                             .padding(horizontal = 16.dp),
-                        text = stringResource(Res.string.today_budget),
-                        style = MaterialTheme.typography.labelLarge,
-                        fontWeight = FontWeight.SemiBold
-                    )
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            modifier = Modifier,
+                            text = stringResource(Res.string.today_budget),
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                        Text(
+                            modifier = Modifier.clickable { onNavigate(ListBudgetDestination) },
+                            text = stringResource(Res.string.see_more_budgets),
+                            style = MaterialTheme.typography.labelLarge,
+                            textDecoration = TextDecoration.Underline
+                        )
+                    }
                 }
                 if (state.summary != null) {
                     item {

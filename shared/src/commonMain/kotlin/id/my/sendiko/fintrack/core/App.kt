@@ -22,12 +22,17 @@ import id.my.sendiko.fintrack.auth.login.presentation.LoginScreen
 import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterScreen
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
+import id.my.sendiko.fintrack.budget.presentation.form.presentation.FormBudgetScreen
+import id.my.sendiko.fintrack.budget.presentation.form.presentation.FormBudgetViewModel
+import id.my.sendiko.fintrack.budget.presentation.list.ListBudgetScreen
 import id.my.sendiko.fintrack.category.list.presentation.ListCategoryScreen
 import id.my.sendiko.fintrack.category.list.presentation.ListCategoryViewModel
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
 import id.my.sendiko.fintrack.core.navigation.DashboardDestination
+import id.my.sendiko.fintrack.core.navigation.FormBudgetDestination
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
+import id.my.sendiko.fintrack.core.navigation.ListBudgetDestination
 import id.my.sendiko.fintrack.core.navigation.ListCategoryDestination
 import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.ListWalletDestination
@@ -217,6 +222,24 @@ fun App() {
                                 navController.navigateUp()
                             else navController.navigate(destination)
                         }
+                    )
+                }
+                composable<ListBudgetDestination> {
+                    ListBudgetScreen {
+                        if (it == null)
+                            navController.navigateUp()
+                        else
+                            navController.navigate(it)
+                    }
+                }
+                composable<FormBudgetDestination> {
+                    val viewModel = koinViewModel<FormBudgetViewModel>()
+                    val state by viewModel.state.collectAsStateWithLifecycle()
+
+                    FormBudgetScreen(
+                        state = state,
+                        onEvent = viewModel::onEvent,
+                        onNavigateBack = { navController.navigateUp() }
                     )
                 }
             }
