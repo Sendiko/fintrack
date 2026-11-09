@@ -1,5 +1,6 @@
 package id.my.sendiko.fintrack.dashboard.domain
 
+import id.my.sendiko.fintrack.budget.domain.model.Summary
 import id.my.sendiko.fintrack.category.core.domain.model.CategoryWithTransactions
 import id.my.sendiko.fintrack.core.network.utils.DataError
 import id.my.sendiko.fintrack.core.network.utils.Result
@@ -12,6 +13,8 @@ interface DashboardRepository {
     suspend fun getWallets(): Result<List<Wallet>, DataError.Remote>
 
     suspend fun getCategories(): Result<List<CategoryWithTransactions>, DataError.Remote>
+
+    suspend fun getTodayBudget(): Result<Summary, DataError.Remote>
 
     suspend fun getTransactions(): Result<List<TransactionWithCategoryAndWallet>, DataError.Remote>
 

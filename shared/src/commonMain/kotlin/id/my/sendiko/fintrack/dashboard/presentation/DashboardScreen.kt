@@ -27,13 +27,16 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
+import fintrack.composeapp.generated.resources.empty_budget
 import fintrack.composeapp.generated.resources.empty_category
 import fintrack.composeapp.generated.resources.empty_transaction
 import fintrack.composeapp.generated.resources.empty_wallet
 import fintrack.composeapp.generated.resources.recent_transaction
 import fintrack.composeapp.generated.resources.see_more_categories
+import fintrack.composeapp.generated.resources.today_budget
 import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.wallets
+import id.my.sendiko.fintrack.budget.presentation.components.BudgetCard
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
 import id.my.sendiko.fintrack.core.navigation.ListCategoryDestination
@@ -51,7 +54,9 @@ import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionsCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
+import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun DashboardScreen(
@@ -59,6 +64,13 @@ fun DashboardScreen(
     onEvent: (DashboardEvent) -> Unit,
     onNavigate: (Any) -> Unit
 ) {
+
+    LaunchedEffect(state.message) {
+        if (state.message.isNotBlank()){
+            delay(1.seconds)
+            onEvent(DashboardEvent.ClearState)
+        }
+    }
 
     LaunchedEffect(true) {
         onEvent(DashboardEvent.OnLoadData)
@@ -196,6 +208,34 @@ fun DashboardScreen(
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center
                     )
+                }
+                item {
+                    Text(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp),
+                        text = stringResource(Res.string.today_budget),
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+                if (state.summary != null) {
+                    item {
+                        BudgetCard(
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                            todayBudget = state.summary?.todayBudget ?: 0.0,
+                            remainingToday = state.summary?.remainingToday ?: 0.0
+                        )
+                    }
+                } else {
+                    item {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = stringResource(Res.string.empty_budget),
+                            style = MaterialTheme.typography.bodyLarge,
+                            textAlign = TextAlign.Center
+                        )
+                    }
                 }
                 item {
                     Text(
