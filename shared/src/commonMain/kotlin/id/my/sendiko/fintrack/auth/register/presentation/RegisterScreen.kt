@@ -232,7 +232,7 @@ fun RegisterScreen(
                                         )
                                     )
                                     Surface(
-                                        onClick = { uriHandler.openUri("https://fintrack.sendiko.my.id/") }
+                                        onClick = { uriHandler.openUri("https://fintrack.sendiko.dev") }
                                     ) {
                                         Text(
                                             text = stringResource(Res.string.terms_and_condition_agreement),
