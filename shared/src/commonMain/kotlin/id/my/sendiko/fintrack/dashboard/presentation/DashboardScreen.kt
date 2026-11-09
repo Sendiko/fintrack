@@ -36,7 +36,7 @@ import fintrack.composeapp.generated.resources.see_more_categories
 import fintrack.composeapp.generated.resources.today_budget
 import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.wallets
-import id.my.sendiko.fintrack.budget.presentation.components.BudgetCard
+import id.my.sendiko.fintrack.budget.presentation.core.components.BudgetCard
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
 import id.my.sendiko.fintrack.core.navigation.ListCategoryDestination
