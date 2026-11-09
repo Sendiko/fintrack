@@ -36,6 +36,6 @@ data class BudgetsItem(
         amount = amount,
         startDate = startDate,
         endDate = endDate,
-        summary = summaryItem
+        summary = summaryItem.toDomain()
     )
 }
