@@ -20,6 +20,9 @@ fun BaseTextField(
     value: String,
     onValueChange: (String) -> Unit,
     hint: String,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    readOnly: Boolean = false,
+    enabled: Boolean = true,
     keyboardType: KeyboardType = KeyboardType.Text,
     outlineColor: Color = primaryOrange,
     supportingText: String? = null,
@@ -32,6 +35,8 @@ fun BaseTextField(
         value = value,
         onValueChange = onValueChange,
         singleLine = singleLine,
+        readOnly = readOnly,
+        enabled = enabled,
         shape = RoundedCornerShape(16.dp),
         keyboardOptions = KeyboardOptions(
             keyboardType = keyboardType,
@@ -50,6 +55,7 @@ fun BaseTextField(
         placeholder = {
             Text(text = hint)
         },
+        trailingIcon = trailingIcon,
         supportingText = if (supportingText.isNullOrBlank()) null else {
             { Text(text = supportingText) }
         }
