@@ -85,6 +85,7 @@ kotlin {
 
         androidMain.dependencies {
             implementation(compose.preview)
+            implementation(libs.compose.uiTooling)
             implementation(libs.androidx.activity.compose)
 
             /* Koin Android */
