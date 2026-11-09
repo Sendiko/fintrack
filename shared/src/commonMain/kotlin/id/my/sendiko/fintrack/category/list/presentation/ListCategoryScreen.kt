@@ -171,6 +171,7 @@ fun ListCategoryScreen(
         isLoading = state.isLoading,
     ) {
         Scaffold(
+            containerColor = utilityWhite,
             topBar = {
                 TopAppBar(
                     title = {
