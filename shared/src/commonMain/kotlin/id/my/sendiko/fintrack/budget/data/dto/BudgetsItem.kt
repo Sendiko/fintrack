@@ -1,5 +1,6 @@
 package id.my.sendiko.fintrack.budget.data.dto
 
+import id.my.sendiko.fintrack.budget.domain.model.Budget
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
@@ -7,7 +8,7 @@ import kotlinx.serialization.SerialName
 data class BudgetsItem(
 
 	@SerialName("summary")
-	val summary: Summary,
+	val summaryItem: SummaryItem,
 
 	@SerialName("createdAt")
 	val createdAt: String,
@@ -29,4 +30,12 @@ data class BudgetsItem(
 
 	@SerialName("updatedAt")
 	val updatedAt: String
-)
+) {
+	fun toDomain() = Budget(
+        id = id,
+        amount = amount,
+        startDate = startDate,
+        endDate = endDate,
+        summary = summaryItem
+    )
+}

@@ -1,17 +1,16 @@
 package id.my.sendiko.fintrack.budget.data.dto
 
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class PostBudgetResponse(
+    @SerialName("message")
+    val message: String,
 
-	@SerialName("amount")
-	val amount: Int,
+    @SerialName("status")
+    val status: Int,
 
-	@SerialName("endDate")
-	val endDate: String,
-
-	@SerialName("startDate")
-	val startDate: String
+    @SerialName("budget")
+    val budget: BudgetsItem,
 )

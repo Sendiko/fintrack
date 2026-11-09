@@ -1,10 +1,11 @@
 package id.my.sendiko.fintrack.budget.data.dto
 
+import id.my.sendiko.fintrack.budget.domain.model.Summary
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 @Serializable
-data class Summary(
+data class SummaryItem(
 
 	@SerialName("totalAmount")
 	val totalAmount: Int,
@@ -29,4 +30,15 @@ data class Summary(
 
 	@SerialName("todayBudget")
 	val todayBudget: Double
-)
+) {
+	fun toDomain() = Summary(
+		totalAmount = totalAmount,
+		remainingAmount = remainingAmount,
+		spent = spent,
+		remainingDays = remainingDays,
+		spentToday = spentToday,
+		remainingToday = remainingToday,
+		isActive = isActive,
+		todayBudget = todayBudget
+	)
+}
