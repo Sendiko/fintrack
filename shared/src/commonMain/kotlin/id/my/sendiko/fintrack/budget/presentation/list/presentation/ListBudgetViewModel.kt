@@ -30,6 +30,7 @@ class ListBudgetViewModel(
             .onError { error ->
                 _state.update { it.copy(message = error.asUiText()) }
             }
+        _state.update { it.copy(isLoading = false) }
     }
 
 }

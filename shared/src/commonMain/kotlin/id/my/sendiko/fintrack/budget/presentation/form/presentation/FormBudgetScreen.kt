@@ -20,6 +20,7 @@ import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -30,7 +31,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.back
 import fintrack.composeapp.generated.resources.budget_label
@@ -43,6 +43,7 @@ import fintrack.composeapp.generated.resources.form_budget_title
 import fintrack.composeapp.generated.resources.select_end_date
 import fintrack.composeapp.generated.resources.select_start_date
 import fintrack.composeapp.generated.resources.start_form_label
+import id.my.sendiko.fintrack.budget.presentation.core.util.formatDate
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.core.presentation.numerickeyboard.NumericKeyboard
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
@@ -137,24 +138,21 @@ fun FormBudgetScreen(
                 containerColor = utilityWhite,
                 contentColor = secondaryBlue,
                 topBar = {
-                    Column(
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        IconButton(
-                            onClick = onNavigateBack,
-                        ) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                                contentDescription = stringResource(Res.string.back)
-                            )
+                    MediumTopAppBar(
+                        title = {
+                            Text(stringResource(Res.string.form_budget_title))
+                        },
+                        navigationIcon = {
+                            IconButton(
+                                onClick = onNavigateBack
+                            ) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                                    contentDescription = stringResource(Res.string.back)
+                                )
+                            }
                         }
-                        Text(
-                            modifier = Modifier.padding(start = 16.dp),
-                            text = stringResource(Res.string.form_budget_title),
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
+                    )
                 }
             ) { innerPadding ->
                 Column(
@@ -172,9 +170,10 @@ fun FormBudgetScreen(
                         Spacer(modifier = Modifier.height(8.dp))
                         BaseTextField(
                             modifier = Modifier.fillMaxWidth(),
-                            value = state.startDate,
+                            value = if (state.startDate.isBlank())
+                                "" else state.startDate.formatDate(),
                             onValueChange = { onEvent(FormBudgetEvent.OnStartDateConfirmed(it)) },
-                            hint = stringResource(Res.string.date_hint),
+                            hint = stringResource(Res.string.date_hint).formatDate(),
                             trailingIcon = {
                                 IconButton(
                                     onClick = {
@@ -199,9 +198,10 @@ fun FormBudgetScreen(
                         Spacer(modifier = Modifier.height(8.dp))
                         BaseTextField(
                             modifier = Modifier.fillMaxWidth(),
-                            value = state.endDate,
+                            value = if (state.endDate.isBlank())
+                                "" else state.endDate.formatDate(),
                             onValueChange = { onEvent(FormBudgetEvent.OnEndDateConfirmed(it)) },
-                            hint = stringResource(Res.string.date_hint),
+                            hint = stringResource(Res.string.date_hint).formatDate(),
                             trailingIcon = {
                                 IconButton(
                                     onClick = {

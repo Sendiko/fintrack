@@ -1,18 +1,25 @@
-package id.my.sendiko.fintrack.budget.presentation.core.components
+package id.my.sendiko.fintrack.budget.presentation.list.presentation.components
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.for_day
 import id.my.sendiko.fintrack.budget.domain.model.Budget
 import id.my.sendiko.fintrack.budget.domain.model.Summary
+import id.my.sendiko.fintrack.budget.presentation.core.util.formatDate
+import id.my.sendiko.fintrack.budget.presentation.detail.presentation.components.BudgetStatusChip
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.theme.FinTrackTheme
 import org.jetbrains.compose.resources.stringResource
@@ -22,19 +29,32 @@ fun BudgetCard(
     modifier: Modifier = Modifier,
     budget: Budget
 ) {
-    Row(
+    Column(
         modifier = modifier,
-        verticalAlignment = Alignment.Bottom
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = budget.amount.toDouble().toRupiah(),
+                style = MaterialTheme.typography.headlineMedium
+            )
+            BudgetStatusChip(isActive = budget.summary.isActive)
+        }
         Text(
-            modifier = Modifier.weight(1f),
-            text = budget.amount.toDouble().toRupiah(),
-            style = MaterialTheme.typography.titleLarge
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(
+                Res.string.for_day,
+                budget.startDate.formatDate(),
+                budget.endDate.formatDate()
+            ),
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.End,
+            fontWeight = FontWeight.Bold
         )
-        Text(
-            text = stringResource(Res.string.for_day, budget.startDate, budget.endDate),
-            style = MaterialTheme.typography.bodyLarge
-        )
+        HorizontalDivider()
     }
 }
 
@@ -47,8 +67,8 @@ fun BudgetCardPrev() {
             budget = Budget(
                 id = "",
                 amount = 650000,
-                startDate = "01 Nov",
-                endDate = "09 Nov",
+                startDate = "2026-10-01",
+                endDate = "2026-10-30",
                 summary = Summary(
                     totalAmount = 0,
                     remainingAmount = 0,
