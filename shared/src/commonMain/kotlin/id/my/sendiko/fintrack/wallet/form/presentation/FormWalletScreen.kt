@@ -165,6 +165,14 @@ fun FormWalletScreen(
             Scaffold(
                 containerColor = utilityWhite,
                 contentColor = secondaryBlue,
+                topBar = {
+                    FormWalletTopBar(
+                        title = if (state.walletId.isBlank())
+                            stringResource(Res.string.create_wallet_title)
+                        else stringResource(Res.string.update_wallet_title),
+                        onNavigate = { onNavigate(null) }
+                    )
+                },
                 bottomBar = {
                     Row(
                         modifier = Modifier.fillMaxWidth()
@@ -231,12 +239,6 @@ fun FormWalletScreen(
                     modifier = Modifier.padding(innerPadding),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    FormWalletTopBar(
-                        title = if (state.walletId.isBlank())
-                            stringResource(Res.string.create_wallet_title)
-                        else stringResource(Res.string.update_wallet_title),
-                        onNavigate = { onNavigate(null) }
-                    )
                     AnimatedContent(
                         targetState = state.stage,
                         transitionSpec = {

@@ -26,8 +26,7 @@ fun TransactionsCard(
     onSeeMoreClick: () -> Unit,
 ) {
     Card(
-        modifier = modifier
-            .padding(horizontal = 16.dp),
+        modifier = modifier,
         colors = CardDefaults.cardColors(
             containerColor = aliceBlue
         ),

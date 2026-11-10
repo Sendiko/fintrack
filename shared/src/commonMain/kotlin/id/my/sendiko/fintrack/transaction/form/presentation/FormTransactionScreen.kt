@@ -167,6 +167,26 @@ fun FormTransactionScreen(
             Scaffold(
                 containerColor = utilityWhite,
                 contentColor = secondaryBlue,
+                topBar = {
+                    TransactionTopBar(
+                        title = if (state.transactionId.isNotBlank()) {
+                            when (state.selectedType) {
+                                INCOME -> stringResource(Res.string.edit_income_title)
+                                EXPENSE -> stringResource(Res.string.edit_expense_title)
+                            }
+                        } else {
+                            when (state.selectedType) {
+                                INCOME -> stringResource(Res.string.create_income_title)
+                                EXPENSE -> stringResource(Res.string.create_expense_title)
+                            }
+                        },
+                        onNavigateBack = {
+                            if (state.stage == 2)
+                                onEvent(FormTransactionEvent.OnPrevious)
+                            else onNavigateBack()
+                        }
+                    )
+                },
                 bottomBar = {
                     Row(
                         modifier = Modifier.fillMaxWidth()
@@ -233,24 +253,6 @@ fun FormTransactionScreen(
                     modifier = Modifier.padding(paddingValues),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    TransactionTopBar(
-                        title = if (state.transactionId.isNotBlank()) {
-                            when (state.selectedType) {
-                                INCOME -> stringResource(Res.string.edit_income_title)
-                                EXPENSE -> stringResource(Res.string.edit_expense_title)
-                            }
-                        } else {
-                            when (state.selectedType) {
-                                INCOME -> stringResource(Res.string.create_income_title)
-                                EXPENSE -> stringResource(Res.string.create_expense_title)
-                            }
-                        },
-                        onNavigateBack = {
-                            if (state.stage == 2)
-                                onEvent(FormTransactionEvent.OnPrevious)
-                            else onNavigateBack()
-                        }
-                    )
                     AnimatedContent(
                         targetState = state.stage,
                         transitionSpec = {

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -98,6 +99,7 @@ fun DashboardScreen(
             ) {
                 item {
                     DashboardTopBar(
+                        modifier = Modifier.padding(top = 16.dp),
                         balance = state.wallets.sumOf { it.amount },
                         onLogout = { onEvent(DashboardEvent.OnLogout) }
                     )
