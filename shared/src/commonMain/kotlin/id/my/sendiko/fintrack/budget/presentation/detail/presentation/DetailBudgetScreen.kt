@@ -15,6 +15,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -24,6 +26,7 @@ import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.back
 import fintrack.composeapp.generated.resources.budget_label
 import fintrack.composeapp.generated.resources.for_day
+import fintrack.composeapp.generated.resources.used_at
 import id.my.sendiko.fintrack.budget.presentation.core.util.formatDate
 import id.my.sendiko.fintrack.budget.presentation.detail.presentation.components.BudgetStatusChip
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
@@ -34,10 +37,16 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun DetailBudgetScreen(
+    budgetId: String,
     state: DetailBudgetState,
     onEvent: (DetailBudgetEvent) -> Unit,
     onNavigateBack: () -> Unit
 ) {
+
+    LaunchedEffect(budgetId) {
+        if (budgetId.isNotBlank())
+            onEvent(DetailBudgetEvent.OnRefresh(budgetId))
+    }
 
     NotificationBox(
         message = state.message.asComposableString(),
@@ -45,7 +54,7 @@ fun DetailBudgetScreen(
     ) {
         PullToRefreshBox(
             isRefreshing = state.isRefreshing,
-            onRefresh = { onEvent(DetailBudgetEvent.OnRefresh) },
+            onRefresh = { onEvent(DetailBudgetEvent.OnRefresh(state.budgetId)) },
         ) {
             Scaffold(
                 containerColor = utilityWhite,
@@ -87,6 +96,8 @@ fun DetailBudgetScreen(
                             )
                             BudgetStatusChip(isActive = state.budget?.summary?.isActive ?: false)
                         }
+                    }
+                    item {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
                             text = stringResource(
@@ -98,6 +109,22 @@ fun DetailBudgetScreen(
                             textAlign = TextAlign.End,
                             fontWeight = FontWeight.Bold
                         )
+                    }
+                    item {
+                        Row(
+                            verticalAlignment = Alignment.Bottom
+                        ) {
+                            Text(
+                                text = stringResource(Res.string.used_at),
+                                style = MaterialTheme.typography.bodyLarge,
+                                textAlign = TextAlign.Start,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = state.budget?.summary?.remainingAmount?.toDouble()?.toRupiah() ?: "",
+                                style = MaterialTheme.typography.headlineSmall
+                            )
+                        }
                     }
                 }
             }
@@ -111,6 +138,7 @@ fun DetailBudgetScreen(
 fun DetailBudgetScreenPrev() {
     FinTrackTheme {
         DetailBudgetScreen(
+            budgetId = "",
             state = DetailBudgetState(isLoading = false),
             onEvent = {  },
             onNavigateBack = {  }

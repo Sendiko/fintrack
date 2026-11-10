@@ -3,7 +3,6 @@ package id.my.sendiko.fintrack.budget.presentation.detail.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import id.my.sendiko.fintrack.budget.domain.BudgetRepository
-import id.my.sendiko.fintrack.budget.domain.model.Budget
 import id.my.sendiko.fintrack.core.network.utils.asUiText
 import id.my.sendiko.fintrack.core.network.utils.onError
 import id.my.sendiko.fintrack.core.network.utils.onSuccess
@@ -19,20 +18,16 @@ class DetailBudgetViewModel(
     private val _state = MutableStateFlow(DetailBudgetState())
     val state = _state.asStateFlow()
 
-    fun setBudgetId(id: String) {
-        _state.update { it.copy(
-            budgetId = id
-        ) }
-    }
-
-    fun fetchBudget() = viewModelScope.launch {
-        repository.getBudget(state.value.budgetId)
+    fun fetchBudget(budgetId: String) = viewModelScope.launch {
+        _state.update { it.copy(budgetId = budgetId) }
+        repository.getBudget(budgetId)
             .onSuccess { result ->
                 _state.update { it.copy(budget = result) }
             }
             .onError { error ->
                 _state.update { it.copy(message = error.asUiText()) }
             }
+        _state.update { it.copy(isLoading = false) }
     }
 
 }

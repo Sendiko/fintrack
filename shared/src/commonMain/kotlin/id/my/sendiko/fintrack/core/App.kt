@@ -22,6 +22,8 @@ import id.my.sendiko.fintrack.auth.login.presentation.LoginScreen
 import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterScreen
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
+import id.my.sendiko.fintrack.budget.presentation.detail.presentation.DetailBudgetScreen
+import id.my.sendiko.fintrack.budget.presentation.detail.presentation.DetailBudgetViewModel
 import id.my.sendiko.fintrack.budget.presentation.form.presentation.FormBudgetScreen
 import id.my.sendiko.fintrack.budget.presentation.form.presentation.FormBudgetViewModel
 import id.my.sendiko.fintrack.budget.presentation.list.presentation.ListBudgetScreen
@@ -30,6 +32,7 @@ import id.my.sendiko.fintrack.category.list.presentation.ListCategoryScreen
 import id.my.sendiko.fintrack.category.list.presentation.ListCategoryViewModel
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
 import id.my.sendiko.fintrack.core.navigation.DashboardDestination
+import id.my.sendiko.fintrack.core.navigation.DetailBudgetDestination
 import id.my.sendiko.fintrack.core.navigation.FormBudgetDestination
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
@@ -245,6 +248,18 @@ fun App() {
                     FormBudgetScreen(
                         state = state,
                         onEvent = viewModel::onEvent,
+                        onNavigateBack = { navController.navigateUp() }
+                    )
+                }
+                composable<DetailBudgetDestination> {
+                    val budgetId = it.toRoute<DetailBudgetDestination>().budgetId
+                    val viewModel = koinViewModel<DetailBudgetViewModel>()
+                    val state by viewModel.state.collectAsStateWithLifecycle()
+
+                    DetailBudgetScreen(
+                        budgetId = budgetId,
+                        state = state,
+                        onEvent = { viewModel.fetchBudget(budgetId) },
                         onNavigateBack = { navController.navigateUp() }
                     )
                 }

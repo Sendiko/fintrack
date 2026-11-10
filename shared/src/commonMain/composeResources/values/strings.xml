@@ -154,6 +154,7 @@
     <string name="for_day">Dari %1$s sampai %2$s</string>
     <string name="budget_active">Aktif</string>
     <string name="budget_expired">Kadaluarsa</string>
+    <string name="used_at">Tersisa </string>
 
 
 </resources>

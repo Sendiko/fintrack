@@ -37,3 +37,6 @@ data object FormBudgetDestination
 
 @Serializable
 data object ListBudgetDestination
+
+@Serializable
+data class DetailBudgetDestination(val budgetId: String)
