@@ -18,6 +18,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -89,194 +90,199 @@ fun DashboardScreen(
         message = state.message,
         isLoading = state.isLoading
     ) {
-        Surface(
-            modifier = Modifier.fillMaxSize()
+        PullToRefreshBox(
+            isRefreshing = state.isLoading,
+            onRefresh = { onEvent(DashboardEvent.OnLoadData) },
         ) {
-            LazyColumn(
-                modifier = Modifier.systemBarsPadding(),
-                contentPadding = PaddingValues(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+            Surface(
+                modifier = Modifier.fillMaxSize()
             ) {
-                item {
-                    DashboardTopBar(
-                        modifier = Modifier.padding(top = 16.dp),
-                        balance = state.wallets.sumOf { it.amount },
-                        onLogout = { onEvent(DashboardEvent.OnLogout) }
-                    )
-                }
-                item {
-                    Text(
-                        text = stringResource(Res.string.wallets),
-                        style = MaterialTheme.typography.labelLarge,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-                item {
-                    Row(
-                        modifier = Modifier.fillMaxWidth()
-                            .height(IntrinsicSize.Min)
-                            .horizontalScroll(rememberScrollState()),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        AddWalletButton(
-                            modifier = Modifier.width(48.dp)
-                                .fillMaxHeight(),
-                            onClick = { onNavigate(FormWalletDestination()) }
+                LazyColumn(
+                    modifier = Modifier.systemBarsPadding(),
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    item {
+                        DashboardTopBar(
+                            modifier = Modifier.padding(top = 16.dp),
+                            balance = state.wallets.sumOf { it.amount },
+                            onLogout = { onEvent(DashboardEvent.OnLogout) }
                         )
-                        if (state.wallets.isNotEmpty()) {
-                            state.wallets.forEach { wallet ->
-                                WalletCard(
-                                    wallet = wallet,
-                                    isVisible = state.balanceVisible,
-                                    onVisibilityToggle = {
-                                        onEvent(DashboardEvent.OnBalanceViewChanged(it))
-                                    }
+                    }
+                    item {
+                        Text(
+                            text = stringResource(Res.string.wallets),
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                    item {
+                        Row(
+                            modifier = Modifier.fillMaxWidth()
+                                .height(IntrinsicSize.Min)
+                                .horizontalScroll(rememberScrollState()),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        ) {
+                            AddWalletButton(
+                                modifier = Modifier.width(48.dp)
+                                    .fillMaxHeight(),
+                                onClick = { onNavigate(FormWalletDestination()) }
+                            )
+                            if (state.wallets.isNotEmpty()) {
+                                state.wallets.forEach { wallet ->
+                                    WalletCard(
+                                        wallet = wallet,
+                                        isVisible = state.balanceVisible,
+                                        onVisibilityToggle = {
+                                            onEvent(DashboardEvent.OnBalanceViewChanged(it))
+                                        }
+                                    )
+                                }
+                            } else {
+                                Text(
+                                    modifier = Modifier,
+                                    text = stringResource(Res.string.empty_wallet),
+                                    style = MaterialTheme.typography.bodyLarge
                                 )
                             }
-                        } else {
+                            AllWalletButton(
+                                modifier = Modifier.width(48.dp)
+                                    .fillMaxHeight(),
+                                onClick = {
+                                    onNavigate(ListWalletDestination)
+                                }
+                            )
+                        }
+                    }
+                    item {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            AddIncomeButton(
+                                modifier = Modifier.weight(1f),
+                                onClick = { onNavigate(FormTransactionDestination(TransactionType.INCOME.name)) }
+                            )
+                            AddExpenseButton(
+                                modifier = Modifier.weight(1f),
+                                onClick = { onNavigate(FormTransactionDestination(TransactionType.EXPENSE.name)) }
+                            )
+                        }
+                    }
+                    item {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
                             Text(
+                                text = stringResource(Res.string.top_category),
+                                style = MaterialTheme.typography.labelLarge,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                            Text(
+                                modifier = Modifier.clickable { onNavigate(ListCategoryDestination) },
+                                text = stringResource(Res.string.see_more_categories),
+                                style = MaterialTheme.typography.labelLarge,
+                                textDecoration = TextDecoration.Underline
+                            )
+                        }
+                    }
+                    item {
+                        if (state.categories.isNotEmpty()) {
+                            Row(
                                 modifier = Modifier,
-                                text = stringResource(Res.string.empty_wallet),
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
-                        AllWalletButton(
-                            modifier = Modifier.width(48.dp)
-                                .fillMaxHeight(),
-                            onClick = {
-                                onNavigate(ListWalletDestination)
+                                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                            ) {
+                                TopCategoryCard(
+                                    modifier = Modifier.weight(1f),
+                                    category = state.topCategory.first().name,
+                                    amount = state.topCategory.first().totalAmount
+                                )
+                                TopCategoryCard(
+                                    modifier = Modifier.weight(1f),
+                                    category = state.topCategory.last().name,
+                                    amount = state.topCategory.last().totalAmount
+                                )
                             }
-                        )
-                    }
-                }
-                item {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        AddIncomeButton(
-                            modifier = Modifier.weight(1f),
-                            onClick = { onNavigate(FormTransactionDestination(TransactionType.INCOME.name)) }
-                        )
-                        AddExpenseButton(
-                            modifier = Modifier.weight(1f),
-                            onClick = { onNavigate(FormTransactionDestination(TransactionType.EXPENSE.name)) }
-                        )
-                    }
-                }
-                item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(
-                            text = stringResource(Res.string.top_category),
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        Text(
-                            modifier = Modifier.clickable { onNavigate(ListCategoryDestination) },
-                            text = stringResource(Res.string.see_more_categories),
-                            style = MaterialTheme.typography.labelLarge,
-                            textDecoration = TextDecoration.Underline
-                        )
-                    }
-                }
-                item {
-                    if (state.categories.isNotEmpty()) {
-                        Row(
-                            modifier = Modifier,
-                            horizontalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            TopCategoryCard(
-                                modifier = Modifier.weight(1f),
-                                category = state.topCategory.first().name,
-                                amount = state.topCategory.first().totalAmount
-                            )
-                            TopCategoryCard(
-                                modifier = Modifier.weight(1f),
-                                category = state.topCategory.last().name,
-                                amount = state.topCategory.last().totalAmount
-                            )
+                            return@item
                         }
-                        return@item
-                    }
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = stringResource(Res.string.empty_category),
-                        style = MaterialTheme.typography.bodyLarge,
-                        textAlign = TextAlign.Center
-                    )
-                }
-                item {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(
-                            modifier = Modifier,
-                            text = stringResource(Res.string.today_budget),
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        Text(
-                            modifier = Modifier.clickable { onNavigate(ListBudgetDestination) },
-                            text = stringResource(Res.string.see_more_budgets),
-                            style = MaterialTheme.typography.labelLarge,
-                            textDecoration = TextDecoration.Underline
-                        )
-                    }
-                }
-                if (state.summary != null) {
-                    item {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            TodayBudgetCard(
-                                modifier = Modifier.weight(1f),
-                                remainingToday = state.summary.remainingToday
-                            )
-                            RemainingDayCard(
-                                modifier = Modifier.weight(1f),
-                                remainingDays = state.summary.remainingDays
-                            )
-                        }
-                    }
-                } else {
-                    item {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = stringResource(Res.string.empty_budget),
+                            text = stringResource(Res.string.empty_category),
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center
                         )
                     }
-                }
-                item {
-                    Text(
-                        modifier = Modifier,
-                        text = stringResource(Res.string.recent_transaction),
-                        style = MaterialTheme.typography.labelLarge,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-                item {
-                    if (state.transactions.isNotEmpty()) {
-                        TransactionsCard(
-                            transactions = state.transactions,
-                            onSeeMoreClick = { onNavigate(ListTransactionDestination) }
-                        )
-                        return@item
+                    item {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                modifier = Modifier,
+                                text = stringResource(Res.string.today_budget),
+                                style = MaterialTheme.typography.labelLarge,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                            Text(
+                                modifier = Modifier.clickable { onNavigate(ListBudgetDestination) },
+                                text = stringResource(Res.string.see_more_budgets),
+                                style = MaterialTheme.typography.labelLarge,
+                                textDecoration = TextDecoration.Underline
+                            )
+                        }
                     }
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = stringResource(Res.string.empty_transaction),
-                        style = MaterialTheme.typography.bodyLarge,
-                        textAlign = TextAlign.Center
-                    )
+                    if (state.summary != null) {
+                        item {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                            ) {
+                                TodayBudgetCard(
+                                    modifier = Modifier.weight(1f),
+                                    remainingToday = state.summary.remainingToday
+                                )
+                                RemainingDayCard(
+                                    modifier = Modifier.weight(1f),
+                                    remainingDays = state.summary.remainingDays
+                                )
+                            }
+                        }
+                    } else {
+                        item {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = stringResource(Res.string.empty_budget),
+                                style = MaterialTheme.typography.bodyLarge,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+                    item {
+                        Text(
+                            modifier = Modifier,
+                            text = stringResource(Res.string.recent_transaction),
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                    item {
+                        if (state.transactions.isNotEmpty()) {
+                            TransactionsCard(
+                                transactions = state.transactions,
+                                onSeeMoreClick = { onNavigate(ListTransactionDestination) }
+                            )
+                            return@item
+                        }
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = stringResource(Res.string.empty_transaction),
+                            style = MaterialTheme.typography.bodyLarge,
+                            textAlign = TextAlign.Center
+                        )
+                    }
                 }
             }
         }
