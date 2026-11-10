@@ -41,6 +41,8 @@ import fintrack.composeapp.generated.resources.create
 import fintrack.composeapp.generated.resources.date_hint
 import fintrack.composeapp.generated.resources.end_form_label
 import fintrack.composeapp.generated.resources.form_budget_title
+import fintrack.composeapp.generated.resources.select_end_date
+import fintrack.composeapp.generated.resources.select_start_date
 import fintrack.composeapp.generated.resources.start_form_label
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.core.presentation.numerickeyboard.NumericKeyboard
@@ -55,7 +57,6 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormBudgetScreen(
     state: FormBudgetState,
@@ -183,7 +184,7 @@ fun FormBudgetScreen(
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.DateRange,
-                                        contentDescription = "Pilih Tanggal Mulai"
+                                        contentDescription = stringResource(Res.string.select_start_date)
                                     )
                                 }
                             },
@@ -210,7 +211,7 @@ fun FormBudgetScreen(
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.DateRange,
-                                        contentDescription = "Pilih Tanggal Selesai"
+                                        contentDescription = stringResource(Res.string.select_end_date)
                                     )
                                 }
                             },
