@@ -33,7 +33,7 @@ fun TodayBudgetCard(
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxSize(),
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.Bottom
         ) {
             Text(
