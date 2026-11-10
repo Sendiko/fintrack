@@ -16,6 +16,7 @@ import id.my.sendiko.fintrack.budget.data.datasource.BudgetRemoteDataSource
 import id.my.sendiko.fintrack.budget.data.datasource.BudgetRemoteDataSourceImpl
 import id.my.sendiko.fintrack.budget.domain.BudgetRepository
 import id.my.sendiko.fintrack.budget.presentation.form.presentation.FormBudgetViewModel
+import id.my.sendiko.fintrack.budget.presentation.list.presentation.ListBudgetViewModel
 import id.my.sendiko.fintrack.category.core.data.CategoryRepositoryImpl
 import id.my.sendiko.fintrack.category.core.data.datasource.CategoryDataSource
 import id.my.sendiko.fintrack.category.core.data.datasource.CategoryDataSourceImpl
@@ -83,4 +84,5 @@ val sharedModule = module {
     factory { ListWalletViewModel(get()) }
     factory { ListTransactionViewModel(get()) }
     factory { FormBudgetViewModel(get()) }
+    factory { ListBudgetViewModel(get()) }
 }
