@@ -241,7 +241,6 @@ fun DashboardScreen(
                         ) {
                             TodayBudgetCard(
                                 modifier = Modifier.weight(1f),
-                                todayBudget = state.summary.todayBudget,
                                 remainingToday = state.summary.remainingToday
                             )
                             RemainingDayCard(
