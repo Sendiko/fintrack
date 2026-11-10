@@ -147,6 +147,11 @@
     <string name="end_form_label">Sampai</string>
     <string name="date_hint">yyyy-mm-dd</string>
     <string name="budget_label">Anggaran</string>
+    <string name="days_left">%1$s hari lagi</string>
+    <string name="budget_left">/%1$s</string>
+    <string name="select_start_date">"Pilih Tanggal Mulai"</string>
+    <string name="select_end_date">"Pilih Tanggal Selesai"</string>
+    <string name="for_day">Dari %1$s sampai %1$s</string>
 
 
 </resources>
