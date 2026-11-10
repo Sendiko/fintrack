@@ -46,9 +46,6 @@ fun TodayBudgetCard(
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            Text(
-                text = stringResource(Res.string.budget_left, todayBudget.toShortRupiah()),
-            )
         }
     }
 }
