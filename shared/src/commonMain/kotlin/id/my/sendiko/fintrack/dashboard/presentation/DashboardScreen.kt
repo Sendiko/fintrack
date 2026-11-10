@@ -38,6 +38,7 @@ import fintrack.composeapp.generated.resources.today_budget
 import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.wallets
 import id.my.sendiko.fintrack.budget.presentation.core.components.BudgetCard
+import id.my.sendiko.fintrack.budget.presentation.core.components.RemainingDayCard
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
 import id.my.sendiko.fintrack.core.navigation.ListBudgetDestination
@@ -233,12 +234,21 @@ fun DashboardScreen(
                 }
                 if (state.summary != null) {
                     item {
-                        BudgetCard(
+                        Row(
                             modifier = Modifier.fillMaxWidth()
                                 .padding(horizontal = 16.dp),
-                            todayBudget = state.summary?.todayBudget ?: 0.0,
-                            remainingToday = state.summary?.remainingToday ?: 0.0
-                        )
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            BudgetCard(
+                                modifier = Modifier.weight(1f),
+                                todayBudget = state.summary.todayBudget,
+                                remainingToday = state.summary.remainingToday
+                            )
+                            RemainingDayCard(
+                                modifier = Modifier.weight(1f),
+                                remainingDays = state.summary.remainingDays
+                            )
+                        }
                     }
                 } else {
                     item {

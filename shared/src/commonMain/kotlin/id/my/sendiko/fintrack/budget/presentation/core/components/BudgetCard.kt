@@ -15,10 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import fintrack.composeapp.generated.resources.Res
+import fintrack.composeapp.generated.resources.budget_left
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.core.presentation.rupiah.toShortRupiah
 import id.my.sendiko.fintrack.theme.primaryOrange
 import id.my.sendiko.fintrack.theme.utilityWhite
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun BudgetCard(
@@ -44,7 +47,7 @@ fun BudgetCard(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "/" + todayBudget.toShortRupiah(),
+                text = stringResource(Res.string.budget_left, todayBudget.toShortRupiah()),
             )
         }
     }
