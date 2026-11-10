@@ -24,7 +24,8 @@ import id.my.sendiko.fintrack.auth.register.presentation.RegisterScreen
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
 import id.my.sendiko.fintrack.budget.presentation.form.presentation.FormBudgetScreen
 import id.my.sendiko.fintrack.budget.presentation.form.presentation.FormBudgetViewModel
-import id.my.sendiko.fintrack.budget.presentation.list.ListBudgetScreen
+import id.my.sendiko.fintrack.budget.presentation.list.presentation.ListBudgetScreen
+import id.my.sendiko.fintrack.budget.presentation.list.presentation.ListBudgetViewModel
 import id.my.sendiko.fintrack.category.list.presentation.ListCategoryScreen
 import id.my.sendiko.fintrack.category.list.presentation.ListCategoryViewModel
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
@@ -225,7 +226,12 @@ fun App() {
                     )
                 }
                 composable<ListBudgetDestination> {
-                    ListBudgetScreen {
+                    val viewModel = koinViewModel<ListBudgetViewModel>()
+                    val state by viewModel.state.collectAsStateWithLifecycle()
+
+                    ListBudgetScreen(
+                        state = state
+                    ) {
                         if (it == null)
                             navController.navigateUp()
                         else

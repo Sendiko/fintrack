@@ -37,7 +37,7 @@ import fintrack.composeapp.generated.resources.see_more_categories
 import fintrack.composeapp.generated.resources.today_budget
 import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.wallets
-import id.my.sendiko.fintrack.budget.presentation.core.components.BudgetCard
+import id.my.sendiko.fintrack.budget.presentation.core.components.TodayBudgetCard
 import id.my.sendiko.fintrack.budget.presentation.core.components.RemainingDayCard
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
@@ -239,7 +239,7 @@ fun DashboardScreen(
                                 .padding(horizontal = 16.dp),
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
-                            BudgetCard(
+                            TodayBudgetCard(
                                 modifier = Modifier.weight(1f),
                                 todayBudget = state.summary.todayBudget,
                                 remainingToday = state.summary.remainingToday
