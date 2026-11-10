@@ -18,6 +18,13 @@ class BudgetRepositoryImpl(
         }
     }
 
+    override suspend fun getBudget(id: String): Result<Budget, DataError.Remote> {
+        return when (val response = remoteDataSource.getBudget(id)) {
+            is Result.Success -> Result.Success(response.data.budgetsItem.toDomain())
+            is Result.Error -> Result.Error(response.error)
+        }
+    }
+
     override suspend fun getTodayBudget(): Result<Summary, DataError.Remote> {
         return when (val response = remoteDataSource.getTodayBudget()) {
             is Result.Success -> Result.Success(response.data.summaryItem.toDomain())

@@ -1,5 +1,6 @@
 package id.my.sendiko.fintrack.budget.data.datasource
 
+import id.my.sendiko.fintrack.budget.data.dto.GetBudgetResponse
 import id.my.sendiko.fintrack.budget.data.dto.GetBudgetsResponse
 import id.my.sendiko.fintrack.budget.data.dto.GetTodayBudget
 import id.my.sendiko.fintrack.budget.data.dto.PostBudgetRequest
@@ -17,6 +18,12 @@ class BudgetRemoteDataSourceImpl(
     override suspend fun getBudgets(): Result<GetBudgetsResponse, DataError.Remote> {
         return safeCall<GetBudgetsResponse> {
             client.get("budgets")
+        }
+    }
+
+    override suspend fun getBudget(id: String): Result<GetBudgetResponse, DataError.Remote> {
+        return safeCall<GetBudgetResponse> {
+            client.get("budgets/$id")
         }
     }
 

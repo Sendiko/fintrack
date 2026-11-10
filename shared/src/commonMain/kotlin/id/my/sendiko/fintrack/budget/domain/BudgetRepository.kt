@@ -9,6 +9,8 @@ interface BudgetRepository {
 
     suspend fun getBudgets(): Result<List<Budget>, DataError.Remote>
 
+    suspend fun getBudget(id: String): Result<Budget, DataError.Remote>
+
     suspend fun getTodayBudget(): Result<Summary, DataError.Remote>
 
     suspend fun postBudget(amount: Int, startDate: String, endDate: String): Result<Budget, DataError.Remote>
