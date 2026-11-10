@@ -15,18 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import fintrack.composeapp.generated.resources.Res
-import fintrack.composeapp.generated.resources.budget_left
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
-import id.my.sendiko.fintrack.core.presentation.rupiah.toShortRupiah
 import id.my.sendiko.fintrack.theme.primaryOrange
 import id.my.sendiko.fintrack.theme.utilityWhite
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TodayBudgetCard(
     modifier: Modifier = Modifier,
-    todayBudget: Double,
     remainingToday: Double
 ) {
     Card(
@@ -54,6 +49,6 @@ fun TodayBudgetCard(
 @Preview
 fun TodayBudgetCardPrev() {
     Surface {
-        TodayBudgetCard(todayBudget = 10000.0, remainingToday = 5000.0)
+        TodayBudgetCard(remainingToday = 5000.0)
     }
 }
