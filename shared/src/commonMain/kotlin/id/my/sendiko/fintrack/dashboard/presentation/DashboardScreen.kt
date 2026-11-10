@@ -4,12 +4,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -37,8 +37,8 @@ import fintrack.composeapp.generated.resources.see_more_categories
 import fintrack.composeapp.generated.resources.today_budget
 import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.wallets
-import id.my.sendiko.fintrack.budget.presentation.core.components.TodayBudgetCard
 import id.my.sendiko.fintrack.budget.presentation.core.components.RemainingDayCard
+import id.my.sendiko.fintrack.budget.presentation.core.components.TodayBudgetCard
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
 import id.my.sendiko.fintrack.core.navigation.ListBudgetDestination
@@ -93,6 +93,7 @@ fun DashboardScreen(
         ) {
             LazyColumn(
                 modifier = Modifier.systemBarsPadding(),
+                contentPadding = PaddingValues(horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 item {
@@ -103,8 +104,6 @@ fun DashboardScreen(
                 }
                 item {
                     Text(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp),
                         text = stringResource(Res.string.wallets),
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.SemiBold
@@ -114,7 +113,6 @@ fun DashboardScreen(
                     Row(
                         modifier = Modifier.fillMaxWidth()
                             .height(IntrinsicSize.Min)
-                            .padding(horizontal = 16.dp)
                             .horizontalScroll(rememberScrollState()),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
@@ -135,7 +133,7 @@ fun DashboardScreen(
                             }
                         } else {
                             Text(
-                                modifier = Modifier.padding(horizontal = 16.dp),
+                                modifier = Modifier,
                                 text = stringResource(Res.string.empty_wallet),
                                 style = MaterialTheme.typography.bodyLarge
                             )
@@ -151,8 +149,7 @@ fun DashboardScreen(
                 }
                 item {
                     Row(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(horizontal = 16.dp),
+                        modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         AddIncomeButton(
@@ -168,7 +165,6 @@ fun DashboardScreen(
                 item {
                     Row(
                         modifier = Modifier
-                            .padding(horizontal = 16.dp)
                             .fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -189,7 +185,7 @@ fun DashboardScreen(
                 item {
                     if (state.categories.isNotEmpty()) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 16.dp),
+                            modifier = Modifier,
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
                             TopCategoryCard(
@@ -214,8 +210,7 @@ fun DashboardScreen(
                 }
                 item {
                     Row(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(horizontal = 16.dp),
+                        modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
@@ -235,8 +230,7 @@ fun DashboardScreen(
                 if (state.summary != null) {
                     item {
                         Row(
-                            modifier = Modifier.fillMaxWidth()
-                                .padding(horizontal = 16.dp),
+                            modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
                             TodayBudgetCard(
@@ -261,8 +255,7 @@ fun DashboardScreen(
                 }
                 item {
                     Text(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp),
+                        modifier = Modifier,
                         text = stringResource(Res.string.recent_transaction),
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.SemiBold

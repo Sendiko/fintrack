@@ -29,8 +29,7 @@ fun DashboardTopBar(
     onLogout: () -> Unit
 ) {
     Row(
-        modifier = modifier.fillMaxWidth()
-            .padding(start = 16.dp, end = 8.dp),
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
