@@ -29,7 +29,13 @@ data class SummaryItem(
 	val isActive: Boolean,
 
 	@SerialName("todayBudget")
-	val todayBudget: Double
+	val todayBudget: Double,
+
+	@SerialName("dailyPercentageUsed")
+	val dailyPercentageUsed: Int,
+
+	@SerialName("totalPercentageUsed")
+	val totalPercentageUsed: Int,
 ) {
 	fun toDomain() = Summary(
 		totalAmount = totalAmount,
@@ -39,6 +45,8 @@ data class SummaryItem(
 		spentToday = spentToday,
 		remainingToday = remainingToday,
 		isActive = isActive,
-		todayBudget = todayBudget
+		todayBudget = todayBudget,
+		dailyPercentageUsed = dailyPercentageUsed,
+		totalPercentageUsed = totalPercentageUsed
 	)
 }

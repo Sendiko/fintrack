@@ -8,5 +8,7 @@ data class Summary(
     val spentToday: Int,
     val remainingToday: Double,
     val isActive: Boolean,
-    val todayBudget: Double
+    val todayBudget: Double,
+    val dailyPercentageUsed: Int,
+    val totalPercentageUsed: Int
 )
