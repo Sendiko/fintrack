@@ -77,7 +77,9 @@ fun BudgetCardPrev() {
                     spentToday = 0,
                     remainingToday = 0.0,
                     isActive = false,
-                    todayBudget = 0.0
+                    todayBudget = 0.0,
+                    dailyPercentageUsed = 100,
+                    totalPercentageUsed = 100
                 )
             )
         )

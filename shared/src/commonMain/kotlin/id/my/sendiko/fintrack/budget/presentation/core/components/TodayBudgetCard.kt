@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import id.my.sendiko.fintrack.core.presentation.getColorAtPercentage
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
 import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
@@ -22,17 +23,18 @@ import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 @Composable
 fun TodayBudgetCard(
     modifier: Modifier = Modifier,
-    remainingToday: Double
+    remainingToday: Double,
+    dailyPercentageUsed: Int,
 ) {
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
-            containerColor = primaryOrange,
+            containerColor = getColorAtPercentage(dailyPercentageUsed),
             contentColor = utilityWhite,
         ),
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxSize(),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.Bottom
         ) {
@@ -49,6 +51,6 @@ fun TodayBudgetCard(
 @Preview
 fun TodayBudgetCardPrev() {
     Surface {
-        TodayBudgetCard(remainingToday = 5000.0)
+        TodayBudgetCard(remainingToday = 5000.0, dailyPercentageUsed = 0)
     }
 }
