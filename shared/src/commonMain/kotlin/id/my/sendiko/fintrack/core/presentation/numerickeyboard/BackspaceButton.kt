@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.backspace
-import id.my.sendiko.fintrack.theme.aliceBlue
-import id.my.sendiko.fintrack.theme.utilityBlack
+import id.my.sendiko.fintrack.core.presentation.theme.aliceBlue
+import id.my.sendiko.fintrack.core.presentation.theme.utilityBlack
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

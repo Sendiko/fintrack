@@ -57,10 +57,10 @@ import id.my.sendiko.fintrack.core.navigation.LoginDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.textfields.SecureTextField
-import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.theme.primaryOrange
-import id.my.sendiko.fintrack.theme.secondaryBlue
-import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
+import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
+import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource

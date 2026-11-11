@@ -31,8 +31,8 @@ import id.my.sendiko.fintrack.budget.presentation.core.util.formatDate
 import id.my.sendiko.fintrack.budget.presentation.detail.presentation.components.BudgetStatusChip
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
-import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

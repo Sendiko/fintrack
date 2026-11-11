@@ -65,11 +65,11 @@ import id.my.sendiko.fintrack.core.presentation.numerickeyboard.NumericKeyboard
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.textfields.DropdownMenu
-import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.theme.primaryOrange
-import id.my.sendiko.fintrack.theme.redError
-import id.my.sendiko.fintrack.theme.secondaryBlue
-import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
+import id.my.sendiko.fintrack.core.presentation.theme.redError
+import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
+import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import id.my.sendiko.fintrack.wallet.form.presentation.components.FormWalletTopBar
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource

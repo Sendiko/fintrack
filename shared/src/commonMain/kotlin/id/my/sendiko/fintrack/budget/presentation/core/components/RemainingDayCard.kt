@@ -12,8 +12,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.days_left
-import id.my.sendiko.fintrack.theme.primaryOrange
-import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
+import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

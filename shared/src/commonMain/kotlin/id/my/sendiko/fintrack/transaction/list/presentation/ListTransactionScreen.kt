@@ -31,11 +31,11 @@ import fintrack.composeapp.generated.resources.list_transaction_title
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionListItem
-import id.my.sendiko.fintrack.theme.aliceBlue
-import id.my.sendiko.fintrack.theme.greenApproved
-import id.my.sendiko.fintrack.theme.redError
-import id.my.sendiko.fintrack.theme.secondaryBlue
-import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.core.presentation.theme.aliceBlue
+import id.my.sendiko.fintrack.core.presentation.theme.greenApproved
+import id.my.sendiko.fintrack.core.presentation.theme.redError
+import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
+import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import id.my.sendiko.fintrack.transaction.core.presentation.TransactionTopBar
 import org.jetbrains.compose.resources.stringResource

@@ -17,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import id.my.sendiko.fintrack.theme.secondaryBlue
+import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
 
 @Composable
 fun NotificationBox(

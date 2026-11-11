@@ -15,7 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.see_more_transaction
-import id.my.sendiko.fintrack.theme.aliceBlue
+import id.my.sendiko.fintrack.core.presentation.theme.aliceBlue
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionWithCategoryAndWallet
 import org.jetbrains.compose.resources.stringResource
 

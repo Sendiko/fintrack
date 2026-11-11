@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import id.my.sendiko.fintrack.theme.primaryOrange
+import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
 
 @Composable
 fun BaseTextField(

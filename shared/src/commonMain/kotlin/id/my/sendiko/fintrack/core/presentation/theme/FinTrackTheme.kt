@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.theme
+package id.my.sendiko.fintrack.core.presentation.theme
 
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable

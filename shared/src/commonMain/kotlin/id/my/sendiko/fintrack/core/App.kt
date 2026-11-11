@@ -7,6 +7,7 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -47,7 +48,7 @@ import id.my.sendiko.fintrack.dashboard.presentation.DashboardScreen
 import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.presentation.SplashScreen
 import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
-import id.my.sendiko.fintrack.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
 import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionEvent
 import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionScreen
 import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionViewModel
@@ -61,6 +62,7 @@ import id.my.sendiko.fintrack.wallet.list.presentation.ListWalletViewModel
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
 fun App() {

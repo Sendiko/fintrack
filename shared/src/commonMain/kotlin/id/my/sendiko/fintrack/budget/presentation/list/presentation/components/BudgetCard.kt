@@ -21,7 +21,7 @@ import id.my.sendiko.fintrack.budget.domain.model.Summary
 import id.my.sendiko.fintrack.budget.presentation.core.util.formatDate
 import id.my.sendiko.fintrack.budget.presentation.detail.presentation.components.BudgetStatusChip
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
-import id.my.sendiko.fintrack.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

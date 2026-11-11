@@ -18,9 +18,9 @@ import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.budget_active
 import fintrack.composeapp.generated.resources.budget_expired
-import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.theme.primaryOrange
-import id.my.sendiko.fintrack.theme.secondaryBlue
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
+import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

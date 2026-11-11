@@ -15,8 +15,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
-import id.my.sendiko.fintrack.theme.greenApproved
-import id.my.sendiko.fintrack.theme.redError
+import id.my.sendiko.fintrack.core.presentation.theme.greenApproved
+import id.my.sendiko.fintrack.core.presentation.theme.redError
 import id.my.sendiko.fintrack.transaction.core.domain.model.Transaction
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import kotlinx.datetime.LocalDateTime

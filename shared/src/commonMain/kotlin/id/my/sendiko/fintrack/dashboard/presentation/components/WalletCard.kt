@@ -25,8 +25,8 @@ import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.hidden_balance
 import fintrack.composeapp.generated.resources.password_visible
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
-import id.my.sendiko.fintrack.theme.secondaryBlue
-import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
+import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import org.jetbrains.compose.resources.stringResource
 

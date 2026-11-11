@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.theme
+package id.my.sendiko.fintrack.core.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -25,9 +25,9 @@ import id.my.sendiko.fintrack.budget.presentation.list.presentation.components.B
 import id.my.sendiko.fintrack.core.navigation.DetailBudgetDestination
 import id.my.sendiko.fintrack.core.navigation.FormBudgetDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
-import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.theme.primaryOrange
-import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
+import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

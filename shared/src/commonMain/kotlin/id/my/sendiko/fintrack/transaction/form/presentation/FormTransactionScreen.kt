@@ -66,10 +66,10 @@ import id.my.sendiko.fintrack.core.presentation.numerickeyboard.NumericKeyboard
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.textfields.DropdownMenu
-import id.my.sendiko.fintrack.theme.primaryOrange
-import id.my.sendiko.fintrack.theme.redError
-import id.my.sendiko.fintrack.theme.secondaryBlue
-import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
+import id.my.sendiko.fintrack.core.presentation.theme.redError
+import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
+import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.EXPENSE
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.INCOME
 import id.my.sendiko.fintrack.transaction.core.presentation.TransactionTopBar

@@ -57,7 +57,7 @@ import id.my.sendiko.fintrack.dashboard.presentation.components.DashboardTopBar
 import id.my.sendiko.fintrack.dashboard.presentation.components.TopCategoryCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionsCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
-import id.my.sendiko.fintrack.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource

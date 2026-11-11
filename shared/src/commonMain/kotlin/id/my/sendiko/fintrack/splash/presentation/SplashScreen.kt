@@ -16,9 +16,8 @@ import fintrack.composeapp.generated.resources.app_name
 import fintrack.composeapp.generated.resources.fintrack_blue
 import id.my.sendiko.fintrack.core.navigation.DashboardDestination
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
-import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.theme.primaryOrange
-import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
