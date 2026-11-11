@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.theme
+package id.my.sendiko.fintrack.core.presentation.theme
 
 import android.app.Activity
 import android.os.Build
@@ -8,8 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import id.my.sendiko.fintrack.core.presentation.theme.PlusJakartaSansTypography
-import id.my.sendiko.fintrack.core.presentation.theme.colorScheme
 
 @RequiresApi(Build.VERSION_CODES.CUPCAKE)
 @Composable
