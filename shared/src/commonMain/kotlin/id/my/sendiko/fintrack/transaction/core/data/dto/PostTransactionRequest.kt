@@ -22,5 +22,8 @@ data class PostTransactionRequest(
 	val userId: String,
 
 	@SerialName("categoryId")
-	val categoryId: String
+	val categoryId: String,
+
+	@SerialName("isTransfer")
+	val isTransfer: Boolean = false
 )

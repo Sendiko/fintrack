@@ -10,5 +10,6 @@ data class Transaction(
     val categoryId: String,
     val userId: String,
     val walletId: String,
-    val createdAt: LocalDateTime
+    val createdAt: LocalDateTime,
+    val isTransfer: Boolean = false
 )
