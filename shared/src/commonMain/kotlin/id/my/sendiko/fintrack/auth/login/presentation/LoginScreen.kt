@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.app_name
@@ -49,8 +50,8 @@ import fintrack.composeapp.generated.resources.youre_in_charge
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
 import id.my.sendiko.fintrack.core.navigation.DashboardDestination
 import id.my.sendiko.fintrack.core.navigation.RegisterDestination
-import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
+import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.textfields.SecureTextField
 import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
 import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
@@ -59,9 +60,8 @@ import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import kotlin.time.Duration.Companion.seconds
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
     state: LoginState,
@@ -72,7 +72,7 @@ fun LoginScreen(
 
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
-            delay(1000)
+            delay(1.seconds)
             onNavigate(DashboardDestination)
         }
     }
