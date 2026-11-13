@@ -66,10 +66,10 @@ import id.my.sendiko.fintrack.core.presentation.numerickeyboard.NumericKeyboard
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.textfields.DropdownMenu
-import id.my.sendiko.fintrack.theme.primaryOrange
-import id.my.sendiko.fintrack.theme.redError
-import id.my.sendiko.fintrack.theme.secondaryBlue
-import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
+import id.my.sendiko.fintrack.core.presentation.theme.redError
+import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
+import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.EXPENSE
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.INCOME
 import id.my.sendiko.fintrack.transaction.core.presentation.TransactionTopBar
@@ -167,6 +167,26 @@ fun FormTransactionScreen(
             Scaffold(
                 containerColor = utilityWhite,
                 contentColor = secondaryBlue,
+                topBar = {
+                    TransactionTopBar(
+                        title = if (state.transactionId.isNotBlank()) {
+                            when (state.selectedType) {
+                                INCOME -> stringResource(Res.string.edit_income_title)
+                                EXPENSE -> stringResource(Res.string.edit_expense_title)
+                            }
+                        } else {
+                            when (state.selectedType) {
+                                INCOME -> stringResource(Res.string.create_income_title)
+                                EXPENSE -> stringResource(Res.string.create_expense_title)
+                            }
+                        },
+                        onNavigateBack = {
+                            if (state.stage == 2)
+                                onEvent(FormTransactionEvent.OnPrevious)
+                            else onNavigateBack()
+                        }
+                    )
+                },
                 bottomBar = {
                     Row(
                         modifier = Modifier.fillMaxWidth()
@@ -233,24 +253,6 @@ fun FormTransactionScreen(
                     modifier = Modifier.padding(paddingValues),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    TransactionTopBar(
-                        title = if (state.transactionId.isNotBlank()) {
-                            when (state.selectedType) {
-                                INCOME -> stringResource(Res.string.edit_income_title)
-                                EXPENSE -> stringResource(Res.string.edit_expense_title)
-                            }
-                        } else {
-                            when (state.selectedType) {
-                                INCOME -> stringResource(Res.string.create_income_title)
-                                EXPENSE -> stringResource(Res.string.create_expense_title)
-                            }
-                        },
-                        onNavigateBack = {
-                            if (state.stage == 2)
-                                onEvent(FormTransactionEvent.OnPrevious)
-                            else onNavigateBack()
-                        }
-                    )
                     AnimatedContent(
                         targetState = state.stage,
                         transitionSpec = {

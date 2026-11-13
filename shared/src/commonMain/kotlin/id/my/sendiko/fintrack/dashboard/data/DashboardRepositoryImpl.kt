@@ -1,5 +1,7 @@
 package id.my.sendiko.fintrack.dashboard.data
 
+import id.my.sendiko.fintrack.budget.data.datasource.BudgetRemoteDataSource
+import id.my.sendiko.fintrack.budget.domain.model.Summary
 import id.my.sendiko.fintrack.category.core.data.datasource.CategoryDataSource
 import id.my.sendiko.fintrack.category.core.domain.model.CategoryWithTransactions
 import id.my.sendiko.fintrack.core.network.utils.DataError
@@ -16,6 +18,7 @@ class DashboardRepositoryImpl(
     private val transactionDataSource: TransactionDataSource,
     private val categoryDataSource: CategoryDataSource,
     private val walletDataSource: WalletDataSource,
+    private val budgetRemoteDataSource: BudgetRemoteDataSource,
     private val prefs: PreferenceRepository
 ) : DashboardRepository {
 
@@ -29,6 +32,13 @@ class DashboardRepositoryImpl(
     override suspend fun getCategories(): Result<List<CategoryWithTransactions>, DataError.Remote> {
         return when (val response = categoryDataSource.getCategories()) {
             is Result.Success -> Result.Success(response.data.categories.map { it.toDomainWithTransaction() })
+            is Result.Error -> Result.Error(response.error)
+        }
+    }
+
+    override suspend fun getTodayBudget(): Result<Summary, DataError.Remote> {
+        return when (val response = budgetRemoteDataSource.getTodayBudget()) {
+            is Result.Success -> Result.Success(response.data.summaryItem.toDomain())
             is Result.Error -> Result.Error(response.error)
         }
     }

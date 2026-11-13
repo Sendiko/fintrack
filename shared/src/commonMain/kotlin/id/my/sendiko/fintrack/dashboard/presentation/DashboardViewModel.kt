@@ -49,60 +49,60 @@ class DashboardViewModel(
             getWallets()
             getCategories()
             getTransactions()
+            getTodayBudget()
             _state.update { it.copy(isLoading = false) }
         }
     }
 
-    private suspend fun getTransactions() {
-        repository.getTransactions()
-            .onSuccess { result ->
-                _state.update { state -> state.copy(transactions = result.sortedByDescending { it.transaction.createdAt }) }
-            }
-    }
+    private suspend fun getTodayBudget() = repository.getTodayBudget()
+        .onSuccess { result ->
+            _state.update { state -> state.copy(summary = result) }
+        }
 
-    private suspend fun getCategories() {
-        repository.getCategories()
-            .onSuccess { result ->
-                val topCategory = result
-                    .map { category ->
-                        val totalAmount = category.transactions.sumOf { it.amount.toDouble() }
-                        category.category to totalAmount
-                    }
-                    .sortedByDescending { it.second }
-                    .take(2)
-                    .map { (category, totalAmount) ->
-                        TopCategory(
-                            name = category.name,
-                            totalAmount = totalAmount
-                        )
-                    }
-                _state.update { state ->
-                    state.copy(
-                        categories = result.map { it.category },
-                        topCategory = topCategory
+    private suspend fun getTransactions() = repository.getTransactions()
+        .onSuccess { result ->
+            _state.update { state -> state.copy(transactions = result.sortedByDescending { it.transaction.createdAt }) }
+        }
+
+    private suspend fun getCategories() = repository.getCategories()
+        .onSuccess { result ->
+            val topCategory = result
+                .map { category ->
+                    val totalAmount = category.transactions.sumOf { it.amount.toDouble() }
+                    category.category to totalAmount
+                }
+                .sortedByDescending { it.second }
+                .take(2)
+                .map { (category, totalAmount) ->
+                    TopCategory(
+                        name = category.name,
+                        totalAmount = totalAmount
                     )
                 }
+            _state.update { state ->
+                state.copy(
+                    categories = result.map { it.category },
+                    topCategory = topCategory
+                )
             }
-            .onError { error ->
-                _state.update {
-                    it.copy(message = error.asUiText().asString())
-                }
+        }
+        .onError { error ->
+            _state.update {
+                it.copy(message = error.asUiText().asString())
             }
-    }
+        }
 
-    private suspend fun getWallets() {
-        repository.getWallets()
-            .onSuccess { result ->
-                _state.update {
-                    it.copy(wallets = result)
-                }
+    private suspend fun getWallets() = repository.getWallets()
+        .onSuccess { result ->
+            _state.update {
+                it.copy(wallets = result)
             }
-            .onError { error ->
-                _state.update {
-                    it.copy(message = error.asUiText().asString())
-                }
+        }
+        .onError { error ->
+            _state.update {
+                it.copy(message = error.asUiText().asString())
             }
-    }
+        }
 
     private fun clearState() {
         _state.update { it.copy(isLoading = false, message = "") }

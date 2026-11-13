@@ -11,6 +11,13 @@ import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.data.RegisterRepositoryImpl
 import id.my.sendiko.fintrack.auth.register.domain.RegisterRepository
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
+import id.my.sendiko.fintrack.budget.data.BudgetRepositoryImpl
+import id.my.sendiko.fintrack.budget.data.datasource.BudgetRemoteDataSource
+import id.my.sendiko.fintrack.budget.data.datasource.BudgetRemoteDataSourceImpl
+import id.my.sendiko.fintrack.budget.domain.BudgetRepository
+import id.my.sendiko.fintrack.budget.presentation.detail.presentation.DetailBudgetViewModel
+import id.my.sendiko.fintrack.budget.presentation.form.presentation.FormBudgetViewModel
+import id.my.sendiko.fintrack.budget.presentation.list.presentation.ListBudgetViewModel
 import id.my.sendiko.fintrack.category.core.data.CategoryRepositoryImpl
 import id.my.sendiko.fintrack.category.core.data.datasource.CategoryDataSource
 import id.my.sendiko.fintrack.category.core.data.datasource.CategoryDataSourceImpl
@@ -63,6 +70,8 @@ val sharedModule = module {
     singleOf(::CategoryRepositoryImpl).bind<CategoryRepository>()
     singleOf(::TransactionDataSourceImpl).bind<TransactionDataSource>()
     singleOf(::TransactionRepositoryImpl).bind<TransactionRepository>()
+    singleOf(::BudgetRemoteDataSourceImpl).bind<BudgetRemoteDataSource>()
+    singleOf(::BudgetRepositoryImpl).bind<BudgetRepository>()
     single { ReceiptViewModel(get(), get(), get(), get(), get()) }
 
     factory { FormTransactionViewModel(get(), get(), get(), get(), get()) }
@@ -75,4 +84,7 @@ val sharedModule = module {
     factory { FormWalletViewModel(get()) }
     factory { ListWalletViewModel(get()) }
     factory { ListTransactionViewModel(get()) }
+    factory { FormBudgetViewModel(get()) }
+    factory { ListBudgetViewModel(get()) }
+    factory { DetailBudgetViewModel(get()) }
 }

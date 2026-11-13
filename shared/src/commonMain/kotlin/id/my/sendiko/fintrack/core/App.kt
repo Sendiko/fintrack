@@ -7,6 +7,7 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -22,12 +23,21 @@ import id.my.sendiko.fintrack.auth.login.presentation.LoginScreen
 import id.my.sendiko.fintrack.auth.login.presentation.LoginViewModel
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterScreen
 import id.my.sendiko.fintrack.auth.register.presentation.RegisterViewModel
+import id.my.sendiko.fintrack.budget.presentation.detail.presentation.DetailBudgetScreen
+import id.my.sendiko.fintrack.budget.presentation.detail.presentation.DetailBudgetViewModel
+import id.my.sendiko.fintrack.budget.presentation.form.presentation.FormBudgetScreen
+import id.my.sendiko.fintrack.budget.presentation.form.presentation.FormBudgetViewModel
+import id.my.sendiko.fintrack.budget.presentation.list.presentation.ListBudgetScreen
+import id.my.sendiko.fintrack.budget.presentation.list.presentation.ListBudgetViewModel
 import id.my.sendiko.fintrack.category.list.presentation.ListCategoryScreen
 import id.my.sendiko.fintrack.category.list.presentation.ListCategoryViewModel
 import id.my.sendiko.fintrack.core.navigation.ChangePasswordDestination
 import id.my.sendiko.fintrack.core.navigation.DashboardDestination
+import id.my.sendiko.fintrack.core.navigation.DetailBudgetDestination
+import id.my.sendiko.fintrack.core.navigation.FormBudgetDestination
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
+import id.my.sendiko.fintrack.core.navigation.ListBudgetDestination
 import id.my.sendiko.fintrack.core.navigation.ListCategoryDestination
 import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.ListWalletDestination
@@ -38,7 +48,7 @@ import id.my.sendiko.fintrack.dashboard.presentation.DashboardScreen
 import id.my.sendiko.fintrack.dashboard.presentation.DashboardViewModel
 import id.my.sendiko.fintrack.splash.presentation.SplashScreen
 import id.my.sendiko.fintrack.splash.presentation.SplashViewModel
-import id.my.sendiko.fintrack.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
 import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionEvent
 import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionScreen
 import id.my.sendiko.fintrack.transaction.form.presentation.FormTransactionViewModel
@@ -52,6 +62,7 @@ import id.my.sendiko.fintrack.wallet.list.presentation.ListWalletViewModel
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
 fun App() {
@@ -217,6 +228,41 @@ fun App() {
                                 navController.navigateUp()
                             else navController.navigate(destination)
                         }
+                    )
+                }
+                composable<ListBudgetDestination> {
+                    val viewModel = koinViewModel<ListBudgetViewModel>()
+                    val state by viewModel.state.collectAsStateWithLifecycle()
+
+                    ListBudgetScreen(
+                        state = state
+                    ) {
+                        if (it == null)
+                            navController.navigateUp()
+                        else
+                            navController.navigate(it)
+                    }
+                }
+                composable<FormBudgetDestination> {
+                    val viewModel = koinViewModel<FormBudgetViewModel>()
+                    val state by viewModel.state.collectAsStateWithLifecycle()
+
+                    FormBudgetScreen(
+                        state = state,
+                        onEvent = viewModel::onEvent,
+                        onNavigateBack = { navController.navigateUp() }
+                    )
+                }
+                composable<DetailBudgetDestination> {
+                    val budgetId = it.toRoute<DetailBudgetDestination>().budgetId
+                    val viewModel = koinViewModel<DetailBudgetViewModel>()
+                    val state by viewModel.state.collectAsStateWithLifecycle()
+
+                    DetailBudgetScreen(
+                        budgetId = budgetId,
+                        state = state,
+                        onEvent = { viewModel.fetchBudget(budgetId) },
+                        onNavigateBack = { navController.navigateUp() }
                     )
                 }
             }

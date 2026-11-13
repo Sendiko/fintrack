@@ -65,11 +65,11 @@ import id.my.sendiko.fintrack.core.presentation.numerickeyboard.NumericKeyboard
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.textfields.DropdownMenu
-import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.theme.primaryOrange
-import id.my.sendiko.fintrack.theme.redError
-import id.my.sendiko.fintrack.theme.secondaryBlue
-import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
+import id.my.sendiko.fintrack.core.presentation.theme.redError
+import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
+import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import id.my.sendiko.fintrack.wallet.form.presentation.components.FormWalletTopBar
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
@@ -165,6 +165,14 @@ fun FormWalletScreen(
             Scaffold(
                 containerColor = utilityWhite,
                 contentColor = secondaryBlue,
+                topBar = {
+                    FormWalletTopBar(
+                        title = if (state.walletId.isBlank())
+                            stringResource(Res.string.create_wallet_title)
+                        else stringResource(Res.string.update_wallet_title),
+                        onNavigate = { onNavigate(null) }
+                    )
+                },
                 bottomBar = {
                     Row(
                         modifier = Modifier.fillMaxWidth()
@@ -231,12 +239,6 @@ fun FormWalletScreen(
                     modifier = Modifier.padding(innerPadding),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    FormWalletTopBar(
-                        title = if (state.walletId.isBlank())
-                            stringResource(Res.string.create_wallet_title)
-                        else stringResource(Res.string.update_wallet_title),
-                        onNavigate = { onNavigate(null) }
-                    )
                     AnimatedContent(
                         targetState = state.stage,
                         transitionSpec = {

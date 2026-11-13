@@ -22,18 +22,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.all_label
+import fintrack.composeapp.generated.resources.empty_transaction
 import fintrack.composeapp.generated.resources.list_transaction_title
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionListItem
-import id.my.sendiko.fintrack.theme.aliceBlue
-import id.my.sendiko.fintrack.theme.greenApproved
-import id.my.sendiko.fintrack.theme.redError
-import id.my.sendiko.fintrack.theme.secondaryBlue
-import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.core.presentation.theme.aliceBlue
+import id.my.sendiko.fintrack.core.presentation.theme.greenApproved
+import id.my.sendiko.fintrack.core.presentation.theme.redError
+import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
+import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import id.my.sendiko.fintrack.transaction.core.presentation.TransactionTopBar
 import org.jetbrains.compose.resources.stringResource
@@ -56,16 +58,17 @@ fun ListTransactionScreen(
             Scaffold(
                 containerColor = utilityWhite,
                 contentColor = secondaryBlue,
+                topBar = {
+                    TransactionTopBar(
+                        title = stringResource(Res.string.list_transaction_title),
+                        onNavigateBack = { onNavigate(null) }
+                    )
+                }
             ) { paddingValues ->
                 Column(
                     modifier = Modifier.fillMaxSize()
                         .padding(paddingValues),
                 ) {
-                    TransactionTopBar(
-                        title = stringResource(Res.string.list_transaction_title),
-                        onNavigateBack = { onNavigate(null) }
-                    )
-                    Spacer(Modifier.height(16.dp))
                     SingleChoiceSegmentedButtonRow(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
                     ) {
@@ -132,6 +135,15 @@ fun ListTransactionScreen(
                                     categoryName = transaction.category.name + " - " + transaction.wallet.name,
                                     createdAt = transaction.transaction.createdAt
                                 )
+                            }
+                            if (state.transactions.isEmpty()) {
+                                item {
+                                    Text(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        text = stringResource(Res.string.empty_transaction),
+                                        textAlign = TextAlign.Center
+                                    )
+                                }
                             }
                         }
                     }

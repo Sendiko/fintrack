@@ -13,30 +13,22 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import fintrack.composeapp.generated.resources.Res
-import fintrack.composeapp.generated.resources.back
 import fintrack.composeapp.generated.resources.cancel
 import fintrack.composeapp.generated.resources.confirm
 import fintrack.composeapp.generated.resources.delete_wallet_body
@@ -45,10 +37,11 @@ import fintrack.composeapp.generated.resources.empty_wallet
 import fintrack.composeapp.generated.resources.wallet_list_title
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
-import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.theme.redError
-import id.my.sendiko.fintrack.theme.secondaryBlue
-import id.my.sendiko.fintrack.theme.utilityWhite
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.redError
+import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
+import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
+import id.my.sendiko.fintrack.wallet.form.presentation.components.FormWalletTopBar
 import id.my.sendiko.fintrack.wallet.list.presentation.components.EditableWalletCard
 import org.jetbrains.compose.resources.stringResource
 
@@ -132,24 +125,12 @@ fun ListWalletScreen(
         isLoading = state.isLoading
     ) {
         Scaffold(
+            containerColor = utilityWhite,
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(Res.string.wallet_list_title),
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Normal
-                        )
-                    },
-                    navigationIcon = {
-                        IconButton(
-                            onClick = { onNavigate(null) },
-                        ) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                                contentDescription = stringResource(Res.string.back)
-                            )
-                        }
+                FormWalletTopBar(
+                    title = stringResource(Res.string.wallet_list_title),
+                    onNavigate = {
+                        onNavigate(null)
                     }
                 )
             },
@@ -159,16 +140,16 @@ fun ListWalletScreen(
                     contentPadding = paddingValues,
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
-                    items(state.wallets) {
+                    items(state.wallets) { wallet ->
                         EditableWalletCard(
                             modifier = Modifier.fillMaxWidth(),
-                            wallet = it,
+                            wallet = wallet,
                             isVisible = state.balanceVisible,
                             onVisibilityToggle = { onEvent(ListWalletEvent.OnBalanceViewChanged(it)) },
                             onEdit = {
-                                onNavigate(FormWalletDestination(it.id))
+                                onNavigate(FormWalletDestination(wallet.id))
                             },
-                            onDelete = { onEvent(ListWalletEvent.OnShowDeleteDialog(it.id)) },
+                            onDelete = { onEvent(ListWalletEvent.OnShowDeleteDialog(wallet.id)) },
                         )
                     }
                 }

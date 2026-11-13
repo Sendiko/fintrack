@@ -15,9 +15,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import id.my.sendiko.fintrack.theme.FinTrackTheme
-import id.my.sendiko.fintrack.theme.aliceBlue
-import id.my.sendiko.fintrack.theme.utilityBlack
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.aliceBlue
+import id.my.sendiko.fintrack.core.presentation.theme.utilityBlack
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable

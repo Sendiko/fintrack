@@ -2,140 +2,159 @@
     <string name="app_name">FinTrack</string>
 
     <!-- Default Network Handling Strings  -->
-    <string name="the_request_timed_out">Request timed out.</string>
-    <string name="youve_hit_your_rate_limit">Rate limit reached.</string>
-    <string name="no_internet">Can't connect, no internet.</string>
-    <string name="file_too_large">File too large.</string>
-    <string name="server_error">Server error, try again later.</string>
-    <string name="unknown_error">Unknown error happened, try again later.</string>
-    <string name="error_disk_full">Failed to save, storage full.</string>
-    <string name="error_serialization">Serialization error happened.</string>
-    <string name="not_found">Can't find what you're looking for.</string>
-    <string name="bad_request">Bad request.</string>
-    <string name="unauthorized">Unauthorized.</string>
-    <string name="conflict">Data already existed.</string>
-    <string name="forbidden">Token Expired.</string>
+    <string name="the_request_timed_out">Waktu permintaan habis.</string>
+    <string name="youve_hit_your_rate_limit">Batas permintaan tercapai.</string>
+    <string name="no_internet">Tidak dapat terhubung, tidak ada internet.</string>
+    <string name="file_too_large">File terlalu besar.</string>
+    <string name="server_error">Kesalahan server, coba lagi nanti.</string>
+    <string name="unknown_error">Terjadi kesalahan tidak dikenal, coba lagi nanti.</string>
+    <string name="error_disk_full">Gagal menyimpan, penyimpanan penuh.</string>
+    <string name="error_serialization">Terjadi kesalahan serialisasi.</string>
+    <string name="not_found">Tidak dapat menemukan apa yang Anda cari.</string>
+    <string name="bad_request">Permintaan tidak valid.</string>
+    <string name="unauthorized">Tidak diotorisasi.</string>
+    <string name="conflict">Data sudah ada.</string>
+    <string name="forbidden">Token Kedaluwarsa.</string>
 
     <!--  Commonly used strings  -->
-    <string name="back">Navigate back</string>
-    <string name="create">Save</string>
-    <string name="backspace">Backspace</string>
+    <string name="back">Navigasi kembali</string>
+    <string name="create">Simpan</string>
+    <string name="backspace">Hapus</string>
 
     <!--  Strings for Authentication  -->
-    <string name="username_label">Username</string>
-    <string name="password_label">Password</string>
-    <string name="login_hint">Coming back? <b>Login here!</b></string>
-    <string name="loading">Loading...</string>
+    <string name="username_label">Nama Pengguna</string>
+    <string name="password_label">Kata Sandi</string>
+    <string name="login_hint">Kembali? <b>Masuk di sini!</b></string>
+    <string name="loading">Memuat...</string>
 
     <!--  Strings for Register  -->
-    <string name="every_transaction">Every transaction</string>
-    <string name="counts">counts.</string>
-    <string name="register_title">Register</string>
-    <string name="register_hint">Create an account with your email and password</string>
-    <string name="create_username_hint">What should we call you?</string>
+    <string name="every_transaction">Setiap transaksi</string>
+    <string name="counts">berharga.</string>
+    <string name="register_title">Daftar</string>
+    <string name="register_hint">Buat akun dengan email dan kata sandi Anda</string>
+    <string name="create_username_hint">Siapa nama panggilan Anda?</string>
     <string name="email_label">Email</string>
-    <string name="email_hint">Please enter your email.</string>
-    <string name="create_password_hint">Create a secure password.</string>
-    <string name="terms_and_condition_agreement">I Agree to FinTrack user’s Terms and Conditions.</string>
-    <string name="password_visible">Password is Visible.</string>
-    <string name="password_not_visible">Password is not Visible.</string>
+    <string name="email_hint">Masukkan email Anda.</string>
+    <string name="create_password_hint">Buat password yang aman.</string>
+    <string name="terms_and_condition_agreement">Saya setuju dengan Syarat dan Ketentuan pengguna FinTrack.</string>
+    <string name="password_visible">Kata Sandi Terlihat.</string>
+    <string name="password_not_visible">Kata Sandi Tidak Terlihat.</string>
 
     <!--  Strings for Login  -->
-    <string name="login_title">Login</string>
-    <string name="login_hint_2">Please log in with your account</string>
-    <string name="track_save_grow">Track. Save. Grow.</string>
-    <string name="youre_in_charge">You're in charge.</string>
-    <string name="username_hint">Please use your username.</string>
-    <string name="password_hint">Please use your password.</string>
-    <string name="register_hint_2">Don’t have an account? Register here!</string>
-    <string name="forgot_password">Forgot password? Change here!</string>
-    <string name="or">Or</string>
-    <string name="user_not_found">User not found.</string>
-    <string name="password_not_matched">Password not matched.</string>
+    <string name="login_title">Masuk</string>
+    <string name="login_hint_2">Silakan masuk dengan akun Anda</string>
+    <string name="track_save_grow">Lacak. Simpan. Kembangkan.</string>
+    <string name="youre_in_charge">Anda yang pegang kendali.</string>
+    <string name="username_hint">Gunakan username Anda.</string>
+    <string name="password_hint">Gunakan password Anda.</string>
+    <string name="register_hint_2">Belum punya akun? Daftar di sini!</string>
+    <string name="forgot_password">Lupa kata sandi? Ubah di sini!</string>
+    <string name="or">Atau</string>
+    <string name="user_not_found">Pengguna tidak ditemukan.</string>
+    <string name="password_not_matched">Kata sandi tidak cocok.</string>
 
     <!--  Strings for Change Password  -->
-    <string name="dont_worry">Don't worry! Your</string>
-    <string name="account_is_safe">Account is safe.</string>
-    <string name="change_password_title">Change Password</string>
-    <string name="verify_label">Verify</string>
-    <string name="verify_hint">Let us verify your account.</string>
-    <string name="change_password_hint">Create your new password.</string>
-    <string name="change_password_label">Change</string>
-    <string name="new_password_hint">Please enter your new password.</string>
+    <string name="dont_worry">Jangan khawatir! Akun</string>
+    <string name="account_is_safe">Anda aman.</string>
+    <string name="change_password_title">Ubah Kata Sandi</string>
+    <string name="verify_label">Verifikasi</string>
+    <string name="verify_hint">Biar kami verifikasi akun Anda.</string>
+    <string name="change_password_hint">Buat kata sandi baru Anda.</string>
+    <string name="change_password_label">Ubah</string>
+    <string name="new_password_hint">Silakan masukkan kata sandi baru Anda.</string>
 
     <!--  Strings for Dashboard  -->
-    <string name="total_balance">Total balance</string>
-    <string name="logout">Logout</string>
-    <string name="wallets">My Wallets</string>
-    <string name="add_wallets">Add Wallets</string>
-    <string name="all_wallets">All Wallets</string>
-    <string name="income">Add Income</string>
-    <string name="expense">Add Expense</string>
-    <string name="top_category">Top Category</string>
-    <string name="recent_transaction">Recent Transaction</string>
+    <string name="total_balance">Total saldo</string>
+    <string name="logout">Keluar</string>
+    <string name="wallets">Dompet Saya</string>
+    <string name="add_wallets">Tambah Dompet</string>
+    <string name="all_wallets">Semua Dompet</string>
+    <string name="income">Catat Income</string>
+    <string name="expense">Catat Expense</string>
+    <string name="top_category">Kategori Teratas</string>
+    <string name="recent_transaction">Transaksi Terkini</string>
     <string name="hidden_balance">⬤⬤⬤⬤⬤⬤</string>
-    <string name="empty_wallet">You have no wallet \nLet's create one!</string>
-    <string name="empty_category">You have no category \nLet's create one!</string>
-    <string name="empty_transaction">You have no transaction \nLet's create one!</string>
-    <string name="see_more_transaction">See more transaction</string>
-    <string name="see_more_categories">More categories</string>
+    <string name="empty_wallet">Anda belum punya dompet \nAyo buat satu!</string>
+    <string name="empty_category">Anda belum punya kategori \nAyo buat satu!</string>
+    <string name="empty_transaction">Anda belum punya transaksi \nAyo buat satu!</string>
+    <string name="empty_budget">Anda belum punya anggaran \nAyo buat satu!</string>
+    <string name="see_more_transaction">Lihat transaksi lainnya</string>
+    <string name="see_more_categories">Kategori lainnya</string>
+    <string name="see_more_budgets">Anggaran lainnya</string>
+    <string name="today_budget">Anggaran Hari Ini</string>
 
     <!--  Strings for Create Wallet  -->
-    <string name="create_wallet_title">Create New Wallet</string>
-    <string name="update_wallet_title">Edit Your Wallet</string>
-    <string name="wallet_name_label">Name</string>
-    <string name="wallet_name_hint">Cash, Gopay, LinkAja, etc...</string>
-    <string name="wallet_type_label">Type</string>
-    <string name="wallet_type_hint">Your wallet type</string>
-    <string name="wallet_purpose_label">Purpose</string>
-    <string name="wallet_purpose_hint">Savings, Daily, etc...</string>
-    <string name="wallet_number_label">Your wallet number</string>
-    <string name="wallet_number_hint">ex: 1234567890</string>
-    <string name="wallet_number_note">*Optional</string>
-    <string name="initial_balance">Initial Balance</string>
-    <string name="next">Next</string>
-    <string name="create_wallet_success_message">Wallet successfully created.</string>
-    <string name="update_wallet_success_message">Wallet successfully updated.</string>
-    <string name="delete_wallet_headline">Delete?</string>
-    <string name="delete_wallet_body">This action will delete all transaction from this wallet.</string>
+    <string name="create_wallet_title">Buat Dompet Baru</string>
+    <string name="update_wallet_title">Edit Dompet Anda</string>
+    <string name="wallet_name_label">Nama</string>
+    <string name="wallet_name_hint">Tunai, Gopay, LinkAja, dll...</string>
+    <string name="wallet_type_label">Jenis</string>
+    <string name="wallet_type_hint">Jenis dompet Anda</string>
+    <string name="wallet_purpose_label">Tujuan</string>
+    <string name="wallet_purpose_hint">Tabungan, Harian, dll...</string>
+    <string name="wallet_number_label">Nomor dompet Anda</string>
+    <string name="wallet_number_hint">cth: 1234567890</string>
+    <string name="wallet_number_note">*Opsional</string>
+    <string name="initial_balance">Saldo Awal</string>
+    <string name="next">Selanjutnya</string>
+    <string name="create_wallet_success_message">Dompet berhasil dibuat.</string>
+    <string name="update_wallet_success_message">Dompet berhasil diperbarui.</string>
+    <string name="delete_wallet_headline">Hapus?</string>
+    <string name="delete_wallet_body">Tindakan ini akan menghapus semua transaksi dari dompet ini.</string>
 
     <!--  Strings for Wallet List  -->
-    <string name="wallet_list_title">Your Wallets</string>
+    <string name="wallet_list_title">Dompet Anda</string>
 
     <!--  Strings for Create Transaction  -->
-    <string name="create_income_title">Record Your Income</string>
-    <string name="edit_income_title">Update Your Income</string>
-    <string name="create_expense_title">Record Your Expense</string>
-    <string name="edit_expense_title">Update Your Expense</string>
-    <string name="choose_transaction_label">Choose transaction type</string>
-    <string name="choose_wallet_label">Choose wallet</string>
-    <string name="choose_wallet_hint">Choose one of your wallet</string>
-    <string name="choose_wallet_error">Please choose a wallet.</string>
-    <string name="choose_category_label">Choose category</string>
-    <string name="choose_category_hint">Choose one of your category</string>
-    <string name="choose_category_error">Please choose a category.</string>
-    <string name="set_income_name_label">What's this income?</string>
-    <string name="set_expense_name_label">What's this expense?</string>
-    <string name="set_income_name_hint">The source of this income.</string>
-    <string name="set_expense_name_hint">Food, Printing, etc.</string>
-    <string name="set_name_error">Set a name for this transaction.</string>
-    <string name="set_amount_label">Amount</string>
-    <string name="set_amount_error">Set the amount for this transaction.</string>
-    <string name="transaction_recorded">Transaction recorded.</string>
-    <string name="delete_transaction_headline">Delete?</string>
-    <string name="delete_transaction_body">This action cannot be undone.</string>
-    <string name="cancel">Cancel</string>
-    <string name="confirm">Confirm</string>
+    <string name="create_income_title">Catat Pemasukan Anda</string>
+    <string name="edit_income_title">Perbarui Pemasukan Anda</string>
+    <string name="create_expense_title">Catat Pengeluaran Anda</string>
+    <string name="edit_expense_title">Perbarui Pengeluaran Anda</string>
+    <string name="choose_transaction_label">Pilih jenis transaksi</string>
+    <string name="choose_wallet_label">Pilih dompet</string>
+    <string name="choose_wallet_hint">Pilih salah satu dompet Anda</string>
+    <string name="choose_wallet_error">Silakan pilih dompet.</string>
+    <string name="choose_category_label">Pilih kategori</string>
+    <string name="choose_category_hint">Pilih salah satu kategori Anda</string>
+    <string name="choose_category_error">Silakan pilih kategori.</string>
+    <string name="set_income_name_label">Pemasukan apa ini?</string>
+    <string name="set_expense_name_label">Pengeluaran apa ini?</string>
+    <string name="set_income_name_hint">Sumber pemasukan ini.</string>
+    <string name="set_expense_name_hint">Makanan, Percetakan, dll.</string>
+    <string name="set_name_error">Tetapkan nama untuk transaksi ini.</string>
+    <string name="set_amount_label">Jumlah</string>
+    <string name="set_amount_error">Tetapkan jumlah untuk transaksi ini.</string>
+    <string name="transaction_recorded">Transaksi dicatat.</string>
+    <string name="delete_transaction_headline">Hapus?</string>
+    <string name="delete_transaction_body">Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="cancel">Batal</string>
+    <string name="confirm">Konfirmasi</string>
 
     <!--  Strings for List Transaction  -->
-    <string name="list_transaction_title">Your Transactions</string>
-    <string name="all_label">ALL</string>
+    <string name="list_transaction_title">Transaksi Anda</string>
+    <string name="all_label">SEMUA</string>
 
     <!--  Strings for List Categories  -->
-    <string name="list_category_title">Your categories</string>
-    <string name="category_name_label">Name</string>
-    <string name="category_name_hint">Name your category</string>
-    <string name="delete_category_headline">Delete?</string>
-    <string name="delete_category_body">This will delete transaction with this category.</string>
+    <string name="list_category_title">Kategori Anda</string>
+    <string name="category_name_label">Nama</string>
+    <string name="category_name_hint">Beri nama kategori Anda</string>
+    <string name="delete_category_headline">Hapus?</string>
+    <string name="delete_category_body">Ini akan menghapus transaksi dengan kategori ini.</string>
+
+    <!-- Budget  -->
+    <string name="form_budget_title">Buat anggaran baru</string>
+    <string name="start_form_label">Mulai dari</string>
+    <string name="end_form_label">Sampai</string>
+    <string name="date_hint">2000-01-01</string>
+    <string name="budget_label">Anggaran</string>
+    <string name="days_left">%1$s hari lagi</string>
+    <string name="budget_left">/%1$s</string>
+    <string name="select_start_date">"Pilih Tanggal Mulai"</string>
+    <string name="select_end_date">"Pilih Tanggal Selesai"</string>
+    <string name="for_day">Dari %1$s sampai %2$s</string>
+    <string name="budget_active">Aktif</string>
+    <string name="budget_expired">Kadaluarsa</string>
+    <string name="used_at">Tersisa </string>
+
 
 </resources>
