@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -58,6 +59,7 @@ import id.my.sendiko.fintrack.dashboard.presentation.components.TopCategoryCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionsCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
 import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
+import id.my.sendiko.fintrack.dashboard.presentation.components.TransferButton
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
@@ -164,6 +166,18 @@ fun DashboardScreen(
                                 onClick = { onNavigate(FormTransactionDestination(TransactionType.INCOME.name)) }
                             )
                             AddExpenseButton(
+                                modifier = Modifier.weight(1f),
+                                onClick = { onNavigate(FormTransactionDestination(TransactionType.EXPENSE.name)) }
+                            )
+                        }
+                    }
+                    item {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            Spacer(modifier = Modifier.weight(1f))
+                            TransferButton(
                                 modifier = Modifier.weight(1f),
                                 onClick = { onNavigate(FormTransactionDestination(TransactionType.EXPENSE.name)) }
                             )

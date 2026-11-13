@@ -46,10 +46,7 @@ data class TransactionsDtoWithWallet(
     val categoryId: String,
 
     @SerialName("updatedAt")
-    val updatedAt: String,
-
-    @SerialName("isTransfer")
-    val isTransfer: Boolean? = null
+    val updatedAt: String
 ) {
     fun toDomain() = Transaction(
         id = id,
@@ -60,7 +57,6 @@ data class TransactionsDtoWithWallet(
         userId = userId,
         walletId = walletId,
         createdAt = convertStringToDateTime(createdAt),
-        isTransfer = isTransfer ?: false
     )
 
     fun toDomainWithCategoryAndWallet() = TransactionWithCategoryAndWallet(
