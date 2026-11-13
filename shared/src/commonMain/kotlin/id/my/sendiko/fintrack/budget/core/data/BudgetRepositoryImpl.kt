@@ -35,12 +35,14 @@ class BudgetRepositoryImpl(
     override suspend fun postBudget(
         amount: Int,
         startDate: String,
-        endDate: String
+        endDate: String,
+        walletId: String
     ): Result<Budget, DataError.Remote> {
         val request = PostBudgetRequest(
             amount = amount,
             startDate = startDate,
-            endDate = endDate
+            endDate = endDate,
+            walletId = walletId
         )
         return when (val response = remoteDataSource.postBudget(request)) {
             is Result.Success -> Result.Success(response.data.budget.toDomain())

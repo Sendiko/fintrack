@@ -11,6 +11,7 @@ import id.my.sendiko.fintrack.core.network.utils.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.post
+import io.ktor.client.request.setBody
 
 class BudgetRemoteDataSourceImpl(
     private val client: HttpClient,
@@ -35,7 +36,9 @@ class BudgetRemoteDataSourceImpl(
 
     override suspend fun postBudget(request: PostBudgetRequest): Result<PostBudgetResponse, DataError.Remote> {
         return safeCall<PostBudgetResponse> {
-            client.post("budgets")
+            client.post("budgets") {
+                setBody(request )
+            }
         }
     }
 }
