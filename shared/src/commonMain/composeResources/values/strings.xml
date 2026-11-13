@@ -71,6 +71,7 @@
     <string name="all_wallets">Semua Dompet</string>
     <string name="income">Catat Income</string>
     <string name="expense">Catat Expense</string>
+    <string name="transfer">Transfer Dana</string>
     <string name="top_category">Kategori Teratas</string>
     <string name="recent_transaction">Transaksi Terkini</string>
     <string name="hidden_balance">⬤⬤⬤⬤⬤⬤</string>
