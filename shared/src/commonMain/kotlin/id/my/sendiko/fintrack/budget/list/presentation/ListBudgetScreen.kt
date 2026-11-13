@@ -1,6 +1,7 @@
 package id.my.sendiko.fintrack.budget.list.presentation
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -76,7 +77,8 @@ fun ListBudgetScreen(
                         bottom = it.calculateBottomPadding() + 16.dp,
                         start = 16.dp,
                         end = 16.dp
-                    )
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(state.budgets) { budget ->
                         BudgetCard(

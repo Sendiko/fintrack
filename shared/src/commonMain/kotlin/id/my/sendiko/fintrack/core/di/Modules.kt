@@ -84,7 +84,7 @@ val sharedModule = module {
     factory { FormWalletViewModel(get()) }
     factory { ListWalletViewModel(get()) }
     factory { ListTransactionViewModel(get()) }
-    factory { FormBudgetViewModel(get()) }
+    factory { FormBudgetViewModel(get(), get()) }
     factory { ListBudgetViewModel(get()) }
     factory { DetailBudgetViewModel(get()) }
 }

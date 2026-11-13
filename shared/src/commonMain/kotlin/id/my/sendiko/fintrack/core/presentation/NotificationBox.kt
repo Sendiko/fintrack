@@ -48,7 +48,7 @@ fun NotificationBox(
             exit = slideOutVertically()
         ) {
             Surface(
-                modifier = Modifier.statusBarsPadding().padding(top = 16.dp),
+                modifier = Modifier.statusBarsPadding().padding(16.dp),
                 color = secondaryBlue,
                 shape = RoundedCornerShape(16.dp)
             ) {

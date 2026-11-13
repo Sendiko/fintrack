@@ -157,6 +157,9 @@
     <string name="budget_active">Aktif</string>
     <string name="budget_expired">Kadaluarsa</string>
     <string name="used_at">Tersisa </string>
+    <string name="budget_created">Budget tersimpan</string>
+    <string name="chose_wallet">Pilih dompet</string>
+    <string name="chose_wallet_hint">Pilih dompet untuk anggaran ini</string>
 
 
 </resources>
