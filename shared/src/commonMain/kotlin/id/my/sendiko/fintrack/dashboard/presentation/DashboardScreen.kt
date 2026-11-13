@@ -34,6 +34,7 @@ import fintrack.composeapp.generated.resources.empty_budget
 import fintrack.composeapp.generated.resources.empty_category
 import fintrack.composeapp.generated.resources.empty_transaction
 import fintrack.composeapp.generated.resources.empty_wallet
+import fintrack.composeapp.generated.resources.menu
 import fintrack.composeapp.generated.resources.recent_transaction
 import fintrack.composeapp.generated.resources.see_more_budgets
 import fintrack.composeapp.generated.resources.see_more_categories
@@ -157,6 +158,13 @@ fun DashboardScreen(
                         }
                     }
                     item {
+                        Text(
+                            text = stringResource(Res.string.menu),
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                    item {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -179,7 +187,7 @@ fun DashboardScreen(
                             Spacer(modifier = Modifier.weight(1f))
                             TransferButton(
                                 modifier = Modifier.weight(1f),
-                                onClick = { onNavigate(FormTransactionDestination(TransactionType.EXPENSE.name)) }
+                                onClick = {  }
                             )
                         }
                     }

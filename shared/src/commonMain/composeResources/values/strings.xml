@@ -83,6 +83,7 @@
     <string name="see_more_categories">Kategori lainnya</string>
     <string name="see_more_budgets">Anggaran lainnya</string>
     <string name="today_budget">Anggaran Hari Ini</string>
+    <string name="menu">Menu</string>
 
     <!--  Strings for Create Wallet  -->
     <string name="create_wallet_title">Buat Dompet Baru</string>
