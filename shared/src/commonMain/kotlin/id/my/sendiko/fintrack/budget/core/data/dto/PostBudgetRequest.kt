@@ -13,5 +13,8 @@ data class PostBudgetRequest(
 	val endDate: String,
 
 	@SerialName("startDate")
-	val startDate: String
+	val startDate: String,
+
+	@SerialName("walletId")
+	val walletId: String
 )

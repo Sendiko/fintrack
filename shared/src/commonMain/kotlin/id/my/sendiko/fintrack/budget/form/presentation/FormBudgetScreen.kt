@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,6 +37,8 @@ import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.back
 import fintrack.composeapp.generated.resources.budget_label
 import fintrack.composeapp.generated.resources.cancel
+import fintrack.composeapp.generated.resources.chose_wallet
+import fintrack.composeapp.generated.resources.chose_wallet_hint
 import fintrack.composeapp.generated.resources.confirm
 import fintrack.composeapp.generated.resources.create
 import fintrack.composeapp.generated.resources.date_hint
@@ -49,6 +52,7 @@ import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.core.presentation.numerickeyboard.NumericKeyboard
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
+import id.my.sendiko.fintrack.core.presentation.textfields.DropdownMenu
 import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
 import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
 import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
@@ -65,6 +69,19 @@ fun FormBudgetScreen(
     onEvent: (FormBudgetEvent) -> Unit,
     onNavigateBack: () -> Unit
 ) {
+
+    LaunchedEffect(state.wallets) {
+        if (state.wallets.isEmpty()) {
+            onEvent(FormBudgetEvent.OnLoadWallets)
+        }
+    }
+
+    LaunchedEffect(state.isSuccess) {
+        if (state.isSuccess) {
+            onNavigateBack()
+        }
+    }
+
     if (state.isStartDatePickerOpen) {
         val datePickerState = rememberDatePickerState()
         DatePickerDialog(
@@ -132,7 +149,7 @@ fun FormBudgetScreen(
     }
 
     NotificationBox(
-        message = state.message,
+        message = state.message.asComposableString(),
         isLoading = state.isLoading,
         content = {
             Scaffold(
@@ -166,6 +183,19 @@ fun FormBudgetScreen(
                 ) {
                     Column {
                         Text(
+                            text = stringResource(Res.string.chose_wallet),
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        DropdownMenu(
+                            modifier = Modifier.fillMaxWidth(),
+                            items = state.wallets,
+                            onChosen = { onEvent(FormBudgetEvent.OnWalletChosen(it)) },
+                            hint = stringResource(Res.string.chose_wallet_hint)
+                        )
+                    }
+                    Column {
+                        Text(
                             text = stringResource(Res.string.start_form_label),
                             style = MaterialTheme.typography.labelMedium
                         )
@@ -191,7 +221,6 @@ fun FormBudgetScreen(
                             outlineColor = secondaryBlue
                         )
                     }
-
                     Column {
                         Text(
                             text = stringResource(Res.string.end_form_label),
@@ -268,7 +297,9 @@ fun FormBudgetScreen(
 fun FormBudgetScreenPrev() {
     FinTrackTheme {
         FormBudgetScreen(
-            state = FormBudgetState(),
+            state = FormBudgetState(
+                isLoading = false
+            ),
             onEvent = {},
             onNavigateBack = {}
         )
