@@ -1,10 +1,13 @@
 package id.my.sendiko.fintrack.core.presentation.theme
 
+import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.plusjakartasans_bold
 import fintrack.composeapp.generated.resources.plusjakartasans_bolditalic
@@ -74,3 +77,30 @@ fun PlusJakartaSansTypography() = Typography().run {
         labelSmall = labelSmall.copy(fontFamily = fontFamily)
     )
 }
+
+val labelSmall = TextStyle(
+    fontSize = 12.sp,
+    fontWeight = FontWeight.Bold
+)
+
+val labelMedium = TextStyle(
+    fontSize = 14.sp,
+    fontWeight = FontWeight.Bold
+)
+
+val labelLarge = TextStyle(
+    fontSize = 16.sp,
+    fontWeight = FontWeight.Bold
+)
+
+val bodySmall = TextStyle(
+    fontSize = 14.sp
+)
+
+val bodyMedium = TextStyle(
+    fontSize = 16.sp
+)
+
+val bodyLarge = TextStyle(
+    fontSize = 18.sp
+)
