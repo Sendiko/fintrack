@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,14 +34,15 @@ import fintrack.composeapp.generated.resources.empty_budget
 import fintrack.composeapp.generated.resources.empty_category
 import fintrack.composeapp.generated.resources.empty_transaction
 import fintrack.composeapp.generated.resources.empty_wallet
+import fintrack.composeapp.generated.resources.menu
 import fintrack.composeapp.generated.resources.recent_transaction
 import fintrack.composeapp.generated.resources.see_more_budgets
 import fintrack.composeapp.generated.resources.see_more_categories
 import fintrack.composeapp.generated.resources.today_budget
 import fintrack.composeapp.generated.resources.top_category
 import fintrack.composeapp.generated.resources.wallets
-import id.my.sendiko.fintrack.budget.presentation.core.components.RemainingDayCard
-import id.my.sendiko.fintrack.budget.presentation.core.components.TodayBudgetCard
+import id.my.sendiko.fintrack.budget.core.presentation.components.RemainingDayCard
+import id.my.sendiko.fintrack.budget.core.presentation.components.TodayBudgetCard
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
 import id.my.sendiko.fintrack.core.navigation.ListBudgetDestination
@@ -58,6 +60,7 @@ import id.my.sendiko.fintrack.dashboard.presentation.components.TopCategoryCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionsCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
 import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
+import id.my.sendiko.fintrack.dashboard.presentation.components.TransferButton
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
@@ -155,6 +158,13 @@ fun DashboardScreen(
                         }
                     }
                     item {
+                        Text(
+                            text = stringResource(Res.string.menu),
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                    item {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -166,6 +176,18 @@ fun DashboardScreen(
                             AddExpenseButton(
                                 modifier = Modifier.weight(1f),
                                 onClick = { onNavigate(FormTransactionDestination(TransactionType.EXPENSE.name)) }
+                            )
+                        }
+                    }
+                    item {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            Spacer(modifier = Modifier.weight(1f))
+                            TransferButton(
+                                modifier = Modifier.weight(1f),
+                                onClick = {  }
                             )
                         }
                     }
@@ -243,7 +265,7 @@ fun DashboardScreen(
                                 TodayBudgetCard(
                                     modifier = Modifier.weight(1f),
                                     remainingToday = state.summary.remainingToday,
-                                    dailyPercentageUsed = state.summary.dailyPercentageUsed
+                                    dailyPercentageUsed = 100 - state.summary.dailyPercentageUsed
                                 )
                                 RemainingDayCard(
                                     modifier = Modifier.weight(1f),

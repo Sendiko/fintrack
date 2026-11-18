@@ -64,8 +64,8 @@ import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import kotlin.time.Duration.Companion.seconds
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
     state: RegisterState,
@@ -77,7 +77,7 @@ fun RegisterScreen(
 
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
-            delay(1000)
+            delay(1.seconds)
             onNavigate(LoginDestination)
         }
     }

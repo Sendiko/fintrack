@@ -1,7 +1,7 @@
 package id.my.sendiko.fintrack.dashboard.data
 
-import id.my.sendiko.fintrack.budget.data.datasource.BudgetRemoteDataSource
-import id.my.sendiko.fintrack.budget.domain.model.Summary
+import id.my.sendiko.fintrack.budget.core.data.datasource.BudgetRemoteDataSource
+import id.my.sendiko.fintrack.budget.core.domain.model.Summary
 import id.my.sendiko.fintrack.category.core.data.datasource.CategoryDataSource
 import id.my.sendiko.fintrack.category.core.domain.model.CategoryWithTransactions
 import id.my.sendiko.fintrack.core.network.utils.DataError

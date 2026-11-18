@@ -1,6 +1,6 @@
 package id.my.sendiko.fintrack.dashboard.presentation
 
-import id.my.sendiko.fintrack.budget.domain.model.Summary
+import id.my.sendiko.fintrack.budget.core.domain.model.Summary
 import id.my.sendiko.fintrack.category.core.domain.model.Category
 import id.my.sendiko.fintrack.category.core.domain.model.TopCategory
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionWithCategoryAndWallet

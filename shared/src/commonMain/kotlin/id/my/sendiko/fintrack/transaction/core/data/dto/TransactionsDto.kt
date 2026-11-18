@@ -44,6 +44,6 @@ data class TransactionsDto(
         categoryId = categoryId,
         userId = userId,
         walletId = walletId,
-		createdAt = convertStringToDateTime(createdAt)
+		createdAt = convertStringToDateTime(createdAt),
     )
 }

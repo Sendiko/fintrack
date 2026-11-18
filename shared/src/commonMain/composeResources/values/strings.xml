@@ -71,6 +71,7 @@
     <string name="all_wallets">Semua Dompet</string>
     <string name="income">Catat Income</string>
     <string name="expense">Catat Expense</string>
+    <string name="transfer">Transfer Dana</string>
     <string name="top_category">Kategori Teratas</string>
     <string name="recent_transaction">Transaksi Terkini</string>
     <string name="hidden_balance">⬤⬤⬤⬤⬤⬤</string>
@@ -82,6 +83,7 @@
     <string name="see_more_categories">Kategori lainnya</string>
     <string name="see_more_budgets">Anggaran lainnya</string>
     <string name="today_budget">Anggaran Hari Ini</string>
+    <string name="menu">Menu</string>
 
     <!--  Strings for Create Wallet  -->
     <string name="create_wallet_title">Buat Dompet Baru</string>
@@ -155,6 +157,9 @@
     <string name="budget_active">Aktif</string>
     <string name="budget_expired">Kadaluarsa</string>
     <string name="used_at">Tersisa </string>
+    <string name="budget_created">Budget tersimpan</string>
+    <string name="chose_wallet">Pilih dompet</string>
+    <string name="chose_wallet_hint">Pilih dompet untuk anggaran ini</string>
 
 
 </resources>

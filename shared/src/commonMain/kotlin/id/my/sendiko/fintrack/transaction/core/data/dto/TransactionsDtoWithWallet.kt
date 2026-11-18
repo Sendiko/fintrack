@@ -56,7 +56,7 @@ data class TransactionsDtoWithWallet(
         categoryId = categoryId,
         userId = userId,
         walletId = walletId,
-        createdAt = convertStringToDateTime(createdAt)
+        createdAt = convertStringToDateTime(createdAt),
     )
 
     fun toDomainWithCategoryAndWallet() = TransactionWithCategoryAndWallet(
