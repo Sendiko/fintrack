@@ -21,7 +21,9 @@ import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.password_not_visible
 import fintrack.composeapp.generated.resources.password_visible
+import id.my.sendiko.fintrack.core.presentation.theme.icon
 import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
+import id.my.sendiko.fintrack.core.presentation.theme.surface
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -47,8 +49,14 @@ fun SecureTextField(
         visualTransformation = if (isVisible) VisualTransformation.None
         else PasswordVisualTransformation(),
         colors = OutlinedTextFieldDefaults.colors(
-            unfocusedBorderColor = primaryOrange,
-            focusedBorderColor = primaryOrange
+            unfocusedContainerColor = surface,
+            focusedContainerColor = surface,
+            unfocusedBorderColor = surface,
+            focusedBorderColor = icon.copy(alpha = 0.6f),
+            unfocusedTrailingIconColor = surface,
+            focusedTrailingIconColor = icon.copy(alpha = 0.6f),
+            unfocusedLeadingIconColor = surface,
+            focusedLeadingIconColor = icon.copy(alpha = 0.6f)
         ),
         placeholder = {
             Text(text = hint)

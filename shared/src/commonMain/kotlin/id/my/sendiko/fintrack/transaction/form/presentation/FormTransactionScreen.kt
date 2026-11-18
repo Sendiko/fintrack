@@ -356,7 +356,6 @@ fun FormTransactionScreen(
                                                 INCOME -> stringResource(Res.string.set_income_name_hint)
                                                 EXPENSE -> stringResource(Res.string.set_expense_name_hint)
                                             },
-                                            outlineColor = secondaryBlue
                                         )
                                     }
                                 }
