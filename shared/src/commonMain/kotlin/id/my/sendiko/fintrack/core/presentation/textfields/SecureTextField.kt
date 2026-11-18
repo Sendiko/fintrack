@@ -4,6 +4,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
@@ -19,6 +20,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
+import fintrack.composeapp.generated.resources.password_label
 import fintrack.composeapp.generated.resources.password_not_visible
 import fintrack.composeapp.generated.resources.password_visible
 import id.my.sendiko.fintrack.core.presentation.theme.icon
@@ -60,6 +62,12 @@ fun SecureTextField(
         ),
         placeholder = {
             Text(text = hint)
+        },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Password,
+                contentDescription = stringResource(Res.string.password_label)
+            )
         },
         trailingIcon = {
             IconButton(

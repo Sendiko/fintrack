@@ -11,11 +11,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -167,7 +170,13 @@ fun RegisterScreen(
                                     onValueChange = { onEvent(RegisterEvent.OnUsernameChanged(it)) },
                                     hint = stringResource(Res.string.create_username_hint),
                                     imeAction = ImeAction.Next,
-                                    onImeAction = { focusManager.moveFocus(FocusDirection.Down) }
+                                    onImeAction = { focusManager.moveFocus(FocusDirection.Down) },
+                                    leadingIcon = {
+                                        Icon(
+                                            imageVector = Icons.Default.Person,
+                                            contentDescription = stringResource(Res.string.username_label)
+                                        )
+                                    }
                                 )
                             }
                             Column {
@@ -184,7 +193,13 @@ fun RegisterScreen(
                                     hint = stringResource(Res.string.email_hint),
                                     keyboardType = KeyboardType.Email,
                                     imeAction = ImeAction.Next,
-                                    onImeAction = { focusManager.moveFocus(FocusDirection.Down) }
+                                    onImeAction = { focusManager.moveFocus(FocusDirection.Down) },
+                                    leadingIcon = {
+                                        Icon(
+                                            imageVector = Icons.Default.Email,
+                                            contentDescription = stringResource(Res.string.email_label)
+                                        )
+                                    }
                                 )
                             }
                             Column {
