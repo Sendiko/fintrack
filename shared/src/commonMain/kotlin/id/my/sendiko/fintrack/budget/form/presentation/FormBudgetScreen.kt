@@ -218,7 +218,6 @@ fun FormBudgetScreen(
                                     )
                                 }
                             },
-                            outlineColor = secondaryBlue
                         )
                     }
                     Column {
@@ -245,7 +244,6 @@ fun FormBudgetScreen(
                                     )
                                 }
                             },
-                            outlineColor = secondaryBlue
                         )
                     }
                     Text(

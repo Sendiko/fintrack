@@ -11,7 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import id.my.sendiko.fintrack.core.presentation.theme.icon
 import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
+import id.my.sendiko.fintrack.core.presentation.theme.surface
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,8 +32,14 @@ fun DropdownMenuField(
         value = value,
         onValueChange = onValueChange,
         colors = OutlinedTextFieldDefaults.colors(
-            unfocusedBorderColor = secondaryBlue,
-            focusedBorderColor = secondaryBlue
+            unfocusedContainerColor = surface,
+            focusedContainerColor = surface,
+            unfocusedBorderColor = surface,
+            focusedBorderColor = icon.copy(alpha = 0.6f),
+            unfocusedTrailingIconColor = surface,
+            focusedTrailingIconColor = icon.copy(alpha = 0.6f),
+            unfocusedLeadingIconColor = surface,
+            focusedLeadingIconColor = icon.copy(alpha = 0.6f)
         ),
         placeholder = {
             Text(text = hint)

@@ -8,6 +8,7 @@ val utilityWhite = Color(0xFFFFFBFF)
 val utilityBlack = Color(0xFF1A1A1A)
 val variantBrown = Color(0xFFA87A73)
 val aliceBlue = Color(0xFFF0FBFF)
-
 val redError = Color(0xFF830100)
 val greenApproved = Color(0xFF4DB441)
+val surface = Color(0xFFF6F2F6)
+val icon = Color(0xFF496172)

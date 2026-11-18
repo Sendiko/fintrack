@@ -1,18 +1,29 @@
 package id.my.sendiko.fintrack.core.presentation.textfields
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Preview
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.icon
+import id.my.sendiko.fintrack.core.presentation.theme.surface
 
 @Composable
 fun BaseTextField(
@@ -21,10 +32,10 @@ fun BaseTextField(
     onValueChange: (String) -> Unit,
     hint: String,
     trailingIcon: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
     readOnly: Boolean = false,
     enabled: Boolean = true,
     keyboardType: KeyboardType = KeyboardType.Text,
-    outlineColor: Color = primaryOrange,
     supportingText: String? = null,
     singleLine: Boolean = true,
     imeAction: ImeAction = ImeAction.Default,
@@ -46,18 +57,49 @@ fun BaseTextField(
             onAny = { onImeAction() }
         ),
         colors = OutlinedTextFieldDefaults.colors(
-            unfocusedContainerColor = Color.Transparent,
-            focusedContainerColor = Color.Transparent,
-            unfocusedBorderColor = outlineColor,
-            focusedBorderColor = outlineColor,
-            cursorColor = outlineColor
+            unfocusedContainerColor = surface,
+            focusedContainerColor = surface,
+            unfocusedBorderColor = surface,
+            focusedBorderColor = icon.copy(alpha = 0.6f),
+            unfocusedTrailingIconColor = surface,
+            focusedTrailingIconColor = icon.copy(alpha = 0.6f),
+            unfocusedLeadingIconColor = surface,
+            focusedLeadingIconColor = icon.copy(alpha = 0.6f)
         ),
         placeholder = {
             Text(text = hint)
         },
+        leadingIcon = leadingIcon,
         trailingIcon = trailingIcon,
         supportingText = if (supportingText.isNullOrBlank()) null else {
             { Text(text = supportingText) }
         }
     )
+}
+
+@Preview
+@Composable
+fun BaseTextFieldPrev() {
+    FinTrackTheme {
+        Surface {
+            BaseTextField(
+                modifier = Modifier.padding(16.dp),
+                value = "",
+                onValueChange = {  },
+                hint = "This is a hint.",
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Lock,
+                        contentDescription = " "
+                    )
+                },
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Clear,
+                        contentDescription = ""
+                    )
+                }
+            )
+        }
+    }
 }

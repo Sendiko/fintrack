@@ -271,7 +271,6 @@ fun FormWalletScreen(
                                                 )
                                             },
                                             hint = stringResource(Res.string.wallet_name_hint),
-                                            outlineColor = secondaryBlue
                                         )
                                     }
                                     item {
@@ -304,7 +303,6 @@ fun FormWalletScreen(
                                                 )
                                             },
                                             hint = stringResource(Res.string.wallet_purpose_hint),
-                                            outlineColor = secondaryBlue
                                         )
                                     }
                                     item {
@@ -324,7 +322,6 @@ fun FormWalletScreen(
                                                 )
                                             },
                                             hint = stringResource(Res.string.wallet_number_hint),
-                                            outlineColor = secondaryBlue,
                                             supportingText = stringResource(Res.string.wallet_number_note)
                                         )
                                     }
