@@ -34,12 +34,11 @@ import id.my.sendiko.fintrack.core.presentation.icon.CategoryIcon
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
 import id.my.sendiko.fintrack.core.presentation.theme.greenApproved
-import id.my.sendiko.fintrack.core.presentation.theme.icon
 import id.my.sendiko.fintrack.core.presentation.theme.redError
 import id.my.sendiko.fintrack.core.presentation.theme.utilityBlack
 import id.my.sendiko.fintrack.transaction.core.domain.model.Transaction
-import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
-import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.*
+import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.EXPENSE
+import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.INCOME
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionWithCategoryAndWallet
 import id.my.sendiko.fintrack.wallet.core.domain.Wallet
 import id.my.sendiko.fintrack.wallet.core.domain.WalletType

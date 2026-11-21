@@ -24,7 +24,6 @@ import fintrack.composeapp.generated.resources.password_label
 import fintrack.composeapp.generated.resources.password_not_visible
 import fintrack.composeapp.generated.resources.password_visible
 import id.my.sendiko.fintrack.core.presentation.theme.icon
-import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
 import id.my.sendiko.fintrack.core.presentation.theme.surface
 import org.jetbrains.compose.resources.stringResource
 

@@ -1,6 +1,7 @@
 package id.my.sendiko.fintrack.core.presentation.icon
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.TrendingUp
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -63,7 +64,7 @@ fun String?.toCategoryImageVector(): ImageVector {
         // Finance & Income
         "payments" -> Icons.Rounded.Payments
         "work" -> Icons.Rounded.Work
-        "trending_up" -> Icons.Rounded.TrendingUp
+        "trending_up" -> Icons.AutoMirrored.Rounded.TrendingUp
         "savings" -> Icons.Rounded.Savings
         "account_balance" -> Icons.Rounded.AccountBalance
         "credit_card" -> Icons.Rounded.CreditCard

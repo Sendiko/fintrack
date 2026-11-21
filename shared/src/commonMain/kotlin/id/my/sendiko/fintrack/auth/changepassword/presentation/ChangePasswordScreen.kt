@@ -38,7 +38,6 @@ import fintrack.composeapp.generated.resources.account_is_safe
 import fintrack.composeapp.generated.resources.app_name
 import fintrack.composeapp.generated.resources.change_password_hint
 import fintrack.composeapp.generated.resources.change_password_label
-import fintrack.composeapp.generated.resources.verify_hint
 import fintrack.composeapp.generated.resources.change_password_title
 import fintrack.composeapp.generated.resources.dont_worry
 import fintrack.composeapp.generated.resources.email_hint
@@ -46,10 +45,11 @@ import fintrack.composeapp.generated.resources.email_label
 import fintrack.composeapp.generated.resources.fintrack_white
 import fintrack.composeapp.generated.resources.login_hint
 import fintrack.composeapp.generated.resources.password_label
+import fintrack.composeapp.generated.resources.verify_hint
 import fintrack.composeapp.generated.resources.verify_label
 import id.my.sendiko.fintrack.core.navigation.LoginDestination
-import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
+import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
 import id.my.sendiko.fintrack.core.presentation.textfields.SecureTextField
 import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
 import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
@@ -57,8 +57,8 @@ import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import kotlin.time.Duration.Companion.milliseconds
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChangePasswordScreen(
     state: ChangePasswordState,
@@ -68,7 +68,7 @@ fun ChangePasswordScreen(
 
     LaunchedEffect(state.message) {
         if (state.message.isNotBlank()) {
-            delay(1000)
+            delay(1000.milliseconds)
             onEvent(ChangePasswordEvent.ClearState)
         }
     }

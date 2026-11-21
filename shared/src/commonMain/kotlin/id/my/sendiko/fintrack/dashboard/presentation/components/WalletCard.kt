@@ -1,7 +1,6 @@
 package id.my.sendiko.fintrack.dashboard.presentation.components
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,8 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -32,7 +29,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.contactless_icon_desc
@@ -41,11 +37,12 @@ import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
 import id.my.sendiko.fintrack.core.presentation.theme.greenApproved
 import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
-import id.my.sendiko.fintrack.core.presentation.theme.redError
 import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
 import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import id.my.sendiko.fintrack.wallet.core.domain.WalletType
-import id.my.sendiko.fintrack.wallet.core.domain.WalletType.*
+import id.my.sendiko.fintrack.wallet.core.domain.WalletType.CARD
+import id.my.sendiko.fintrack.wallet.core.domain.WalletType.CASH
+import id.my.sendiko.fintrack.wallet.core.domain.WalletType.E_MONEY
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 

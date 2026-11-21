@@ -1,7 +1,6 @@
 package id.my.sendiko.fintrack.category.core.data.dto
 
 import id.my.sendiko.fintrack.category.core.domain.model.Category
-import id.my.sendiko.fintrack.core.presentation.icon.toCategoryImageVector
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

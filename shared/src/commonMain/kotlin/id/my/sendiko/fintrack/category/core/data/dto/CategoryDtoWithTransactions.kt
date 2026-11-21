@@ -1,6 +1,5 @@
 package id.my.sendiko.fintrack.category.core.data.dto
 
-import androidx.compose.ui.input.pointer.PointerIcon
 import id.my.sendiko.fintrack.category.core.domain.model.Category
 import id.my.sendiko.fintrack.category.core.domain.model.CategoryWithTransactions
 import id.my.sendiko.fintrack.transaction.core.data.dto.TransactionsDto
