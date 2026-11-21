@@ -80,7 +80,7 @@ fun PlusJakartaSansTypography() = Typography().run {
 
 val labelSmall = TextStyle(
     fontSize = 12.sp,
-    fontWeight = FontWeight.Bold
+    fontWeight = FontWeight.Bold,
 )
 
 val labelMedium = TextStyle(

@@ -1,5 +1,6 @@
 package id.my.sendiko.fintrack.dashboard.presentation
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -21,19 +22,30 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
-import fintrack.composeapp.generated.resources.all_label
 import fintrack.composeapp.generated.resources.all_wallets
+import fintrack.composeapp.generated.resources.budget_label
+import fintrack.composeapp.generated.resources.empty_budget
 import fintrack.composeapp.generated.resources.empty_wallet
+import fintrack.composeapp.generated.resources.recent_transaction
+import fintrack.composeapp.generated.resources.see_more_budgets
+import fintrack.composeapp.generated.resources.see_more_transaction
 import fintrack.composeapp.generated.resources.wallets
+import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
+import id.my.sendiko.fintrack.core.navigation.ListBudgetDestination
+import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
+import id.my.sendiko.fintrack.core.navigation.ListWalletDestination
 import id.my.sendiko.fintrack.core.navigation.SplashDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
-import id.my.sendiko.fintrack.core.presentation.theme.labelLarge
+import id.my.sendiko.fintrack.core.presentation.theme.bodyLarge
 import id.my.sendiko.fintrack.core.presentation.theme.labelMedium
 import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
+import id.my.sendiko.fintrack.dashboard.presentation.components.BudgetSummaryCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.DashboardTopBar
 import id.my.sendiko.fintrack.dashboard.presentation.components.TotalNetWorthCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
+import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
+import id.my.sendiko.fintrack.transaction.presentation.components.TransactionCard
 import id.my.sendiko.fintrack.wallet.core.domain.WalletType
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
@@ -87,8 +99,12 @@ fun DashboardScreen(
                     item {
                         TotalNetWorthCard(
                             totalNetWorth = state.wallets.sumOf { it.amount },
-                            onIncomeClick = { },
-                            onExpenseClick = { },
+                            onIncomeClick = {
+                                onNavigate(FormTransactionDestination(type = TransactionType.INCOME.name))
+                            },
+                            onExpenseClick = {
+                                onNavigate(FormTransactionDestination(type = TransactionType.EXPENSE.name))
+                            },
                             onTransferClick = { },
                             onAnalyticsClick = { }
                         )
@@ -100,9 +116,12 @@ fun DashboardScreen(
                         ) {
                             Text(
                                 text = stringResource(Res.string.wallets),
-                                style = labelLarge
+                                style = bodyLarge
                             )
                             Text(
+                                modifier = Modifier.clickable {
+                                    onNavigate(ListWalletDestination)
+                                },
                                 text = stringResource(Res.string.all_wallets),
                                 style = labelMedium,
                                 color = primaryOrange,
@@ -112,10 +131,12 @@ fun DashboardScreen(
                     }
                     item {
                         if (state.wallets.isNotEmpty()) {
-                            LazyRow {
+                            LazyRow(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
                                 items(state.wallets) { wallet ->
                                     WalletCard(
-                                        walletType = WalletType.valueOf(wallet.type),
+                                        walletType = WalletType.valueOf(wallet.type.uppercase()),
                                         name = wallet.name,
                                         number = wallet.number,
                                         balanceAmount = wallet.amount
@@ -130,6 +151,65 @@ fun DashboardScreen(
                             text = stringResource(Res.string.empty_wallet),
                             textAlign = TextAlign.Center
                         )
+                    }
+                    item {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = stringResource(Res.string.budget_label),
+                                style = bodyLarge
+                            )
+                            Text(
+                                modifier = Modifier.clickable {
+                                    onNavigate(ListBudgetDestination)
+                                },
+                                text = stringResource(Res.string.see_more_budgets),
+                                style = labelMedium,
+                                color = primaryOrange,
+                                textDecoration = TextDecoration.Underline
+                            )
+                        }
+                    }
+                    item {
+                        if (state.summary != null) {
+                            BudgetSummaryCard(summary = state.summary)
+                            return@item
+                        }
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = stringResource(Res.string.empty_budget),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                    item {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = stringResource(Res.string.recent_transaction),
+                                style = bodyLarge
+                            )
+                            Text(
+                                modifier = Modifier.clickable {
+                                    onNavigate(ListTransactionDestination)
+                                },
+                                text = stringResource(Res.string.see_more_transaction),
+                                style = labelMedium,
+                                color = primaryOrange,
+                                textDecoration = TextDecoration.Underline
+                            )
+                        }
+                    }
+                    if (state.transactions.isNotEmpty()) {
+                        items(state.transactions.take(10)) { transaction ->
+                            TransactionCard(
+                                modifier = Modifier,
+                                transaction = transaction
+                            )
+                        }
                     }
                 }
             }

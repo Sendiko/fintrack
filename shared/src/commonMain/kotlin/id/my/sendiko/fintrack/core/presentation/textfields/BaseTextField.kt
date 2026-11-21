@@ -61,10 +61,10 @@ fun BaseTextField(
             focusedContainerColor = surface,
             unfocusedBorderColor = surface,
             focusedBorderColor = icon.copy(alpha = 0.6f),
-            unfocusedTrailingIconColor = surface,
-            focusedTrailingIconColor = icon.copy(alpha = 0.6f),
-            unfocusedLeadingIconColor = surface,
-            focusedLeadingIconColor = icon.copy(alpha = 0.6f)
+            unfocusedTrailingIconColor = icon.copy(alpha = 0.6f),
+            focusedTrailingIconColor = icon,
+            unfocusedLeadingIconColor = icon.copy(alpha = 0.6f),
+            focusedLeadingIconColor = icon
         ),
         placeholder = {
             Text(text = hint)

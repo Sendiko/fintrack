@@ -1,5 +1,6 @@
 package id.my.sendiko.fintrack.category.core.data.dto
 
+import androidx.compose.ui.input.pointer.PointerIcon
 import id.my.sendiko.fintrack.category.core.domain.model.Category
 import id.my.sendiko.fintrack.category.core.domain.model.CategoryWithTransactions
 import id.my.sendiko.fintrack.transaction.core.data.dto.TransactionsDto
@@ -24,12 +25,16 @@ data class CategoryDtoWithTransactions(
     @SerialName("userId")
     val userId: String,
 
+    @SerialName("icon")
+    val icon: String,
+
     @SerialName("updatedAt")
     val updatedAt: String
 ) {
     fun toDomain() = Category(
         id = id,
-        name = name
+        name = name,
+        icon = icon
     )
 
     fun toDomainWithTransaction() = CategoryWithTransactions(
