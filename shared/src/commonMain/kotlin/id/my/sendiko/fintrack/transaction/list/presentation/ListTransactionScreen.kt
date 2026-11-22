@@ -1,6 +1,5 @@
 package id.my.sendiko.fintrack.transaction.list.presentation
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,9 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -28,16 +24,15 @@ import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.all_label
 import fintrack.composeapp.generated.resources.empty_transaction
 import fintrack.composeapp.generated.resources.list_transaction_title
-import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
-import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionListItem
-import id.my.sendiko.fintrack.core.presentation.theme.aliceBlue
 import id.my.sendiko.fintrack.core.presentation.theme.greenApproved
 import id.my.sendiko.fintrack.core.presentation.theme.redError
 import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
 import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
+import id.my.sendiko.fintrack.transaction.core.presentation.TransactionListItem
 import id.my.sendiko.fintrack.transaction.core.presentation.TransactionTopBar
+import id.my.sendiko.fintrack.transaction.presentation.components.TransactionCard
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -107,43 +102,22 @@ fun ListTransactionScreen(
                         )
                     }
                     Spacer(Modifier.height(16.dp))
-                    Card(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .fillMaxWidth(),
-                        colors = CardDefaults.cardColors(
-                            containerColor = aliceBlue
-                        ),
-                        shape = RoundedCornerShape(16.dp)
+                    LazyColumn(
+                        contentPadding = PaddingValues(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        LazyColumn(
-                            contentPadding = PaddingValues(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            items(state.transactions) { transaction ->
-                                TransactionListItem(
-                                    modifier = Modifier.fillMaxWidth()
-                                        .clickable {
-                                            onNavigate(
-                                                FormTransactionDestination(
-                                                    type = transaction.transaction.type.name,
-                                                    id = transaction.transaction.id
-                                                )
-                                            )
-                                        },
-                                    transaction = transaction.transaction,
-                                    categoryName = transaction.category.name + " - " + transaction.wallet.name,
-                                    createdAt = transaction.transaction.createdAt
+                        items(state.transactions) { transaction ->
+                            TransactionCard(
+                                transaction = transaction
+                            )
+                        }
+                        if (state.transactions.isEmpty()) {
+                            item {
+                                Text(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    text = stringResource(Res.string.empty_transaction),
+                                    textAlign = TextAlign.Center
                                 )
-                            }
-                            if (state.transactions.isEmpty()) {
-                                item {
-                                    Text(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        text = stringResource(Res.string.empty_transaction),
-                                        textAlign = TextAlign.Center
-                                    )
-                                }
                             }
                         }
                     }

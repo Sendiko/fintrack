@@ -26,7 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.days_left_text
+import fintrack.composeapp.generated.resources.of_left
 import fintrack.composeapp.generated.resources.of_limit
+import id.my.sendiko.fintrack.budget.core.domain.model.Summary
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
 import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
 import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
@@ -36,13 +38,10 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun BudgetLimitCard(
     modifier: Modifier = Modifier,
-    spentAmount: Double = 2500000.0,
-    limitAmount: Double = 4000000.0,
-    percentage: Int = 62,
-    daysLeft: Int = 5,
+    summary: Summary
 ) {
-    val formattedSpent = "Rp ${spentAmount.toRupiah().removePrefix("Rp")}"
-    val formattedLimit = "Rp ${limitAmount.toRupiah().removePrefix("Rp")}"
+    val formattedSpent = summary.spent.toDouble().toRupiah()
+    val formattedLimit = summary.totalAmount.toDouble().toRupiah()
 
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -89,7 +88,7 @@ fun BudgetLimitCard(
                     ) {
                         Text(
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
-                            text = "$percentage%",
+                            text = "${summary.totalPercentageUsed}%",
                             style = MaterialTheme.typography.labelMedium.copy(
                                 fontWeight = FontWeight.Bold,
                             ),
@@ -98,7 +97,7 @@ fun BudgetLimitCard(
                     }
 
                     Text(
-                        text = stringResource(Res.string.days_left_text, daysLeft),
+                        text = stringResource(Res.string.days_left_text, summary.remainingDays),
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.Bold,
                         ),
@@ -119,7 +118,7 @@ fun BudgetLimitCard(
             ) {
                 Box(
                     modifier = Modifier
-                        .fillMaxWidth(fraction = (percentage.coerceIn(0, 100) / 100f))
+                        .fillMaxWidth(fraction = 1f - (summary.totalPercentageUsed.coerceIn(0, 100) / 100f))
                         .fillMaxHeight()
                         .background(
                             color = utilityWhite,
@@ -137,6 +136,18 @@ fun BudgetLimitCardPreview() {
     FinTrackTheme {
         BudgetLimitCard(
             modifier = Modifier.padding(16.dp),
+            summary = Summary(
+                totalAmount = 1000000,
+                remainingAmount = 700000,
+                spent = 300000,
+                remainingDays = 5,
+                spentToday = 100000,
+                remainingToday = 50000.0,
+                isActive = true,
+                todayBudget = 142857.0,
+                dailyPercentageUsed = 70,
+                totalPercentageUsed = 30
+            ),
         )
     }
 }

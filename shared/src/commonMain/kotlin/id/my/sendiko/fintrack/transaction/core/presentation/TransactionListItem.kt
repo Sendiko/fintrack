@@ -1,4 +1,4 @@
-package id.my.sendiko.fintrack.dashboard.presentation.components
+package id.my.sendiko.fintrack.transaction.core.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

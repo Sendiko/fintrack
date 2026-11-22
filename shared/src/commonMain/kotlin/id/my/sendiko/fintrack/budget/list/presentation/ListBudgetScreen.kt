@@ -22,7 +22,7 @@ import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.back
 import fintrack.composeapp.generated.resources.budget_label
 import fintrack.composeapp.generated.resources.form_budget_title
-import id.my.sendiko.fintrack.budget.list.presentation.components.BudgetCard
+import id.my.sendiko.fintrack.budget.core.presentation.components.BudgetLimitCard
 import id.my.sendiko.fintrack.core.navigation.DetailBudgetDestination
 import id.my.sendiko.fintrack.core.navigation.FormBudgetDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
@@ -81,11 +81,11 @@ fun ListBudgetScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(state.budgets) { budget ->
-                        BudgetCard(
+                        BudgetLimitCard(
                             modifier = Modifier.clickable {
                                 onNavigate(DetailBudgetDestination(budget.id))
                             },
-                            budget = budget
+                            summary = budget.summary
                         )
                     }
                 }
@@ -99,8 +99,7 @@ fun ListBudgetScreen(
 fun ListBudgetScreenPrev() {
     FinTrackTheme {
         ListBudgetScreen(
-            state = ListBudgetState(isLoading = false
-            ),
+            state = ListBudgetState(isLoading = false),
             onNavigate = {}
         )
     }

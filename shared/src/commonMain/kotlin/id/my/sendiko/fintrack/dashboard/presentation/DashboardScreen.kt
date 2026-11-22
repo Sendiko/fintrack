@@ -32,6 +32,7 @@ import fintrack.composeapp.generated.resources.recent_transaction
 import fintrack.composeapp.generated.resources.see_more_budgets
 import fintrack.composeapp.generated.resources.see_more_transaction
 import fintrack.composeapp.generated.resources.wallets
+import id.my.sendiko.fintrack.budget.core.presentation.components.TodayBudgetCard
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.ListBudgetDestination
 import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
@@ -41,7 +42,6 @@ import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
 import id.my.sendiko.fintrack.core.presentation.theme.bodyLarge
 import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
-import id.my.sendiko.fintrack.dashboard.presentation.components.BudgetSummaryCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.DashboardTopBar
 import id.my.sendiko.fintrack.dashboard.presentation.components.TotalNetWorthCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
@@ -179,7 +179,7 @@ fun DashboardScreen(
                     }
                     item {
                         if (state.summary != null) {
-                            BudgetSummaryCard(summary = state.summary)
+                            TodayBudgetCard(summary = state.summary)
                             return@item
                         }
                         Text(
