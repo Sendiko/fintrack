@@ -11,12 +11,14 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,7 +40,6 @@ import id.my.sendiko.fintrack.core.navigation.SplashDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
 import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
 import id.my.sendiko.fintrack.core.presentation.theme.bodyLarge
-import id.my.sendiko.fintrack.core.presentation.theme.labelMedium
 import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
 import id.my.sendiko.fintrack.dashboard.presentation.components.BudgetSummaryCard
 import id.my.sendiko.fintrack.dashboard.presentation.components.DashboardTopBar
@@ -116,14 +117,16 @@ fun DashboardScreen(
                         ) {
                             Text(
                                 text = stringResource(Res.string.wallets),
-                                style = bodyLarge
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Bold
                             )
                             Text(
                                 modifier = Modifier.clickable {
                                     onNavigate(ListWalletDestination)
                                 },
                                 text = stringResource(Res.string.all_wallets),
-                                style = labelMedium,
+                                style = MaterialTheme.typography.labelLarge,
+                                fontWeight = FontWeight.Bold,
                                 color = primaryOrange,
                                 textDecoration = TextDecoration.Underline
                             )
@@ -159,14 +162,16 @@ fun DashboardScreen(
                         ) {
                             Text(
                                 text = stringResource(Res.string.budget_label),
-                                style = bodyLarge
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Bold
                             )
                             Text(
                                 modifier = Modifier.clickable {
                                     onNavigate(ListBudgetDestination)
                                 },
                                 text = stringResource(Res.string.see_more_budgets),
-                                style = labelMedium,
+                                style = MaterialTheme.typography.labelLarge,
+                                fontWeight = FontWeight.Bold,
                                 color = primaryOrange,
                                 textDecoration = TextDecoration.Underline
                             )
@@ -197,7 +202,8 @@ fun DashboardScreen(
                                     onNavigate(ListTransactionDestination)
                                 },
                                 text = stringResource(Res.string.see_more_transaction),
-                                style = labelMedium,
+                                style = MaterialTheme.typography.labelLarge,
+                                fontWeight = FontWeight.Bold,
                                 color = primaryOrange,
                                 textDecoration = TextDecoration.Underline
                             )

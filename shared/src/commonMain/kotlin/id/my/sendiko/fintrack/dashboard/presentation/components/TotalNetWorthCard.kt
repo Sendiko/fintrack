@@ -35,6 +35,8 @@ import fintrack.composeapp.generated.resources.ic_minus
 import fintrack.composeapp.generated.resources.ic_plus
 import fintrack.composeapp.generated.resources.ic_transfer
 import fintrack.composeapp.generated.resources.income_label
+import fintrack.composeapp.generated.resources.mdi_arrow_bottom
+import fintrack.composeapp.generated.resources.mdi_arrow_out
 import fintrack.composeapp.generated.resources.total_net_worth
 import fintrack.composeapp.generated.resources.transfer_label
 import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
@@ -94,7 +96,7 @@ fun TotalNetWorthCard(
                 QuickActionButton(
                     modifier = Modifier.weight(1f),
                     label = stringResource(Res.string.income_label),
-                    iconRes = Res.drawable.ic_plus,
+                    iconRes = Res.drawable.mdi_arrow_bottom,
                     circleColor = greenApproved,
                     iconTint = utilityWhite,
                     onClick = onIncomeClick,
@@ -103,7 +105,7 @@ fun TotalNetWorthCard(
                 QuickActionButton(
                     modifier = Modifier.weight(1f),
                     label = stringResource(Res.string.expense_label),
-                    iconRes = Res.drawable.ic_minus,
+                    iconRes = Res.drawable.mdi_arrow_out,
                     circleColor = primaryOrange,
                     iconTint = utilityWhite,
                     onClick = onExpenseClick,
