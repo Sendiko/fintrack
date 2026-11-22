@@ -3,54 +3,67 @@ package id.my.sendiko.fintrack.dashboard.presentation.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Logout
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
-import fintrack.composeapp.generated.resources.logout
-import fintrack.composeapp.generated.resources.total_balance
-import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
+import fintrack.composeapp.generated.resources.greeting
+import fintrack.composeapp.generated.resources.notifications
+import id.my.sendiko.fintrack.core.presentation.buttons.IconButton
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun DashboardTopBar(
     modifier: Modifier = Modifier,
-    balance: Double,
-    onLogout: () -> Unit
+    username: String,
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Column(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = stringResource(Res.string.total_balance),
-                style = MaterialTheme.typography.bodyMedium,
+                text = stringResource(Res.string.greeting),
+                style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Bold
             )
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = balance.toRupiah(),
-                style = MaterialTheme.typography.headlineMedium
+                text = username,
+                style = MaterialTheme.typography.titleLarge
             )
         }
         IconButton(
-            onClick = onLogout
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Default.Logout,
-                contentDescription = stringResource(Res.string.logout)
+            icon = Icons.Default.Notifications,
+            onClick = {  },
+            contentDescription = stringResource(Res.string.notifications)
+        )
+    }
+}
+
+@Preview
+@Composable
+fun DashboardTopBarPrev() {
+    FinTrackTheme {
+        Surface {
+            DashboardTopBar(
+                modifier = Modifier.fillMaxWidth(),
+                username = "Sendiko"
             )
         }
     }

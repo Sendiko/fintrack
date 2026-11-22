@@ -24,12 +24,16 @@ data class CategoryDtoWithTransactions(
     @SerialName("userId")
     val userId: String,
 
+    @SerialName("icon")
+    val icon: String,
+
     @SerialName("updatedAt")
     val updatedAt: String
 ) {
     fun toDomain() = Category(
         id = id,
-        name = name
+        name = name,
+        icon = icon
     )
 
     fun toDomainWithTransaction() = CategoryWithTransactions(

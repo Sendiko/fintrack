@@ -1,6 +1,5 @@
 package id.my.sendiko.fintrack.core.presentation.theme
 
-import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
@@ -80,7 +79,7 @@ fun PlusJakartaSansTypography() = Typography().run {
 
 val labelSmall = TextStyle(
     fontSize = 12.sp,
-    fontWeight = FontWeight.Bold
+    fontWeight = FontWeight.Bold,
 )
 
 val labelMedium = TextStyle(

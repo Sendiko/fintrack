@@ -1,28 +1,22 @@
 package id.my.sendiko.fintrack.dashboard.presentation
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -30,38 +24,30 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
+import fintrack.composeapp.generated.resources.all_wallets
+import fintrack.composeapp.generated.resources.budget_label
 import fintrack.composeapp.generated.resources.empty_budget
-import fintrack.composeapp.generated.resources.empty_category
-import fintrack.composeapp.generated.resources.empty_transaction
 import fintrack.composeapp.generated.resources.empty_wallet
-import fintrack.composeapp.generated.resources.menu
 import fintrack.composeapp.generated.resources.recent_transaction
 import fintrack.composeapp.generated.resources.see_more_budgets
-import fintrack.composeapp.generated.resources.see_more_categories
-import fintrack.composeapp.generated.resources.today_budget
-import fintrack.composeapp.generated.resources.top_category
+import fintrack.composeapp.generated.resources.see_more_transaction
 import fintrack.composeapp.generated.resources.wallets
-import id.my.sendiko.fintrack.budget.core.presentation.components.RemainingDayCard
 import id.my.sendiko.fintrack.budget.core.presentation.components.TodayBudgetCard
 import id.my.sendiko.fintrack.core.navigation.FormTransactionDestination
-import id.my.sendiko.fintrack.core.navigation.FormWalletDestination
 import id.my.sendiko.fintrack.core.navigation.ListBudgetDestination
-import id.my.sendiko.fintrack.core.navigation.ListCategoryDestination
 import id.my.sendiko.fintrack.core.navigation.ListTransactionDestination
 import id.my.sendiko.fintrack.core.navigation.ListWalletDestination
 import id.my.sendiko.fintrack.core.navigation.SplashDestination
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
-import id.my.sendiko.fintrack.dashboard.presentation.components.AddExpenseButton
-import id.my.sendiko.fintrack.dashboard.presentation.components.AddIncomeButton
-import id.my.sendiko.fintrack.dashboard.presentation.components.AddWalletButton
-import id.my.sendiko.fintrack.dashboard.presentation.components.AllWalletButton
-import id.my.sendiko.fintrack.dashboard.presentation.components.DashboardTopBar
-import id.my.sendiko.fintrack.dashboard.presentation.components.TopCategoryCard
-import id.my.sendiko.fintrack.dashboard.presentation.components.TransactionsCard
-import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
 import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
-import id.my.sendiko.fintrack.dashboard.presentation.components.TransferButton
+import id.my.sendiko.fintrack.core.presentation.theme.bodyLarge
+import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
+import id.my.sendiko.fintrack.dashboard.presentation.components.DashboardTopBar
+import id.my.sendiko.fintrack.dashboard.presentation.components.TotalNetWorthCard
+import id.my.sendiko.fintrack.dashboard.presentation.components.WalletCard
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType
+import id.my.sendiko.fintrack.transaction.presentation.components.TransactionCard
+import id.my.sendiko.fintrack.wallet.core.domain.WalletType
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration.Companion.seconds
@@ -108,132 +94,64 @@ fun DashboardScreen(
                     item {
                         DashboardTopBar(
                             modifier = Modifier.padding(top = 16.dp),
-                            balance = state.wallets.sumOf { it.amount },
-                            onLogout = { onEvent(DashboardEvent.OnLogout) }
+                            username = "Sendiko"
                         )
                     }
                     item {
-                        Text(
-                            text = stringResource(Res.string.wallets),
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                    }
-                    item {
-                        Row(
-                            modifier = Modifier.fillMaxWidth()
-                                .height(IntrinsicSize.Min)
-                                .horizontalScroll(rememberScrollState()),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        ) {
-                            AddWalletButton(
-                                modifier = Modifier.width(48.dp)
-                                    .fillMaxHeight(),
-                                onClick = { onNavigate(FormWalletDestination()) }
-                            )
-                            if (state.wallets.isNotEmpty()) {
-                                state.wallets.forEach { wallet ->
-                                    WalletCard(
-                                        wallet = wallet,
-                                        isVisible = state.balanceVisible,
-                                        onVisibilityToggle = {
-                                            onEvent(DashboardEvent.OnBalanceViewChanged(it))
-                                        }
-                                    )
-                                }
-                            } else {
-                                Text(
-                                    modifier = Modifier,
-                                    text = stringResource(Res.string.empty_wallet),
-                                    style = MaterialTheme.typography.bodyLarge
-                                )
-                            }
-                            AllWalletButton(
-                                modifier = Modifier.width(48.dp)
-                                    .fillMaxHeight(),
-                                onClick = {
-                                    onNavigate(ListWalletDestination)
-                                }
-                            )
-                        }
-                    }
-                    item {
-                        Text(
-                            text = stringResource(Res.string.menu),
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = FontWeight.SemiBold
+                        TotalNetWorthCard(
+                            totalNetWorth = state.wallets.sumOf { it.amount },
+                            onIncomeClick = {
+                                onNavigate(FormTransactionDestination(type = TransactionType.INCOME.name))
+                            },
+                            onExpenseClick = {
+                                onNavigate(FormTransactionDestination(type = TransactionType.EXPENSE.name))
+                            },
+                            onTransferClick = { },
+                            onAnalyticsClick = { }
                         )
                     }
                     item {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            AddIncomeButton(
-                                modifier = Modifier.weight(1f),
-                                onClick = { onNavigate(FormTransactionDestination(TransactionType.INCOME.name)) }
-                            )
-                            AddExpenseButton(
-                                modifier = Modifier.weight(1f),
-                                onClick = { onNavigate(FormTransactionDestination(TransactionType.EXPENSE.name)) }
-                            )
-                        }
-                    }
-                    item {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            Spacer(modifier = Modifier.weight(1f))
-                            TransferButton(
-                                modifier = Modifier.weight(1f),
-                                onClick = {  }
-                            )
-                        }
-                    }
-                    item {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(
-                                text = stringResource(Res.string.top_category),
-                                style = MaterialTheme.typography.labelLarge,
-                                fontWeight = FontWeight.SemiBold
+                                text = stringResource(Res.string.wallets),
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Bold
                             )
                             Text(
-                                modifier = Modifier.clickable { onNavigate(ListCategoryDestination) },
-                                text = stringResource(Res.string.see_more_categories),
+                                modifier = Modifier.clickable {
+                                    onNavigate(ListWalletDestination)
+                                },
+                                text = stringResource(Res.string.all_wallets),
                                 style = MaterialTheme.typography.labelLarge,
+                                fontWeight = FontWeight.Bold,
+                                color = primaryOrange,
                                 textDecoration = TextDecoration.Underline
                             )
                         }
                     }
                     item {
-                        if (state.categories.isNotEmpty()) {
-                            Row(
-                                modifier = Modifier,
-                                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        if (state.wallets.isNotEmpty()) {
+                            LazyRow(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
-                                TopCategoryCard(
-                                    modifier = Modifier.weight(1f),
-                                    category = state.topCategory.first().name,
-                                    amount = state.topCategory.first().totalAmount
-                                )
-                                TopCategoryCard(
-                                    modifier = Modifier.weight(1f),
-                                    category = state.topCategory.last().name,
-                                    amount = state.topCategory.last().totalAmount
-                                )
+                                items(state.wallets) { wallet ->
+                                    WalletCard(
+                                        walletType = WalletType.valueOf(wallet.type.uppercase()),
+                                        name = wallet.name,
+                                        number = wallet.number,
+                                        balanceAmount = wallet.amount
+                                    )
+
+                                }
                             }
                             return@item
                         }
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = stringResource(Res.string.empty_category),
-                            style = MaterialTheme.typography.bodyLarge,
+                            text = stringResource(Res.string.empty_wallet),
                             textAlign = TextAlign.Center
                         )
                     }
@@ -243,68 +161,61 @@ fun DashboardScreen(
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(
-                                modifier = Modifier,
-                                text = stringResource(Res.string.today_budget),
-                                style = MaterialTheme.typography.labelLarge,
-                                fontWeight = FontWeight.SemiBold
+                                text = stringResource(Res.string.budget_label),
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Bold
                             )
                             Text(
-                                modifier = Modifier.clickable { onNavigate(ListBudgetDestination) },
+                                modifier = Modifier.clickable {
+                                    onNavigate(ListBudgetDestination)
+                                },
                                 text = stringResource(Res.string.see_more_budgets),
                                 style = MaterialTheme.typography.labelLarge,
+                                fontWeight = FontWeight.Bold,
+                                color = primaryOrange,
                                 textDecoration = TextDecoration.Underline
                             )
                         }
                     }
-                    if (state.summary != null) {
-                        item {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(16.dp)
-                            ) {
-                                TodayBudgetCard(
-                                    modifier = Modifier.weight(1f),
-                                    remainingToday = state.summary.remainingToday,
-                                    dailyPercentageUsed = 100 - state.summary.dailyPercentageUsed
-                                )
-                                RemainingDayCard(
-                                    modifier = Modifier.weight(1f),
-                                    remainingDays = state.summary.remainingDays
-                                )
-                            }
-                        }
-                    } else {
-                        item {
-                            Text(
-                                modifier = Modifier.fillMaxWidth(),
-                                text = stringResource(Res.string.empty_budget),
-                                style = MaterialTheme.typography.bodyLarge,
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    }
                     item {
-                        Text(
-                            modifier = Modifier,
-                            text = stringResource(Res.string.recent_transaction),
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                    }
-                    item {
-                        if (state.transactions.isNotEmpty()) {
-                            TransactionsCard(
-                                transactions = state.transactions,
-                                onSeeMoreClick = { onNavigate(ListTransactionDestination) }
-                            )
+                        if (state.summary != null) {
+                            TodayBudgetCard(summary = state.summary)
                             return@item
                         }
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = stringResource(Res.string.empty_transaction),
-                            style = MaterialTheme.typography.bodyLarge,
+                            text = stringResource(Res.string.empty_budget),
                             textAlign = TextAlign.Center
                         )
+                    }
+                    item {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = stringResource(Res.string.recent_transaction),
+                                style = bodyLarge
+                            )
+                            Text(
+                                modifier = Modifier.clickable {
+                                    onNavigate(ListTransactionDestination)
+                                },
+                                text = stringResource(Res.string.see_more_transaction),
+                                style = MaterialTheme.typography.labelLarge,
+                                fontWeight = FontWeight.Bold,
+                                color = primaryOrange,
+                                textDecoration = TextDecoration.Underline
+                            )
+                        }
+                    }
+                    if (state.transactions.isNotEmpty()) {
+                        items(state.transactions.take(10)) { transaction ->
+                            TransactionCard(
+                                modifier = Modifier,
+                                transaction = transaction
+                            )
+                        }
                     }
                 }
             }

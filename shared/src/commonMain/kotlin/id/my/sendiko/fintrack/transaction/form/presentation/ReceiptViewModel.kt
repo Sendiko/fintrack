@@ -178,10 +178,6 @@ class ReceiptViewModel(
         _state.update { it.copy(selectedType = TransactionType.valueOf(type)) }
     }
 
-    fun setId(id: String) {
-        _state.update { it.copy(transactionId = id) }
-    }
-
     private fun changeWallet(wallet: Wallet) {
         _state.update { it.copy(selectedWallet = wallet) }
     }

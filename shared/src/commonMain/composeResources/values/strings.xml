@@ -64,11 +64,18 @@
     <string name="new_password_hint">Silakan masukkan kata sandi baru Anda.</string>
 
     <!--  Strings for Dashboard  -->
+    <string name="total_net_worth">TOTAL NET WORTH</string>
     <string name="total_balance">Total saldo</string>
+    <string name="income_label">Income</string>
+    <string name="expense_label">Expense</string>
+    <string name="transfer_label">Transfer</string>
+    <string name="analytics_label">Analytics</string>
+    <string name="notifications">Notifikasi</string>
+    <string name="greeting">Halo, </string>
     <string name="logout">Keluar</string>
     <string name="wallets">Dompet Saya</string>
     <string name="add_wallets">Tambah Dompet</string>
-    <string name="all_wallets">Semua Dompet</string>
+    <string name="all_wallets">Dompet lainnya</string>
     <string name="income">Catat Income</string>
     <string name="expense">Catat Expense</string>
     <string name="transfer">Transfer Dana</string>
@@ -79,11 +86,14 @@
     <string name="empty_category">Anda belum punya kategori \nAyo buat satu!</string>
     <string name="empty_transaction">Anda belum punya transaksi \nAyo buat satu!</string>
     <string name="empty_budget">Anda belum punya anggaran \nAyo buat satu!</string>
-    <string name="see_more_transaction">Lihat transaksi lainnya</string>
+    <string name="see_more_transaction">Transaksi lainnya</string>
     <string name="see_more_categories">Kategori lainnya</string>
     <string name="see_more_budgets">Anggaran lainnya</string>
     <string name="today_budget">Anggaran Hari Ini</string>
     <string name="menu">Menu</string>
+    <string name="debit_card_label">Card</string>
+    <string name="bank_central_asia">Bank Central Asia</string>
+    <string name="contactless_icon_desc">Ikon Contactless</string>
 
     <!--  Strings for Create Wallet  -->
     <string name="create_wallet_title">Buat Dompet Baru</string>
@@ -160,6 +170,9 @@
     <string name="budget_created">Budget tersimpan</string>
     <string name="chose_wallet">Pilih dompet</string>
     <string name="chose_wallet_hint">Pilih dompet untuk anggaran ini</string>
+    <string name="of_limit">dari %1$s</string>
+    <string name="of_left">tersisa %1$s</string>
+    <string name="days_left_text">%1$d Days Left</string>
 
 
 </resources>

@@ -24,7 +24,6 @@ import fintrack.composeapp.generated.resources.password_label
 import fintrack.composeapp.generated.resources.password_not_visible
 import fintrack.composeapp.generated.resources.password_visible
 import id.my.sendiko.fintrack.core.presentation.theme.icon
-import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
 import id.my.sendiko.fintrack.core.presentation.theme.surface
 import org.jetbrains.compose.resources.stringResource
 
@@ -55,10 +54,10 @@ fun SecureTextField(
             focusedContainerColor = surface,
             unfocusedBorderColor = surface,
             focusedBorderColor = icon.copy(alpha = 0.6f),
-            unfocusedTrailingIconColor = surface,
-            focusedTrailingIconColor = icon.copy(alpha = 0.6f),
-            unfocusedLeadingIconColor = surface,
-            focusedLeadingIconColor = icon.copy(alpha = 0.6f)
+            unfocusedTrailingIconColor = icon.copy(alpha = 0.6f),
+            focusedTrailingIconColor = icon,
+            unfocusedLeadingIconColor = icon.copy(alpha = 0.6f),
+            focusedLeadingIconColor = icon
         ),
         placeholder = {
             Text(text = hint)

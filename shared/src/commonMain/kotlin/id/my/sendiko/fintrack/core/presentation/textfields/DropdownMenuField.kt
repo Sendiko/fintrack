@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import id.my.sendiko.fintrack.core.presentation.theme.icon
-import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
 import id.my.sendiko.fintrack.core.presentation.theme.surface
 
 @OptIn(ExperimentalMaterial3Api::class)
