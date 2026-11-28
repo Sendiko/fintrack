@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import id.my.sendiko.fintrack.core.presentation.theme.surface
 
 @Composable
-fun IconButton(
+fun RoundedIconButton(
     modifier: Modifier = Modifier,
     icon: ImageVector,
     onClick: () -> Unit,
@@ -38,8 +38,8 @@ fun IconButton(
 
 @Preview(showBackground = true)
 @Composable
-fun IconButtonPrev() {
-    IconButton(
+fun RoundedIconButtonPrev() {
+    RoundedIconButton(
         modifier = Modifier,
         icon = Icons.Default.Add,
         onClick = {  }
