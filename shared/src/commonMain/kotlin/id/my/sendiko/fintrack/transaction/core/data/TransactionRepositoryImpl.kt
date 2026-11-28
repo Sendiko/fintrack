@@ -35,7 +35,8 @@ class TransactionRepositoryImpl(
         walletId: String,
         amount: Int,
         name: String,
-        type: String
+        type: String,
+        date: String,
     ): Result<Transaction, DataError.Remote> {
         val request = PostTransactionRequest(
             walletId = walletId,
@@ -43,7 +44,8 @@ class TransactionRepositoryImpl(
             name = name,
             type = type,
             userId = userId,
-            categoryId = categoryId
+            categoryId = categoryId,
+            date = date
         )
         return when (val response = dataSource.postTransaction(request)) {
             is Result.Success -> Result.Success(response.data.transaction.toDomain())
@@ -58,7 +60,8 @@ class TransactionRepositoryImpl(
         walletId: String,
         amount: Int,
         name: String,
-        type: String
+        type: String,
+        date: String
     ): Result<Transaction, DataError.Remote> {
         val request = PostTransactionRequest(
             walletId = walletId,
@@ -66,7 +69,8 @@ class TransactionRepositoryImpl(
             name = name,
             type = type,
             userId = userId,
-            categoryId = categoryId
+            categoryId = categoryId,
+            date = date
         )
         return when (val response = dataSource.putTransaction(transactionId, request)) {
             is Result.Success -> Result.Success(response.data.transaction.toDomain())
