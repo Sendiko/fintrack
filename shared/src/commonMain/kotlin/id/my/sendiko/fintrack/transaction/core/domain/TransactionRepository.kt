@@ -18,7 +18,8 @@ interface TransactionRepository {
         walletId: String,
         amount: Int,
         name: String,
-        type: String
+        type: String,
+        date: String,
     ): Result<Transaction, DataError.Remote>
 
     suspend fun putTransaction(
@@ -28,7 +29,8 @@ interface TransactionRepository {
         walletId: String,
         amount: Int,
         name: String,
-        type: String
+        type: String,
+        date: String,
     ): Result<Transaction, DataError.Remote>
 
     suspend fun deleteTransaction(id: String,): Result<String, DataError.Remote>

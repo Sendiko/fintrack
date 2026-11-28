@@ -26,6 +26,9 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 import org.jetbrains.compose.resources.getString
 import kotlin.time.Duration.Companion.seconds
 
@@ -48,18 +51,22 @@ class FormTransactionViewModel(
             FormTransactionEvent.LoadData -> loadData()
             FormTransactionEvent.ShowDeleteDialog -> showDialog()
             FormTransactionEvent.DismissDeleteDialog -> dismissDialog()
+            FormTransactionEvent.ShowCategoriesBottomSheet -> showCategoriesBottomSheet()
+            FormTransactionEvent.DismissCategoriesBottomSheet -> dismissCategoriesBottomSheet()
+            FormTransactionEvent.ShowDatePicker -> showDatePicker()
+            FormTransactionEvent.DismissDatePicker -> dismissDatePicker()
+            FormTransactionEvent.ShowTimePicker -> showTimePicker()
+            FormTransactionEvent.DismissTimePicker -> dismissTimePicker()
             is FormTransactionEvent.OnWalletChanged -> changeWallet(event.wallet)
             is FormTransactionEvent.OnTypeChanged -> setType(event.type)
-            is FormTransactionEvent.OnCategoryChanged -> changeCategory(event.category)
+            is FormTransactionEvent.OnCategoryChanged -> changeCategory(event.category, event.moveToFirst)
             is FormTransactionEvent.OnNameChanged -> changeName(event.name)
-            FormTransactionEvent.OnNext -> onNext()
-            FormTransactionEvent.OnPrevious -> onPrevious()
-            is FormTransactionEvent.OnNumberPressed -> handleNumberPress(event.number)
-            FormTransactionEvent.OnBackspace -> handleBackspace()
             FormTransactionEvent.OnSave -> createTransaction()
             FormTransactionEvent.OnDelete -> deleteTransaction()
             is FormTransactionEvent.ProcessSharedImage -> handleImageProcessing(event.imageBytes)
             FormTransactionEvent.HideOverlay -> hideOverlay()
+            is FormTransactionEvent.OnAmountChanged -> changeAmount(event.amount)
+            is FormTransactionEvent.OnTransactionDateChanged -> changeTransactionDate(event.dateTime)
         }
     }
 
@@ -77,7 +84,7 @@ class FormTransactionViewModel(
             _state.update {
                 it.copy(
                     isLoading = false,
-                    amount = parsedReceipt.amount,
+                    amount = parsedReceipt.amount.toDouble(),
                     name = parsedReceipt.receiver,
                 )
             }
@@ -106,6 +113,30 @@ class FormTransactionViewModel(
 
     private fun dismissDialog() {
         _state.update { it.copy(showDeleteDialog = false) }
+    }
+
+    private fun showCategoriesBottomSheet() {
+        _state.update { it.copy(showCategoriesBottomSheet = true) }
+    }
+
+    private fun dismissCategoriesBottomSheet() {
+        _state.update { it.copy(showCategoriesBottomSheet = false) }
+    }
+
+    private fun showDatePicker() {
+        _state.update { it.copy(showDatePicker = true) }
+    }
+
+    private fun dismissDatePicker() {
+        _state.update { it.copy(showDatePicker = false) }
+    }
+
+    private fun showTimePicker() {
+        _state.update { it.copy(showTimePicker = true) }
+    }
+
+    private fun dismissTimePicker() {
+        _state.update { it.copy(showTimePicker = false) }
     }
 
     private suspend fun clearState() {
@@ -161,7 +192,8 @@ class FormTransactionViewModel(
                                 selectedWallet = result.wallet,
                                 selectedCategory = result.category,
                                 name = result.transaction.name,
-                                amount = result.transaction.amount.toString()
+                                amount = result.transaction.amount.toDouble(),
+                                transactionDate = result.transaction.createdAt,
                             )
                         }
                     }
@@ -186,34 +218,32 @@ class FormTransactionViewModel(
         _state.update { it.copy(selectedWallet = wallet) }
     }
 
-    private fun changeCategory(category: Category) {
-        _state.update { it.copy(selectedCategory = category) }
-    }
-
-    private fun onNext() {
-        if (state.value.stage == 2) {
-            return
+    private fun changeCategory(category: Category, moveToFirst: Boolean) {
+        _state.update { currentState ->
+            val updatedCategories = if (moveToFirst) {
+                val selectedItem = currentState.categories.find { it.category.id == category.id }
+                if (selectedItem != null) {
+                    listOf(selectedItem) + currentState.categories.filterNot { it.category.id == category.id }
+                } else {
+                    currentState.categories
+                }
+            } else {
+                currentState.categories
+            }
+            currentState.copy(
+                selectedCategory = category,
+                categories = updatedCategories,
+                showCategoriesBottomSheet = false,
+            )
         }
-        _state.update { it.copy(stage = it.stage + 1) }
     }
 
-    private fun onPrevious() {
-        if (state.value.stage == 1) {
-            return
-        }
-        _state.update { it.copy(stage = it.stage - 1) }
+    private fun changeAmount(amount: Double) {
+        _state.update { it.copy(amount = amount) }
     }
 
-    private fun handleNumberPress(number: String) {
-        if (_state.value.amount == "0.0") {
-            _state.update { it.copy(amount = number) }
-        } else _state.update { it.copy(amount = it.amount + number) }
-    }
-
-    private fun handleBackspace() {
-        if (state.value.amount != "0.0") {
-            _state.update { it.copy(amount = it.amount.dropLast(1)) }
-        } else _state.update { it.copy(amount = "0.0") }
+    private fun changeTransactionDate(dateTime: LocalDateTime) {
+        _state.update { it.copy(transactionDate = dateTime) }
     }
 
     private fun createTransaction() {
@@ -230,7 +260,7 @@ class FormTransactionViewModel(
                 _state.update { it.copy(message = getString(Res.string.set_name_error)) }
                 return@launch
             }
-            if (state.value.amount == "0.0") {
+            if (state.value.amount == 0.0) {
                 _state.update { it.copy(message = getString(Res.string.set_amount_error)) }
                 return@launch
             }
@@ -242,7 +272,10 @@ class FormTransactionViewModel(
                     walletId = state.value.selectedWallet?.id.toString(),
                     amount = state.value.amount.toInt(),
                     name = state.value.name,
-                    type = state.value.selectedType.name.lowercase()
+                    type = state.value.selectedType.name.lowercase(),
+                    date = state.value.transactionDate
+                        .toInstant(TimeZone.currentSystemDefault())
+                        .toString()
                 )
                     .onSuccess {
                         _state.update {
@@ -268,7 +301,10 @@ class FormTransactionViewModel(
                     walletId = state.value.selectedWallet?.id.toString(),
                     amount = state.value.amount.toInt(),
                     name = state.value.name,
-                    type = state.value.selectedType.name.lowercase()
+                    type = state.value.selectedType.name.lowercase(),
+                    date = state.value.transactionDate
+                        .toInstant(TimeZone.currentSystemDefault())
+                        .toString()
                 )
                     .onSuccess {
                         _state.update {

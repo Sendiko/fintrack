@@ -1,8 +1,5 @@
 package id.my.sendiko.fintrack.transaction.form.presentation
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,35 +13,47 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Title
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TimePicker
+import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.cancel
-import fintrack.composeapp.generated.resources.choose_category_hint
 import fintrack.composeapp.generated.resources.choose_category_label
-import fintrack.composeapp.generated.resources.choose_transaction_label
-import fintrack.composeapp.generated.resources.choose_wallet_hint
 import fintrack.composeapp.generated.resources.choose_wallet_label
 import fintrack.composeapp.generated.resources.confirm
 import fintrack.composeapp.generated.resources.create
@@ -54,18 +63,20 @@ import fintrack.composeapp.generated.resources.delete_transaction_body
 import fintrack.composeapp.generated.resources.delete_transaction_headline
 import fintrack.composeapp.generated.resources.edit_expense_title
 import fintrack.composeapp.generated.resources.edit_income_title
-import fintrack.composeapp.generated.resources.next
-import fintrack.composeapp.generated.resources.set_amount_label
+import fintrack.composeapp.generated.resources.empty_category
+import fintrack.composeapp.generated.resources.select_time_title
 import fintrack.composeapp.generated.resources.set_expense_name_hint
 import fintrack.composeapp.generated.resources.set_expense_name_label
-import fintrack.composeapp.generated.resources.set_income_name_hint
-import fintrack.composeapp.generated.resources.set_income_name_label
+import fintrack.composeapp.generated.resources.transaction_date_label
+import id.my.sendiko.fintrack.category.core.domain.model.Category
+import id.my.sendiko.fintrack.category.core.presentation.components.CategoryOptionItem
+import id.my.sendiko.fintrack.category.core.presentation.components.CategorySelector
 import id.my.sendiko.fintrack.core.presentation.NotificationBox
-import id.my.sendiko.fintrack.core.presentation.StageBar
-import id.my.sendiko.fintrack.core.presentation.numerickeyboard.NumericKeyboard
-import id.my.sendiko.fintrack.core.presentation.rupiah.toRupiah
+import id.my.sendiko.fintrack.core.presentation.icon.CategoryIcon
 import id.my.sendiko.fintrack.core.presentation.textfields.BaseTextField
-import id.my.sendiko.fintrack.core.presentation.textfields.DropdownMenu
+import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
+import id.my.sendiko.fintrack.core.presentation.theme.greenApproved
+import id.my.sendiko.fintrack.core.presentation.theme.icon
 import id.my.sendiko.fintrack.core.presentation.theme.primaryOrange
 import id.my.sendiko.fintrack.core.presentation.theme.redError
 import id.my.sendiko.fintrack.core.presentation.theme.secondaryBlue
@@ -73,10 +84,18 @@ import id.my.sendiko.fintrack.core.presentation.theme.utilityWhite
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.EXPENSE
 import id.my.sendiko.fintrack.transaction.core.domain.model.TransactionType.INCOME
 import id.my.sendiko.fintrack.transaction.core.presentation.TransactionTopBar
-import id.my.sendiko.fintrack.transaction.form.presentation.components.TransactionTypeRadioButton
+import id.my.sendiko.fintrack.transaction.form.presentation.components.TransactionAmountCard
+import id.my.sendiko.fintrack.transaction.form.presentation.components.TransactionDateSelector
+import id.my.sendiko.fintrack.wallet.core.presentation.components.WalletDropdown
 import kotlinx.coroutines.delay
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Instant
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -160,6 +179,186 @@ fun FormTransactionScreen(
         )
     }
 
+    if (state.showCategoriesBottomSheet) {
+        val allCategories = state.categories.map {
+            Category(
+                id = it.category.id,
+                name = it.category.name,
+                icon = it.category.icon,
+            )
+        }
+        ModalBottomSheet(
+            onDismissRequest = { onEvent(FormTransactionEvent.DismissCategoriesBottomSheet) },
+            containerColor = utilityWhite,
+            contentColor = secondaryBlue,
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+            ) {
+                Text(
+                    text = stringResource(Res.string.choose_category_label),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                if (allCategories.isEmpty()) {
+                    Text(
+                        text = stringResource(Res.string.empty_category),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 32.dp),
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = icon,
+                    )
+                } else {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(3),
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        contentPadding = PaddingValues(bottom = 24.dp),
+                    ) {
+                        items(
+                            items = allCategories,
+                            key = { it.id },
+                        ) { category ->
+                            val isSelected = category.id == state.selectedCategory?.id
+                            CategoryOptionItem(
+                                modifier = Modifier.fillMaxWidth(),
+                                label = category.name,
+                                isSelected = isSelected,
+                                onClick = {
+                                    onEvent(
+                                        FormTransactionEvent.OnCategoryChanged(
+                                            category = category,
+                                            moveToFirst = true,
+                                        )
+                                    )
+                                },
+                                iconContent = {
+                                    CategoryIcon(
+                                        iconKey = category.icon,
+                                        contentDescription = category.name,
+                                        tint = if (isSelected) greenApproved else icon,
+                                        modifier = Modifier.size(24.dp),
+                                    )
+                                },
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    if (state.showDatePicker) {
+        val initialDateMillis = LocalDateTime(
+            date = state.transactionDate.date,
+            time = LocalTime(0, 0),
+        ).toInstant(TimeZone.UTC).toEpochMilliseconds()
+        val datePickerState = rememberDatePickerState(
+            initialSelectedDateMillis = initialDateMillis,
+        )
+        DatePickerDialog(
+            onDismissRequest = { onEvent(FormTransactionEvent.DismissDatePicker) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        datePickerState.selectedDateMillis?.let { millis ->
+                            val pickedDate = Instant.fromEpochMilliseconds(millis)
+                                .toLocalDateTime(TimeZone.UTC)
+                                .date
+                            onEvent(
+                                FormTransactionEvent.OnTransactionDateChanged(
+                                    LocalDateTime(
+                                        date = pickedDate,
+                                        time = state.transactionDate.time,
+                                    )
+                                )
+                            )
+                        }
+                        onEvent(FormTransactionEvent.DismissDatePicker)
+                        onEvent(FormTransactionEvent.ShowTimePicker)
+                    }
+                ) {
+                    Text(stringResource(Res.string.confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { onEvent(FormTransactionEvent.DismissDatePicker) }
+                ) {
+                    Text(stringResource(Res.string.cancel))
+                }
+            },
+        ) {
+            DatePicker(state = datePickerState)
+        }
+    }
+
+    if (state.showTimePicker) {
+        val timePickerState = rememberTimePickerState(
+            initialHour = state.transactionDate.hour,
+            initialMinute = state.transactionDate.minute,
+            is24Hour = true,
+        )
+        BasicAlertDialog(
+            onDismissRequest = { onEvent(FormTransactionEvent.DismissTimePicker) },
+        ) {
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(24.dp),
+                color = utilityWhite,
+            ) {
+                Column(
+                    modifier = Modifier.padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Text(
+                        text = stringResource(Res.string.select_time_title),
+                        modifier = Modifier.fillMaxWidth(),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    TimePicker(state = timePickerState)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End,
+                    ) {
+                        TextButton(
+                            onClick = { onEvent(FormTransactionEvent.DismissTimePicker) }
+                        ) {
+                            Text(stringResource(Res.string.cancel))
+                        }
+                        TextButton(
+                            onClick = {
+                                onEvent(
+                                    FormTransactionEvent.OnTransactionDateChanged(
+                                        LocalDateTime(
+                                            date = state.transactionDate.date,
+                                            time = LocalTime(
+                                                hour = timePickerState.hour,
+                                                minute = timePickerState.minute,
+                                            ),
+                                        )
+                                    )
+                                )
+                                onEvent(FormTransactionEvent.DismissTimePicker)
+                            }
+                        ) {
+                            Text(stringResource(Res.string.confirm))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     NotificationBox(
         message = state.message,
         isLoading = state.isLoading,
@@ -181,9 +380,7 @@ fun FormTransactionScreen(
                             }
                         },
                         onNavigateBack = {
-                            if (state.stage == 2)
-                                onEvent(FormTransactionEvent.OnPrevious)
-                            else onNavigateBack()
+                            onNavigateBack()
                         }
                     )
                 },
@@ -205,22 +402,14 @@ fun FormTransactionScreen(
                             ),
                             contentPadding = PaddingValues(vertical = 16.dp),
                             onClick = {
-                                if (state.stage == 1) {
-                                    onEvent(FormTransactionEvent.OnNext)
-                                } else {
-                                    onEvent(FormTransactionEvent.OnSave)
-                                }
+                                onEvent(FormTransactionEvent.OnSave)
                             },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = primaryOrange,
                             )
                         ) {
                             Text(
-                                text = when (state.stage) {
-                                    1 -> stringResource(Res.string.next)
-                                    2 -> stringResource(Res.string.create)
-                                    else -> ""
-                                },
+                                text = stringResource(Res.string.create),
                                 fontWeight = FontWeight.Bold
                             )
                         }
@@ -249,152 +438,120 @@ fun FormTransactionScreen(
                     }
                 }
             ) { paddingValues ->
-                Column(
-                    modifier = Modifier.padding(paddingValues),
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(
+                        top = paddingValues.calculateTopPadding() + 16.dp,
+                        start = 16.dp,
+                        end = 16.dp,
+                        bottom = paddingValues.calculateBottomPadding() + 16.dp
+                    ),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    AnimatedContent(
-                        targetState = state.stage,
-                        transitionSpec = {
-                            slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Left)
-                                .togetherWith(slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.Left))
-                        }
-                    ) { pageStage ->
-                        StageBar(
-                            stage = state.stage
+                    item {
+                        TransactionAmountCard(
+                            type = state.selectedType,
+                            amount = state.amount,
+                            onAmountChange = { amount ->
+                                onEvent(FormTransactionEvent.OnAmountChanged(amount))
+                            }
                         )
-                        when (pageStage) {
-                            1 -> {
-                                LazyColumn(
-                                    modifier = Modifier.fillMaxSize()
-                                        .padding(16.dp),
-                                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                                ) {
-                                    if (state.reviewReceipt) {
-                                        item {
-                                            Text(
-                                                text = stringResource(Res.string.choose_transaction_label),
-                                                style = MaterialTheme.typography.labelMedium
-                                            )
-                                            Spacer(modifier = Modifier.height(8.dp))
-                                            Row(
-                                                modifier = Modifier.fillMaxWidth(),
-                                            ) {
-                                                TransactionTypeRadioButton(
-                                                    modifier = Modifier.weight(1f),
-                                                    type = INCOME,
-                                                    onClick = { onEvent(FormTransactionEvent.OnTypeChanged(INCOME.name)) },
-                                                    isSelected = state.selectedType == INCOME
-                                                )
-                                                Spacer(Modifier.width(16.dp))
-                                                TransactionTypeRadioButton(
-                                                    modifier = Modifier.weight(1f),
-                                                    type = EXPENSE,
-                                                    onClick = { onEvent(FormTransactionEvent.OnTypeChanged(EXPENSE.name)) },
-                                                    isSelected = state.selectedType == EXPENSE
-                                                )
-                                            }
-                                        }
-                                    }
-                                    item {
-                                        Text(
-                                            text = stringResource(Res.string.choose_wallet_label),
-                                            style = MaterialTheme.typography.labelMedium
-                                        )
-                                        Spacer(modifier = Modifier.height(8.dp))
-                                        DropdownMenu(
-                                            modifier = Modifier.fillMaxWidth(),
-                                            items = state.wallets,
-                                            hint = stringResource(Res.string.choose_wallet_hint),
-                                            initialValue = state.selectedWallet?.name ?: "",
-                                            onChosen = {
-                                                onEvent(
-                                                    FormTransactionEvent
-                                                        .OnWalletChanged(it)
-                                                )
-                                            }
-                                        )
-                                    }
-                                    item {
-                                        Text(
-                                            text = stringResource(Res.string.choose_category_label),
-                                            style = MaterialTheme.typography.labelMedium
-                                        )
-                                        Spacer(modifier = Modifier.height(8.dp))
-                                        DropdownMenu(
-                                            modifier = Modifier.fillMaxWidth(),
-                                            items = state.categories.map { it.category },
-                                            hint = stringResource(Res.string.choose_category_hint),
-                                            initialValue = state.selectedCategory?.name ?: "",
-                                            onChosen = {
-                                                onEvent(
-                                                    FormTransactionEvent
-                                                        .OnCategoryChanged(it)
-                                                )
-                                            }
-                                        )
-                                    }
-                                    item {
-                                        Text(
-                                            text = when (state.selectedType) {
-                                                INCOME -> stringResource(Res.string.set_income_name_label)
-                                                EXPENSE -> stringResource(Res.string.set_expense_name_label)
-                                            },
-                                            style = MaterialTheme.typography.labelMedium
-                                        )
-                                        Spacer(modifier = Modifier.height(8.dp))
-                                        BaseTextField(
-                                            modifier = Modifier.fillMaxWidth(),
-                                            value = state.name,
-                                            onValueChange = {
-                                                onEvent(
-                                                    FormTransactionEvent
-                                                        .OnNameChanged(it)
-                                                )
-                                            },
-                                            hint = when (state.selectedType) {
-                                                INCOME -> stringResource(Res.string.set_income_name_hint)
-                                                EXPENSE -> stringResource(Res.string.set_expense_name_hint)
-                                            },
+                    }
+                    item {
+                        Text(
+                            text = stringResource(Res.string.set_expense_name_label),
+                            style = MaterialTheme.typography.labelLarge
+                        )
+                        Spacer(Modifier.height(8.dp))
+                        BaseTextField(
+                            modifier = Modifier.fillMaxWidth(),
+                            value = state.name,
+                            onValueChange = { onEvent(FormTransactionEvent.OnNameChanged(it)) },
+                            hint = stringResource(Res.string.set_expense_name_hint),
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Default.Title,
+                                    contentDescription = stringResource(Res.string.set_expense_name_label)
+                                )
+                            },
+                            trailingIcon = {
+                                if (state.name.isNotBlank()) {
+                                    IconButton(
+                                        onClick = { onEvent(FormTransactionEvent.OnNameChanged("")) }
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Clear,
+                                            contentDescription = ""
                                         )
                                     }
                                 }
                             }
-
-                            2 -> {
-                                Column(
-                                    modifier = Modifier.padding(horizontal = 16.dp)
-                                        .padding(top = 16.dp)
-                                        .fillMaxSize()
-                                ) {
-                                    Text(
-                                        text = stringResource(Res.string.set_amount_label),
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                    Text(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        text = (state.amount.toDoubleOrNull() ?: 0.0).toRupiah(),
-                                        style = MaterialTheme.typography.headlineLarge,
-                                        textAlign = TextAlign.Center,
-                                        fontWeight = FontWeight.Bold,
-                                        color = secondaryBlue
-                                    )
-                                    Spacer(modifier = Modifier.weight(1f))
-                                    NumericKeyboard(
-                                        onClick = {
-                                            onEvent(FormTransactionEvent.OnNumberPressed(it))
-                                        },
-                                        onBackspace = {
-                                            onEvent(FormTransactionEvent.OnBackspace)
-                                        }
-                                    )
-                                }
+                        )
+                    }
+                    item {
+                        Text(
+                            text = stringResource(Res.string.choose_wallet_label),
+                            style = MaterialTheme.typography.labelLarge
+                        )
+                        Spacer(Modifier.height(8.dp))
+                        WalletDropdown(
+                            wallet = state.selectedWallet,
+                            wallets = state.wallets,
+                            onWalletSelected = { onEvent(FormTransactionEvent.OnWalletChanged(it)) }
+                        )
+                    }
+                    item {
+                        Text(
+                            text = stringResource(Res.string.choose_category_label),
+                            style = MaterialTheme.typography.labelLarge
+                        )
+                        Spacer(Modifier.height(8.dp))
+                        CategorySelector(
+                            categories = state.categories.map {
+                                Category(
+                                    id = it.category.id,
+                                    name = it.category.name,
+                                    icon = it.category.icon,
+                                )
+                            },
+                            selectedCategory = state.selectedCategory,
+                            onCategorySelected = {
+                                onEvent(FormTransactionEvent.OnCategoryChanged(it))
+                            },
+                            onMoreCategories = {
+                                onEvent(FormTransactionEvent.ShowCategoriesBottomSheet)
                             }
-                        }
+                        )
+                    }
+                    item {
+                        Text(
+                            text = stringResource(Res.string.transaction_date_label),
+                            style = MaterialTheme.typography.labelLarge
+                        )
+                        Spacer(Modifier.height(8.dp))
+                        TransactionDateSelector(
+                            dateTime = state.transactionDate,
+                            onClick = { onEvent(FormTransactionEvent.ShowDatePicker) },
+                        )
                     }
                 }
             }
         }
     )
 
+}
+
+@Preview
+@Composable
+fun FormTransactionScreenPrev() {
+    FinTrackTheme {
+        FormTransactionScreen(
+            state = FormTransactionState(
+                name = "",
+                amount = 50000.0
+            ),
+            onEvent = {  },
+            onNavigateBack = {  }
+        )
+    }
 }

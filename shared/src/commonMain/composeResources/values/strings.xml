@@ -116,12 +116,13 @@
 
     <!--  Strings for Wallet List  -->
     <string name="wallet_list_title">Dompet Anda</string>
+    <string name="available_balance">Available: %1$s</string>
 
     <!--  Strings for Create Transaction  -->
-    <string name="create_income_title">Catat Pemasukan Anda</string>
-    <string name="edit_income_title">Perbarui Pemasukan Anda</string>
-    <string name="create_expense_title">Catat Pengeluaran Anda</string>
-    <string name="edit_expense_title">Perbarui Pengeluaran Anda</string>
+    <string name="create_income_title">Catat Pemasukan</string>
+    <string name="edit_income_title">Perbarui Pemasukan</string>
+    <string name="create_expense_title">Catat Pengeluaran</string>
+    <string name="edit_expense_title">Perbarui Pengeluaran</string>
     <string name="choose_transaction_label">Pilih jenis transaksi</string>
     <string name="choose_wallet_label">Pilih dompet</string>
     <string name="choose_wallet_hint">Pilih salah satu dompet Anda</string>
@@ -136,6 +137,10 @@
     <string name="set_name_error">Tetapkan nama untuk transaksi ini.</string>
     <string name="set_amount_label">Jumlah</string>
     <string name="set_amount_error">Tetapkan jumlah untuk transaksi ini.</string>
+    <string name="inflow_amount">Jumlah Masuk</string>
+    <string name="outflow_amount">Jumlah Keluar</string>
+    <string name="transaction_date_label">Tanggal Transaksi</string>
+    <string name="select_time_title">Pilih Waktu</string>
     <string name="transaction_recorded">Transaksi dicatat.</string>
     <string name="delete_transaction_headline">Hapus?</string>
     <string name="delete_transaction_body">Tindakan ini tidak dapat dibatalkan.</string>
@@ -152,6 +157,7 @@
     <string name="category_name_hint">Beri nama kategori Anda</string>
     <string name="delete_category_headline">Hapus?</string>
     <string name="delete_category_body">Ini akan menghapus transaksi dengan kategori ini.</string>
+    <string name="more_categories">More</string>
 
     <!-- Budget  -->
     <string name="form_budget_title">Buat anggaran baru</string>

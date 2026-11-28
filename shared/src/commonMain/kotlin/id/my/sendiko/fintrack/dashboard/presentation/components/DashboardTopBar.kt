@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import fintrack.composeapp.generated.resources.Res
 import fintrack.composeapp.generated.resources.greeting
 import fintrack.composeapp.generated.resources.notifications
-import id.my.sendiko.fintrack.core.presentation.buttons.IconButton
+import id.my.sendiko.fintrack.core.presentation.buttons.RoundedIconButton
 import id.my.sendiko.fintrack.core.presentation.theme.FinTrackTheme
 import org.jetbrains.compose.resources.stringResource
 
@@ -48,7 +48,7 @@ fun DashboardTopBar(
                 style = MaterialTheme.typography.titleLarge
             )
         }
-        IconButton(
+        RoundedIconButton(
             icon = Icons.Default.Notifications,
             onClick = {  },
             contentDescription = stringResource(Res.string.notifications)

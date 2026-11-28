@@ -8,5 +8,5 @@ import kotlin.time.Instant
 fun convertStringToDateTime(dateStr: String): LocalDateTime {
     val instant = Instant.parse(dateStr)
 
-    return instant.toLocalDateTime(TimeZone.UTC)
+    return instant.toLocalDateTime(TimeZone.currentSystemDefault())
 }
